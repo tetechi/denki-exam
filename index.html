@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第二種電気工事士 筆記試験 学習アプリ</title>
+<style>
+  :root {
+    --bg: #f3f4f6;
+    --card: #ffffff;
+    --accent: #1a56db;
+    --text: #111827;
+    --sub: #6b7280;
+    --border: #e5e7eb;
+    --radius: 14px;
+    --done: #057a55;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Hiragino Sans', 'Meiryo', sans-serif;
+    min-height: 100vh;
+    padding-bottom: 40px;
+  }
+
+  /* ── Header ── */
+  header {
+    background: linear-gradient(135deg, #1a56db 0%, #1e429f 100%);
+    color: white;
+    padding: 32px 20px 28px;
+    text-align: center;
+  }
+  header .badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.35);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+  }
+  header h1 {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.4;
+    margin-bottom: 4px;
+  }
+  header p { font-size: 13px; color: rgba(255,255,255,0.7); }
+
+  /* ── Layout ── */
+  .container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 24px 16px;
+  }
+
+  /* ── Random button ── */
+  .random-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    background: linear-gradient(135deg, #7c5cfc 0%, #5b21b6 100%);
+    color: white;
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    text-decoration: none;
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 32px;
+    box-shadow: 0 4px 16px rgba(124,92,252,0.35);
+    transition: transform .15s, box-shadow .15s;
+  }
+  .random-btn:active { transform: scale(0.98); }
+  @media (hover: hover) {
+    .random-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(124,92,252,0.4); }
+  }
+  .random-btn .icon { font-size: 24px; }
+  .random-btn .text-block { text-align: left; }
+  .random-btn .sub { font-size: 12px; font-weight: 500; opacity: 0.8; margin-top: 2px; }
+
+  /* ── Section heading ── */
+  .sec-heading {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--sub);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    padding-left: 2px;
+  }
+
+  /* ── Year group ── */
+  .year-group { margin-bottom: 24px; }
+  .year-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--sub);
+    margin-bottom: 8px;
+    padding-left: 2px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .year-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── Exam grid ── */
+  .exam-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  @media (max-width: 400px) {
+    .exam-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ── Exam card ── */
+  .exam-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 14px 12px;
+    text-decoration: none;
+    color: var(--text);
+    display: block;
+    transition: transform .15s, border-color .15s, box-shadow .15s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  }
+  @media (hover: hover) {
+    .exam-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent);
+      box-shadow: 0 4px 12px rgba(26,86,219,0.12);
+    }
+  }
+  .exam-card:active { transform: scale(0.98); }
+  .exam-card .period {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--sub);
+    margin-bottom: 4px;
+  }
+  .exam-card .title {
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.35;
+    margin-bottom: 8px;
+  }
+  .chip {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 20px;
+    background: #f0fdf4;
+    color: var(--done);
+    border: 1px solid #a7f3d0;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="badge">第二種電気工事士</div>
+  <h1>筆記試験 学習アプリ</h1>
+  <p>過去問 &amp; ランダム問題</p>
+</header>
+
+<div class="container">
+
+  <!-- ランダム -->
+  <a href="random.html" class="random-btn">
+    <span class="icon">🎲</span>
+    <div class="text-block">
+      <div>ランダム問題</div>
+      <div class="sub">全年度ミックス · 何問でも</div>
+    </div>
+  </a>
+
+  <!-- 過去問リスト -->
+  <div class="sec-heading">過去問</div>
+
+  <!-- R8 -->
+  <div class="year-group">
+    <div class="year-label">令和8年（2026）</div>
+    <div class="exam-grid">
+      <a href="r8_kami.html" class="exam-card">
+        <div class="period">上期 · 5月</div>
+        <div class="title">令和8年度<br>筆記試験</div>
+        <span class="chip">全50問</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- R7 -->
+  <div class="year-group">
+    <div class="year-label">令和7年（2025）</div>
+    <div class="exam-grid">
+      <a href="r7kami.html" class="exam-card">
+        <div class="period">上期 · 5月</div>
+        <div class="title">令和7年度<br>筆記試験</div>
+        <span class="chip">全50問</span>
+      </a>
+      <a href="r7shimo.html" class="exam-card">
+        <div class="period">下期 · 10月</div>
+        <div class="title">令和7年度<br>筆記試験</div>
+        <span class="chip">全50問</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- R6 -->
+  <div class="year-group">
+    <div class="year-label">令和6年（2024）</div>
+    <div class="exam-grid">
+      <a href="r6kami.html" class="exam-card">
+        <div class="period">上期 · 5月</div>
+        <div class="title">令和6年度<br>筆記試験</div>
+        <span class="chip">全50問</span>
+      </a>
+      <a href="r6shimo.html" class="exam-card">
+        <div class="period">下期 · 10月</div>
+        <div class="title">令和6年度<br>筆記試験</div>
+        <span class="chip">全50問</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- R5 -->
+  <div class="year-group">
+    <div class="year-label">令和5年（2023）</div>
+    <div class="exam-grid">
+      <a href="r5kami.html" class="exam-card">
+        <div class="period">上期 · 5月 ①</div>
+        <div class="title">令和5年度<br>筆記試験</div>
+        <span class="chip">全50問</span>
+      </a>
+      <a href="r5shimo.html" class="exam-card">
+        <div class="period">下期 · 10月 ①</div>
+        <div class="title">令和5年度<br>筆記試験</div>
+        <span class="chip">全50問</span>
+      </a>
+      <a href="r5shimo_gogo.html" class="exam-card">
+        <div class="period">下期 · 10月 ②</div>
+        <div class="title">令和5年度<br>筆記試験</div>
+        <span class="chip">全50問</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- R4 -->
+  <div class="year-group">
+    <div class="year-label">令和4年（2022）</div>
+    <div class="exam-grid">
+      <a href="r4kami.html" class="exam-card">
+        <div class="period">上期 · 5月 ①</div>
+        <div class="title">令和4年度<br>筆記試験</div>
+        <span class="chip">全50問</span>
+      </a>
+      <a href="r4kami_gogo.html" class="exam-card">
+        <div class="period">上期 · 5月 ②</div>
+        <div class="title">令和4年度<br>筆記試験</div>
+        <span class="chip">全50問</span>
+      </a>
+      <a href="r4shimo.html" class="exam-card">
+        <div class="period">下期 · 10月 ①</div>
+        <div class="title">令和4年度<br>筆記試験</div>
+        <span class="chip">全50問</span>
+      </a>
+      <a href="r4shimo_gogo.html" class="exam-card">
+        <div class="period">下期 · 10月 ②</div>
+        <div class="title">令和4年度<br>筆記試験</div>
+        <span class="chip">全50問</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- R3 -->
+  <div class="year-group">
+    <div class="year-label">令和3年（2021）</div>
+    <div class="exam-grid">
+      <a href="r3kami.html" class="exam-card">
+        <div class="period">上期 · 5月 ①</div>
+        <div class="title">令和3年度<br>筆記試験</div>
+        <span class="chip">全50問</span>
+      </a>
+      <a href="r3kami_gogo.html" class="exam-card">
+        <div class="period">上期 · 5月 ②</div>
+        <div class="title">令和3年度<br>筆記試験</div>
+        <span class="chip">全50問</span>
+      </a>
+      <a href="r3shimo.html" class="exam-card">
+        <div class="period">下期 · 10月 ①</div>
+        <div class="title">令和3年度<br>筆記試験</div>
+        <span class="chip">全50問</span>
+      </a>
+      <a href="r3shimo_gogo.html" class="exam-card">
+        <div class="period">下期 · 10月 ②</div>
+        <div class="title">令和3年度<br>筆記試験</div>
+        <span class="chip">全50問</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- R2 -->
+  <div class="year-group">
+    <div class="year-label">令和2年（2020）</div>
+    <div class="exam-grid">
+      <a href="r2shimo.html" class="exam-card">
+        <div class="period">下期 · 10月 ①</div>
+        <div class="title">令和2年度<br>筆記試験</div>
+        <span class="chip">全50問</span>
+      </a>
+      <a href="r2shimo_gogo.html" class="exam-card">
+        <div class="period">下期 · 10月 ②</div>
+        <div class="title">令和2年度<br>筆記試験</div>
+        <span class="chip">全50問</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- R1 -->
+  <div class="year-group">
+    <div class="year-label">令和元年（2019）</div>
+    <div class="exam-grid">
+      <a href="r1kami.html" class="exam-card">
+        <div class="period">上期 · 6月</div>
+        <div class="title">令和元年度<br>筆記試験</div>
+        <span class="chip">全50問</span>
+      </a>
+      <a href="r1shimo.html" class="exam-card">
+        <div class="period">下期 · 10月</div>
+        <div class="title">令和元年度<br>筆記試験</div>
+        <span class="chip">全50問</span>
+      </a>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

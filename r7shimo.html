@@ -1,0 +1,1583 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>令和7年度下期 第二種電気工事士 筆記試験</title>
+<style>
+  :root {
+    --primary: #1a56db;
+    --primary-dark: #1e429f;
+    --success: #057a55;
+    --danger: #c81e1e;
+    --warning: #ff5a1f;
+    --bg: #f3f4f6;
+    --card: #ffffff;
+    --text: #111827;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --radius: 12px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Hiragino Sans', 'Meiryo', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+  /* HEADER */
+  .header {
+    background: linear-gradient(135deg, #1a56db 0%, #1e429f 100%);
+    color: white; padding: 14px 20px;
+    display: flex; align-items: center; justify-content: space-between;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    position: sticky; top: 0; z-index: 100;
+  }
+  .header h1 { font-size: 16px; font-weight: 700; }
+  .header .sub { font-size: 11px; opacity: 0.8; margin-top: 1px; }
+  .back-to-index {
+    display: inline-flex; align-items: center; gap: 4px;
+    color: rgba(255,255,255,0.65); text-decoration: none;
+    font-size: 11px; font-weight: 600; margin-bottom: 3px;
+    transition: color 0.15s;
+  }
+  .back-to-index:hover { color: white; }
+  .badge {
+    background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 20px; padding: 4px 12px; font-size: 12px; white-space: nowrap;
+  }
+
+  .container { max-width: 820px; margin: 0 auto; padding: 20px 16px; }
+
+  /* SCREEN */
+  .screen { display: none; }
+  .screen.active { display: block; }
+
+  /* HOME */
+  .home-hero {
+    background: var(--card); border-radius: var(--radius);
+    padding: 28px; margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+    text-align: center;
+  }
+  .home-hero .year-badge {
+    display: inline-block; background: #eff6ff; color: var(--primary);
+    font-weight: 700; font-size: 13px; border-radius: 20px;
+    padding: 4px 14px; margin-bottom: 14px;
+  }
+  .home-hero h2 { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
+  .home-hero p { color: var(--muted); font-size: 14px; line-height: 1.7; }
+  .stats-row {
+    display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin: 20px 0;
+  }
+  .stat-card { background: #f9fafb; border-radius: 10px; padding: 14px; text-align: center; }
+  .stat-card .num { font-size: 28px; font-weight: 800; color: var(--primary); }
+  .stat-card .lbl { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+  .section-btn {
+    display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 12px;
+  }
+  .btn-mode {
+    flex: 1; min-width: 180px; padding: 16px;
+    background: var(--card); border: 2px solid var(--border);
+    border-radius: var(--radius); cursor: pointer;
+    text-align: left; transition: all 0.18s;
+    font-family: inherit;
+  }
+  .btn-mode:hover { border-color: var(--primary); box-shadow: 0 4px 14px rgba(26,86,219,0.15); }
+  .btn-mode .m-icon { font-size: 26px; margin-bottom: 6px; display: block; }
+  .btn-mode .m-title { font-size: 15px; font-weight: 700; display: block; margin-bottom: 2px; }
+  .btn-mode .m-desc { font-size: 12px; color: var(--muted); }
+  .btn-mode.primary-mode { background: linear-gradient(135deg,#1a56db,#7e3af2); color: white; border-color: transparent; }
+  .btn-mode.primary-mode .m-desc { color: rgba(255,255,255,0.8); }
+  .btn-mode.secondary-mode { background: linear-gradient(135deg,#065f46,#047857); color: white; border-color: transparent; }
+  .btn-mode.secondary-mode .m-desc { color: rgba(255,255,255,0.8); }
+
+  .notice-box {
+    background: #fffbeb; border: 1px solid #fcd34d; border-radius: 10px;
+    padding: 14px 16px; font-size: 13px; color: #78350f; line-height: 1.7;
+    margin-bottom: 16px;
+  }
+  .notice-box strong { color: #92400e; }
+
+  .citation { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 16px; line-height: 1.7; }
+
+  /* QUIZ HEADER */
+  .quiz-header {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 14px;
+  }
+  .back-btn {
+    background: white; border: 2px solid var(--border); border-radius: 8px;
+    padding: 8px 12px; font-size: 13px; font-weight: 600; cursor: pointer;
+    color: var(--text); transition: all 0.15s; font-family: inherit;
+    white-space: nowrap;
+  }
+  .back-btn:hover { border-color: var(--primary); color: var(--primary); }
+  .quiz-title-info { flex: 1; }
+  .quiz-title-info h3 { font-size: 15px; font-weight: 700; }
+  .quiz-title-info p { font-size: 12px; color: var(--muted); }
+  .timer-display {
+    display: none; background: #1f2937; color: white;
+    border-radius: 8px; padding: 6px 12px; font-size: 15px; font-weight: 700;
+    font-variant-numeric: tabular-nums; letter-spacing: 1px; white-space: nowrap;
+  }
+  .timer-display.warning { background: #ff5a1f; }
+  .timer-display.danger { background: var(--danger); animation: timerPulse 1s infinite; }
+  @keyframes timerPulse { 0%,100%{opacity:1} 50%{opacity:0.6} }
+
+  /* PROGRESS */
+  .progress-bar-wrap { background: var(--border); border-radius: 99px; height: 8px; margin-bottom: 8px; overflow: hidden; }
+  .progress-bar-fill { height: 100%; background: linear-gradient(90deg,var(--primary),#7e3af2); border-radius: 99px; transition: width 0.4s ease; }
+  .progress-info { display: flex; justify-content: space-between; font-size: 13px; color: var(--muted); margin-bottom: 18px; }
+
+  /* STEP DOTS */
+  .step-indicator { display: flex; gap: 6px; margin-bottom: 18px; }
+  .step-dot { height: 4px; flex: 1; border-radius: 99px; background: var(--border); transition: background 0.3s; }
+  .step-dot.active { background: var(--primary); }
+  .step-dot.done { background: var(--success); }
+
+  /* QUIZ CARD */
+  .quiz-card {
+    background: var(--card); border-radius: var(--radius);
+    padding: 24px; box-shadow: 0 2px 10px rgba(0,0,0,0.07); margin-bottom: 14px;
+  }
+  .question-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+  .q-num {
+    background: var(--primary); color: white; border-radius: 8px;
+    padding: 4px 10px; font-size: 13px; font-weight: 700;
+  }
+  .q-label {
+    background: #eff6ff; color: var(--primary); border-radius: 6px;
+    padding: 3px 8px; font-size: 12px; font-weight: 600;
+  }
+  .pdf-badge {
+    background: #fef3c7; color: #92400e; border-radius: 6px;
+    padding: 3px 8px; font-size: 11px; font-weight: 600;
+  }
+  .question-text { font-size: 15px; line-height: 1.8; margin-bottom: 12px; font-weight: 500; }
+  .question-note {
+    background: #f0fdf4; border-left: 3px solid var(--success);
+    border-radius: 6px; padding: 8px 12px; font-size: 13px;
+    color: #065f46; margin-bottom: 14px; line-height: 1.6; display: none;
+  }
+  .pdf-note { display: none !important; }
+  .choices { display: flex; flex-direction: column; gap: 9px; }
+  .choice-btn {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 13px 15px; background: #f9fafb; border: 2px solid var(--border);
+    border-radius: 10px; cursor: pointer; text-align: left;
+    font-size: 14px; line-height: 1.5; transition: all 0.15s;
+    width: 100%; color: var(--text); font-family: inherit;
+  }
+  .choice-btn:hover:not(:disabled) { border-color: var(--primary); background: #eff6ff; }
+  .choice-btn .letter {
+    min-width: 26px; height: 26px; border-radius: 50%;
+    background: var(--border); color: var(--muted);
+    font-weight: 700; font-size: 12px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; transition: all 0.15s;
+  }
+  .choice-btn.correct { border-color: var(--success); background: #f0fdf4; }
+  .choice-btn.correct .letter { background: var(--success); color: white; }
+  .choice-btn.wrong { border-color: var(--danger); background: #fff5f5; }
+  .choice-btn.wrong .letter { background: var(--danger); color: white; }
+  .choice-btn.dimmed { opacity: 0.4; }
+  .choice-btn:disabled { cursor: default; }
+
+  /* ANSWER BANNER */
+  .answer-banner {
+    border-radius: 10px; padding: 14px 18px; margin-bottom: 14px;
+    display: flex; align-items: center; gap: 12px;
+    font-size: 15px; font-weight: 600;
+  }
+  .answer-banner.correct-banner { background: #f0fdf4; border: 2px solid #a7f3d0; color: var(--success); }
+  .answer-banner.wrong-banner { background: #fff5f5; border: 2px solid #fca5a5; color: var(--danger); }
+  .answer-banner .big-icon { font-size: 22px; }
+
+  /* EXPLANATION */
+  .explanation-box {
+    background: #fefce8; border: 2px solid #fde68a;
+    border-radius: 10px; padding: 18px; margin-bottom: 14px;
+  }
+  .explanation-box h4 { font-size: 13px; font-weight: 700; color: #92400e; margin-bottom: 8px; }
+  .explanation-box div { font-size: 14px; line-height: 1.8; color: #451a03; }
+  .formula {
+    background: white; border: 1px solid #fde68a; border-radius: 6px;
+    padding: 8px 12px; margin: 8px 0; font-family: monospace;
+    font-size: 14px; color: #1e293b;
+  }
+
+  /* BUTTONS */
+  .btn-row { display: flex; gap: 10px; }
+  .btn {
+    padding: 12px 22px; border-radius: 10px; font-size: 15px;
+    font-weight: 600; cursor: pointer; border: none;
+    transition: all 0.15s; font-family: inherit;
+  }
+  .btn-primary { background: var(--primary); color: white; flex: 1; }
+  .btn-primary:hover { background: var(--primary-dark); }
+  .btn-secondary { background: #f3f4f6; color: var(--text); border: 2px solid var(--border); }
+  .btn-secondary:hover { background: var(--border); }
+
+  /* RESULT */
+  .result-card {
+    background: var(--card); border-radius: var(--radius);
+    padding: 36px 24px; text-align: center;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+  .exam-verdict {
+    display: none; font-size: 26px; font-weight: 800;
+    border-radius: 12px; padding: 14px; margin-bottom: 16px;
+  }
+  .exam-verdict.pass { background: #f0fdf4; color: var(--success); border: 3px solid #a7f3d0; }
+  .exam-verdict.fail { background: #fff5f5; color: var(--danger); border: 3px solid #fca5a5; }
+  .score-circle {
+    width: 130px; height: 130px; border-radius: 50%;
+    background: linear-gradient(135deg,var(--primary),#7e3af2);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    margin: 0 auto 20px; color: white;
+    box-shadow: 0 8px 24px rgba(26,86,219,0.3);
+  }
+  .score-circle .score-num { font-size: 38px; font-weight: 800; line-height: 1; }
+  .score-circle .score-label { font-size: 12px; opacity: 0.9; margin-top: 4px; }
+  .result-title { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+  .result-sub { color: var(--muted); font-size: 14px; margin-bottom: 24px; line-height: 1.6; }
+  .result-stats {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 24px;
+  }
+  .stat-box { background: #f9fafb; border-radius: 10px; padding: 14px; }
+  .stat-box .val { font-size: 24px; font-weight: 700; }
+  .stat-box .lbl { font-size: 12px; color: var(--muted); margin-top: 3px; }
+  .stat-box.green .val { color: var(--success); }
+  .stat-box.red .val { color: var(--danger); }
+
+  .review-list { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
+  .review-item {
+    background: white; border-radius: 10px; padding: 14px;
+    border-left: 4px solid var(--border);
+  }
+  .review-item.wrong-item { border-color: var(--danger); }
+  .review-item .r-q { font-size: 14px; font-weight: 600; margin-bottom: 5px; }
+  .review-item .r-ans { font-size: 13px; color: var(--muted); line-height: 1.7; }
+  .review-item .r-ans .c { color: var(--success); font-weight: 600; }
+  .review-item .r-ans .w { color: var(--danger); font-weight: 600; }
+
+  /* QUESTION IMAGE */
+  .q-image-wrap {
+    margin: 12px 0; border: 1px solid var(--border); border-radius: 8px;
+    overflow: hidden; background: #f9fafb;
+  }
+  .q-image-wrap img { width: 100%; display: block; }
+  .q-image-label {
+    font-size: 11px; color: var(--muted); padding: 4px 10px;
+    background: #f3f4f6; border-top: 1px solid var(--border);
+  }
+
+  /* WIRING DIAGRAM PANEL */
+  .wiring-btn {
+    width: 100%; padding: 10px; margin-bottom: 10px;
+    background: #eff6ff; border: 2px solid var(--primary);
+    border-radius: 10px; color: var(--primary); font-weight: 700;
+    font-size: 14px; cursor: pointer; font-family: inherit;
+    display: none;
+  }
+  .wiring-btn:hover { background: #dbeafe; }
+
+  .wiring-modal {
+    display: none; position: fixed; inset: 0; z-index: 200;
+    background: rgba(0,0,0,0.8);
+  }
+  .wiring-modal.open { display: flex; flex-direction: column; }
+  .wiring-modal-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 14px; background: var(--primary); color: white;
+    flex-shrink: 0; gap: 10px;
+  }
+  .wiring-modal-header h3 { font-size: 14px; font-weight: 700; white-space: nowrap; }
+  .wiring-zoom-controls {
+    display: flex; align-items: center; gap: 6px; flex-shrink: 0;
+  }
+  .wiring-zoom-controls button {
+    background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.4);
+    color: white; border-radius: 6px; cursor: pointer;
+    font-size: 16px; font-weight: 700; width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.15s; font-family: inherit;
+  }
+  .wiring-zoom-controls button:hover { background: rgba(255,255,255,0.35); }
+  .wiring-zoom-level {
+    color: rgba(255,255,255,0.9); font-size: 13px; font-weight: 600;
+    min-width: 42px; text-align: center;
+  }
+  .wiring-close {
+    background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.4);
+    color: white; font-size: 18px; cursor: pointer; border-radius: 6px;
+    width: 32px; height: 32px; display: flex; align-items: center;
+    justify-content: center; flex-shrink: 0; font-family: inherit;
+  }
+  .wiring-close:hover { background: rgba(255,255,255,0.3); }
+  .wiring-viewport {
+    flex: 1; overflow: hidden; position: relative;
+    cursor: grab; touch-action: none;
+    background: #1f2937;
+  }
+  .wiring-viewport.dragging { cursor: grabbing; }
+  .wiring-viewport img {
+    position: absolute; top: 0; left: 0;
+    transform-origin: 0 0;
+    user-select: none; pointer-events: none;
+    max-width: none;
+  }
+  .wiring-hint {
+    position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
+    background: rgba(0,0,0,0.6); color: white; font-size: 11px;
+    padding: 4px 10px; border-radius: 20px; pointer-events: none;
+    white-space: nowrap; opacity: 0.8;
+  }
+  .wiring-notes-toggle {
+    background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.4);
+    color: white; font-size: 11px; font-weight: 700; cursor: pointer;
+    border-radius: 6px; padding: 0 10px; height: 32px; white-space: nowrap;
+    transition: background 0.15s; font-family: inherit; flex-shrink: 0;
+  }
+  .wiring-notes-toggle:hover { background: rgba(255,255,255,0.3); }
+  .wiring-notes-toggle.active { background: #fbbf24; color: #78350f; border-color: #fbbf24; }
+  .wiring-notes {
+    background: #fffbeb; border-bottom: 2px solid #fcd34d;
+    max-height: 0; overflow: hidden; transition: max-height 0.3s ease;
+    flex-shrink: 0;
+  }
+  .wiring-notes.open { max-height: 320px; overflow-y: auto; }
+  .wiring-notes-inner { padding: 10px 16px 12px; }
+  .wiring-notes-title { font-size: 12px; font-weight: 700; color: #92400e; display: block; margin-bottom: 6px; }
+  .wiring-notes-list { padding-left: 20px; margin: 0; }
+  .wiring-intro { font-size: 12px; color: #78350f; margin: 0 0 8px; line-height: 1.65; }
+
+  .wiring-notes-list li { font-size: 12px; color: #78350f; line-height: 1.65; margin-bottom: 2px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <a href="index.html" class="back-to-index">← 問題一覧</a>
+    <h1>⚡ 第二種電気工事士</h1>
+  </div>
+  <div class="badge" id="headerBadge">令和7年度 下期</div>
+</div>
+
+<!-- HOME SCREEN -->
+<div class="screen active" id="homeScreen">
+  <div class="container">
+    <div class="home-hero">
+      <div class="year-badge">令和7年度（2025年度）下期</div>
+      <h2>第二種電気工事士<br>筆記試験 全50問</h2>
+      <p>一般問題（問1〜30）と配線図問題（問31〜50）を<br>本番と同じ順序で解いていけます。</p>
+      <div class="stats-row">
+        <div class="stat-card"><div class="num">50</div><div class="lbl">総問題数</div></div>
+        <div class="stat-card"><div class="num">30</div><div class="lbl">合格ライン</div></div>
+        <div class="stat-card"><div class="num">120</div><div class="lbl">制限時間（分）</div></div>
+      </div>
+    </div>
+
+    <div class="notice-box">
+      📌 <strong>配線図・写真問題について</strong><br>
+      問16〜18・問23・問24・問31〜50の一部は，実際のPDF問題集の図や写真を参照しながら解答してください。<br>
+      問題画面に「📄 PDF参照」のマークと図が表示されます。
+    </div>
+
+    <div class="section-btn">
+      <button class="btn-mode primary-mode" onclick="startQuiz('all')">
+        <span class="m-icon">📝</span>
+        <span class="m-title">全問題（50問）</span>
+        <span class="m-desc">問1〜50を順番に解く・2時間タイマー付き</span>
+      </button>
+      <button class="btn-mode secondary-mode" onclick="startQuiz('general')">
+        <span class="m-icon">🔢</span>
+        <span class="m-title">一般問題のみ（問1〜30）</span>
+        <span class="m-desc">計算・施工・法令・器具の問題</span>
+      </button>
+    </div>
+    <div class="section-btn">
+      <button class="btn-mode" onclick="startQuiz('wiring')" style="border-color:#7e3af2;">
+        <span class="m-icon">🗺️</span>
+        <span class="m-title">配線図問題のみ（問31〜50）</span>
+        <span class="m-desc">PDF配線図を参照しながら解く</span>
+      </button>
+    </div>
+
+    <p class="citation">
+      出典：一般財団法人 電気技術者試験センター 令和7年度第二種電気工事士下期筆記試験<br>
+      著作権：一般財団法人 電気技術者試験センター All Rights Reserved.
+    </p>
+  </div>
+</div>
+
+<!-- QUIZ SCREEN -->
+<div class="screen" id="quizScreen">
+  <div class="container">
+    <div class="quiz-header">
+      <button class="back-btn" onclick="goHome()">← ホーム</button>
+      <div class="quiz-title-info">
+        <h3 id="quizLabel">全問題</h3>
+        <p id="quizSubLabel">50問</p>
+      </div>
+      <div class="timer-display" id="timerDisplay">120:00</div>
+    </div>
+
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill" id="progressBar" style="width:0%"></div>
+    </div>
+    <div class="progress-info">
+      <span id="progressText">1 / 50</span>
+      <span id="scoreText">正解: 0</span>
+    </div>
+
+    <div class="step-indicator">
+      <div class="step-dot active" id="step1dot"></div>
+      <div class="step-dot" id="step2dot"></div>
+    </div>
+
+    <!-- WIRING DIAGRAM BUTTON -->
+    <button class="wiring-btn" id="wiringBtn" onclick="openWiring()">🗺️ 配線図を表示（問31〜50 参照用）</button>
+
+    <!-- STEP 1: Question -->
+    <div id="stepQuestion">
+      <div class="quiz-card">
+        <div class="question-meta">
+          <span class="q-num" id="qNum">Q1</span>
+          <span class="q-label" id="qLabel">一般問題</span>
+          <span class="pdf-badge" id="pdfBadge" style="display:none">📄 PDF参照</span>
+        </div>
+        <div class="question-text" id="questionText"></div>
+        <div class="question-note" id="questionNote"></div>
+        <div class="pdf-note" id="pdfNote"></div>
+        <div class="q-image-wrap" id="qImageWrap" style="display:none">
+          <img id="qImage" src="" alt="問題図">
+          <div class="q-image-label">📐 PDF問題集より（原本参照推奨）</div>
+        </div>
+        <div class="choices" id="choicesContainer"></div>
+      </div>
+    </div>
+
+    <!-- STEP 2: Answer + Explanation -->
+    <div id="stepExplanation" style="display:none">
+      <div class="quiz-card">
+        <div class="question-meta">
+          <span class="q-num" id="qNum3"></span>
+          <span class="q-label" id="qLabel3"></span>
+        </div>
+        <div class="question-text" id="questionText3"></div>
+        <div class="q-image-wrap" id="qImageWrap3" style="display:none">
+          <img id="qImage3" src="" alt="問題図">
+          <div class="q-image-label">📐 PDF問題集より（原本参照推奨）</div>
+        </div>
+        <div class="choices" id="choicesContainer3"></div>
+      </div>
+      <div class="answer-banner" id="answerBanner3">
+        <span class="big-icon" id="answerIcon3"></span>
+        <div id="answerResult3"></div>
+      </div>
+      <div class="explanation-box">
+        <h4>📖 解説</h4>
+        <div id="explanationText"></div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="nextQuestion()" id="nextBtn">次の問題 →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- RESULT SCREEN -->
+<div class="screen" id="resultScreen">
+  <div class="container">
+    <div class="result-card">
+      <div class="exam-verdict" id="examVerdict"></div>
+      <div class="score-circle">
+        <div class="score-num" id="resultScore">0</div>
+        <div class="score-label">点</div>
+      </div>
+      <div class="result-title" id="resultTitle"></div>
+      <div class="result-sub" id="resultSub"></div>
+      <div class="result-stats">
+        <div class="stat-box green"><div class="val" id="correctCount">0</div><div class="lbl">正解</div></div>
+        <div class="stat-box red"><div class="val" id="wrongCount">0</div><div class="lbl">不正解</div></div>
+        <div class="stat-box"><div class="val" id="totalCount">0</div><div class="lbl">問題数</div></div>
+      </div>
+      <div class="btn-row" style="flex-direction:column;gap:10px;">
+        <button class="btn btn-primary" onclick="showReview()">📝 間違えた問題を確認</button>
+        <button class="btn btn-secondary" onclick="goHome()">🏠 ホームに戻る</button>
+      </div>
+    </div>
+    <div id="reviewSection" style="display:none;margin-top:20px;">
+      <h3 style="font-size:15px;font-weight:700;margin-bottom:14px;">間違えた問題一覧</h3>
+      <div class="review-list" id="reviewList"></div>
+    </div>
+  </div>
+</div>
+
+<!-- WIRING DIAGRAM MODAL -->
+<div class="wiring-modal" id="wiringModal">
+  <div class="wiring-modal-header">
+    <h3>🗺️ 配線図（問31〜50 参照用）</h3>
+    <div class="wiring-zoom-controls">
+      <button onclick="wiringZoom(-0.25)" title="縮小">－</button>
+      <span class="wiring-zoom-level" id="wiringZoomLevel">100%</span>
+      <button onclick="wiringZoom(+0.25)" title="拡大">＋</button>
+      <button onclick="wiringZoomReset()" title="リセット" style="font-size:12px;width:auto;padding:0 8px;">リセット</button>
+    </div>
+    <button class="wiring-notes-toggle" id="wiringNotesToggle" onclick="toggleWiringNotes()" title="注意事項を表示">注意事項</button>
+    <button class="wiring-close" onclick="closeWiring()">✕</button>
+  </div>
+  <div class="wiring-notes" id="wiringNotes">
+    <div class="wiring-notes-inner">
+      <p class="wiring-intro">図は，木造２階建住宅の配線図である。この図に関する次の各問いには４通りの答え（イ，ロ，ハ，ニ）が書いてある。それぞれの問いに対して，答えを１つ選びなさい。</p>
+      <span class="wiring-notes-title">【注意】配線図の問題（問31〜50）に関する注意事項</span>
+      <ol class="wiring-notes-list">
+        <li>屋内配線の工事は，特記のある場合を除き600Vビニル絶縁ビニルシースケーブル平形（VVF）を用いたケーブル工事である。</li>
+        <li>屋内配線等の電線の本数，電線の太さ，その他，問いに直接関係のない部分等は省略又は簡略化してある。</li>
+        <li>漏電遮断器は，定格感度電流30 mA，動作時間0.1秒以内のものを使用している。</li>
+        <li>選択肢（答え）の写真にあるコンセント及び点滅器は，「JIS C 0303：2000 構内電気設備の配線用図記号」で示す「一般形」である。</li>
+        <li>ジョイントボックスを経由する電線は，すべて接続箇所を設けている。</li>
+        <li>３路スイッチの記号「0」の端子には，電源側又は負荷側の電線を結線する。</li>
+      </ol>
+    </div>
+  </div>
+  <div class="wiring-viewport" id="wiringViewport">
+    <img src="./r7shimo_images/wiring_diagram.png" alt="配線図" id="wiringImg" draggable="false">
+    <div class="wiring-hint">スクロール・ピンチで拡大縮小 ／ ドラッグで移動</div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// 問題データ — 令和7年度（2025年度）下期
+// ============================================================
+const QUESTIONS = [
+
+  // ════════════════════════════════════════
+  //  一般問題（問1〜30）
+  // ════════════════════════════════════════
+
+  {
+    id: 1, label: '一般問題',
+    q: '【問1】図のような回路で，端子 a－b 間の合成抵抗［Ω］は。',
+    pdf: true,
+    choices: ['イ．1', 'ロ．2', 'ハ．3', 'ニ．4'],
+    answer: 1,
+    explanation: '回路は 6Ω と 3Ω の並列（= 2Ω）に，直列で 6Ω と 3Ω の並列（= 2Ω）がある構成ではなく，図から a－b 間は以下のように読み取る。<br>左右の 6Ω が並列 → 3Ω。これと 3Ω が直列 → 合計は（図参照）<strong>2 Ω</strong>。<br>正解：<strong>ロ. 2 Ω</strong>'
+  },
+  {
+    id: 2, label: '一般問題',
+    q: '【問2】抵抗 R［Ω］に電圧 V［V］を加えると，電流 I［A］が流れ，P［W］の電力が消費される場合，抵抗 R［Ω］を示す式として，誤っているものは。',
+    choices: [
+      'イ．R = PI/V²',
+      'ロ．R = P/I²',
+      'ハ．R = V²/P',
+      'ニ．R = V/I'
+    ],
+    answer: 0,
+    explanation: '正しい式：<div class="formula">R = V/I = V²/P = P/I²</div>イの式 R = PI/V² を確認すると：P = IV，V = IR より PI/V² = I²R/V² = R/V² ≠ R（誤り）。<br>ロ. P/I² = (I²R)/I² = R ✓<br>ハ. V²/P = V²/(V²/R) = R ✓<br>ニ. V/I = IR/I = R ✓<br>正解：<strong>イ. PI/V²（誤った式）</strong>'
+  },
+  {
+    id: 3, label: '一般問題',
+    q: '【問3】電熱器により，60 kg の水の温度を 20 K 上昇させるのに必要な電力量［kW・h］は。ただし，水の比熱は 4.2 kJ/(kg・K) とし，熱効率は 100 ％とする。',
+    choices: ['イ．1.0', 'ロ．1.2', 'ハ．1.4', 'ニ．1.6'],
+    answer: 2,
+    explanation: '<div class="formula">Q = m × c × ΔT = 60 kg × 4.2 kJ/(kg·K) × 20 K = 5 040 kJ</div><div class="formula">W = Q / 3 600 = 5 040 / 3 600 = 1.4 kW·h</div>正解：<strong>ハ. 1.4 kW·h</strong>'
+  },
+  {
+    id: 4, label: '一般問題',
+    q: '【問4】図のような正弦波交流回路の電源電圧 v に対する電流 i の波形として，正しいものは。',
+    pdf: true,
+    choices: ['イ．（v が i より90°進む波形）', 'ロ．（v と i が同位相）', 'ハ．（i が v より90°進む波形）', 'ニ．（v が i より90°遅れる波形）'],
+    answer: 0,
+    explanation: '回路は誘導性（コイル L を含む）。誘導性回路では電流は電圧より 90° 遅れる（電圧が電流より 90° 進む）。<br>正解：<strong>イ．電源電圧 v が電流 i より 90° 進んだ波形</strong>'
+  },
+  {
+    id: 5, label: '一般問題',
+    q: '【問5】図のような三相負荷に三相交流電圧を加えたとき，各線に 20 A の電流が流れた。線間電圧 E［V］は。',
+    pdf: true,
+    choices: ['イ．120', 'ロ．173', 'ハ．208', 'ニ．240'],
+    answer: 2,
+    explanation: 'Y 接続，各相 6Ω，線電流 I = 20 A。<br>相電圧 Vp = I × R = 20 × 6 = 120 V<div class="formula">E（線間電圧）= √3 × Vp = 1.73 × 120 ≈ 208 V</div>正解：<strong>ハ. 208 V</strong>'
+  },
+  {
+    id: 6, label: '一般問題',
+    q: '【問6】図のような三相 3 線式回路について，図中の✕印の箇所で断線した場合，負荷の全消費電力［kW］は。ただし，負荷の抵抗は 30 Ω とし，配線の抵抗は無視し，電源電圧は一定とする。',
+    pdf: true,
+    choices: ['イ．0.7', 'ロ．0.9', 'ハ．1.3', 'ニ．2.0'],
+    answer: 3,
+    explanation: 'Δ接続 200V，各 30Ω。✕は1線（配線）断線。<br>断線後：A-B 間の 30Ω 直接路はそのまま接続。A-C と C-B の 2 つが直列（60Ω）で A-B（200V）に並列接続。<div class="formula">P_AB = 200² / 30 = 1 333 W<br>P_ACB = 200² / 60 = 667 W（A-C と C-B の合計）</div><div class="formula">合計 P = 1 333 + 667 = 2 000 W = 2.0 kW</div>正解：<strong>ニ. 2.0 kW</strong>'
+  },
+  {
+    id: 7, label: '一般問題',
+    q: '【問7】図のような単相 3 線式回路において，電線 1 線当たりの抵抗が 0.2Ω のとき，a－b 間の電圧［V］は。',
+    pdf: true,
+    choices: ['イ．96', 'ロ．100', 'ハ．102', 'ニ．106'],
+    answer: 2,
+    explanation: '各電源 104V，各負荷 10A，線抵抗 0.2Ω。平衡負荷なので中性線電流 = 0。<div class="formula">各負荷の電圧 = 104 - (10 × 0.2) = 104 - 2 = 102 V</div>a－b 間はその一方の負荷電圧なので <strong>102 V</strong>。<br>正解：<strong>ハ. 102 V</strong>'
+  },
+  {
+    id: 8, label: '一般問題',
+    q: '【問8】低圧屋内配線の合成樹脂管工事で，管内に直径 2.0 mm の 600V ビニル絶縁電線（軟銅線）を 4 本収めて施設した場合，電線 1 本当たりの許容電流［A］は。ただし，周囲温度は 30 ℃以下とする。',
+    choices: ['イ．17', 'ロ．19', 'ハ．22', 'ニ．24'],
+    answer: 2,
+    explanation: '2.0 mm IV 電線（軟銅線）の基本許容電流 = 35 A。<br>管内 4 本の電流減少係数 = 0.63。<div class="formula">許容電流 = 35 × 0.63 ≈ 22.05 → 22 A</div>正解：<strong>ハ. 22 A</strong>'
+  },
+  {
+    id: 9, label: '一般問題',
+    q: '【問9】図のように定格電流 50 A の過電流遮断器で保護された低圧屋内幹線から分岐して，7 m の位置に過電流遮断器を施設するとき，a－b 間の電線の許容電流の最小値［A］は。',
+    pdf: true,
+    choices: ['イ．12.5', 'ロ．17.5', 'ハ．22.5', 'ニ．27.5'],
+    answer: 1,
+    explanation: '分岐点から 8 m 以下（3 m 超）に遮断器を設ける場合，分岐電線の許容電流は幹線遮断器の定格電流の 35 % 以上が必要。<div class="formula">50 A × 0.35 = 17.5 A</div>正解：<strong>ロ. 17.5 A</strong>'
+  },
+  {
+    id: 10, label: '一般問題',
+    q: '【問10】低圧屋内配線の分岐回路の設計で，配線用遮断器，分岐回路の電線の太さ及びコンセントの組合せとして，適切なものは。ただし，分岐点から配線用遮断器までは 3 m，配線用遮断器からコンセントまでは 8 m とし，コンセントは兼用コンセントではないものとする。',
+    pdf: true,
+    choices: [
+      'イ．定格電流 40 A の B，電線 2.0 mm，定格電流 30 A のコンセント 1 個',
+      'ロ．定格電流 30 A の B，電線 2.0 mm，定格電流 15 A のコンセント 1 個',
+      'ハ．定格電流 20 A の B，電線 2.0 mm，定格電流 20 A のコンセント 1 個',
+      'ニ．定格電流 30 A の B，電線 2.6 mm，定格電流 30 A のコンセント 2 個'
+    ],
+    answer: 2,
+    explanation: '分岐回路の適合条件：<br>・イ：40A 遮断器に 2.0mm（許容 35A）→ 35A ＜ 40A → <strong>不適切</strong><br>・ロ：30A 遮断器に 2.0mm（許容 35A）は容量OKだが，30A 回路では 30A コンセントが必要（15A では不適切）→ <strong>不適切</strong><br>・<strong>ハ：20A 遮断器，2.0mm（許容 35A ≥ 20A OK），20A コンセント（定格 ≤ 20A OK）→ 適切</strong><br>・ニ：30A 遮断器には 2.6mm（許容 48A）以上必要で電線は OK，ただし 30A 回路では 30A コンセントを 1 個まで（2 個は不可）→ <strong>不適切</strong><br>正解：<strong>ハ</strong>'
+  },
+  {
+    id: 11, label: '一般問題',
+    q: '【問11】金属線ぴ工事に使用する金属製線ぴに関する記述として，正しいものは。',
+    choices: [
+      'イ．壁等に固定して絶縁電線（屋外用ビニル絶縁電線を除く。）を収める。',
+      'ロ．コンクリート床内に埋め込んで絶縁電線を収める。',
+      'ハ．本体と導体とが一体となった材料で，照明器具等を直接取り付けて使用する。',
+      'ニ．天井等につるし，ケーブルを並べて支持するのに用いる。'
+    ],
+    answer: 0,
+    explanation: '<strong>金属線ぴ（メタルモール）</strong>は，壁面や天井面に固定して絶縁電線（屋外用除く）を収納する配線材料。<br>・ロ：コンクリート埋設は金属管や合成樹脂管<br>・ハ：本体と導体一体（＝ライティングダクト）<br>・ニ：天井つり，ケーブル支持（＝ケーブルラック）<br>正解：<strong>イ</strong>'
+  },
+  {
+    id: 12, label: '一般問題',
+    q: '【問12】600V ポリエチレン絶縁耐燃性ポリエチレンシースケーブル平形の絶縁物の最高許容温度［℃］は。',
+    choices: ['イ．60', 'ロ．75', 'ハ．90', 'ニ．120'],
+    answer: 1,
+    explanation: 'EM-EEF（600V ポリエチレン絶縁耐燃性ポリエチレンシースケーブル平形）の絶縁物は<strong>架橋ポリエチレン（XLPE）ではなくポリエチレン</strong>で，最高許容温度は <strong>75 ℃</strong>。<br>比較：VVF（ビニル絶縁）= 60 ℃，架橋 PE = 90 ℃<br>正解：<strong>ロ. 75 ℃</strong>'
+  },
+  {
+    id: 13, label: '一般問題',
+    q: '【問13】ねじなし電線管の曲げ加工に使用する工具は。',
+    choices: [
+      'イ．トーチランプ',
+      'ロ．ディスクグラインダ',
+      'ハ．パイプレンチ',
+      'ニ．パイプベンダ'
+    ],
+    answer: 3,
+    explanation: '<strong>パイプベンダ</strong>は，金属電線管（薄鋼・厚鋼・ねじなし）を曲げ加工するための工具。<br>・トーチランプ：硬質塩ビ管（PVC管）を加熱して曲げる<br>・ディスクグラインダ：切断・研磨<br>・パイプレンチ：管の締め付け・緩め<br>正解：<strong>ニ. パイプベンダ</strong>'
+  },
+  {
+    id: 14, label: '一般問題',
+    q: '【問14】必要に応じ，スターデルタ始動を行う電動機は。',
+    choices: [
+      'イ．一般用三相かご形誘導電動機',
+      'ロ．三相巻線形誘導電動機',
+      'ハ．直流分巻電動機',
+      'ニ．単相誘導電動機'
+    ],
+    answer: 0,
+    explanation: '<strong>スターデルタ（Y-Δ）始動</strong>は，<strong>三相かご形誘導電動機</strong>の始動電流を抑制するための始動方式。始動時にY接続し，加速後にΔ接続に切り替える。<br>・巻線形：二次抵抗始動法が一般的<br>・直流：直流電動機には不適用<br>・単相：スターデルタ不適用<br>正解：<strong>イ. 一般用三相かご形誘導電動機</strong>'
+  },
+  {
+    id: 15, label: '一般問題',
+    q: '【問15】系統連系型の小出力太陽光発電設備において，使用される機器は。',
+    choices: [
+      'イ．調光器',
+      'ロ．低圧進相コンデンサ',
+      'ハ．自動点滅器',
+      'ニ．パワーコンディショナ'
+    ],
+    answer: 3,
+    explanation: '<strong>パワーコンディショナ（PCS）</strong>は，太陽電池が発生する直流電力を商用系統と連系できる交流電力に変換する機器。<br>・調光器・自動点滅器：照明制御用<br>・進相コンデンサ：力率改善用<br>正解：<strong>ニ. パワーコンディショナ</strong>'
+  },
+  {
+    id: 16, label: '一般問題',
+    q: '【問16】写真に示す材料の名称は。',
+    pdf: true,
+    choices: [
+      'イ．ユニバーサル',
+      'ロ．ノーマルベンド',
+      'ハ．ベンダ',
+      'ニ．カップリング'
+    ],
+    answer: 1,
+    explanation: '写真は<strong>ノーマルベンド</strong>（金属管工事用の 90° 曲がり継手）。薄鋼電線管または厚鋼電線管を直角に曲げるときに使用する。<br>・ユニバーサル：45° や任意の角度の曲がり継手<br>・カップリング：管相互を直線接続する継手<br>・ベンダ：管を曲げ加工する工具<br>正解：<strong>ロ. ノーマルベンド</strong>'
+  },
+  {
+    id: 17, label: '一般問題',
+    q: '【問17】写真に示す器具の用途は。',
+    pdf: true,
+    choices: [
+      'イ．照明器具の明るさを調整するのに用いる。',
+      'ロ．人の接近による自動点滅器に用いる。',
+      'ハ．蛍光灯の力率改善に用いる。',
+      'ニ．周囲の明るさに応じて街路灯などを自動点滅させるのに用いる。'
+    ],
+    answer: 1,
+    explanation: '写真は<strong>熱線式自動スイッチ（赤外線センサー付き）</strong>。人体から放射される赤外線（熱線）を感知して照明などを自動点滅させる。<br>・イ：調光器の用途<br>・ハ：進相コンデンサの用途<br>・ニ：自動点滅器（光電式）の用途<br>正解：<strong>ロ. 人の接近による自動点滅器に用いる。</strong>'
+  },
+  {
+    id: 18, label: '一般問題',
+    q: '【問18】写真に示す工具の用途は。',
+    pdf: true,
+    choices: [
+      'イ．電線の支線として用いる。',
+      'ロ．太い電線を曲げてくせをつけるのに用いる。',
+      'ハ．施工時の電線管の回転等すべり止めに用いる。',
+      'ニ．架空線のたるみを調整するのに用いる。'
+    ],
+    answer: 3,
+    explanation: '写真は<strong>張線器（シメラー）</strong>。架空電線のたるみ（弛度）を調整するために使用する工具。<br>・イ：支線は電線ではなく支持材料<br>・ロ：電線くせ付けにはベンダを使用<br>・ハ：すべり止めはパイプバイス等<br>正解：<strong>ニ. 架空線のたるみを調整するのに用いる。</strong>'
+  },
+  {
+    id: 19, label: '一般問題',
+    q: '【問19】低圧屋内配線工事で，600 V ビニル絶縁電線（軟銅線）をリングスリーブ用圧着工具とリングスリーブ（E 形）を用いて終端接続を行った。接続する電線に適合するリングスリーブの種類と圧着マーク（刻印）の組合せで，不適切なものは。',
+    choices: [
+      'イ．直径 2.0 mm 3 本の接続に，中スリーブを使用して圧着マークを「中」にした。',
+      'ロ．直径 1.6 mm 3 本の接続に，小スリーブを使用して圧着マークを「小」にした。',
+      'ハ．直径 2.0 mm 2 本の接続に，中スリーブを使用して圧着マークを「中」にした。',
+      'ニ．直径 1.6 mm 1 本と直径 2.0 mm 2 本の接続に，中スリーブを使用して圧着マークを「中」にした。'
+    ],
+    answer: 2,
+    explanation: 'リングスリーブ（E 形）の選択基準：<br>・1.6mm × 2 本 → 小スリーブ，刻印「○」<br>・1.6mm × 3 本 / 1.6mm×1+2.0mm×1 → 小スリーブ，刻印「小」<br>・<strong>2.0mm × 2 本 → 小スリーブ，刻印「小」</strong>（中スリーブは不適切）<br>・1.6mm×1+2.0mm×2 / 2.0mm×3 → 中スリーブ，刻印「中」<br><br>ハの「2.0mm × 2 本に中スリーブ・中刻印」は<strong>不適切</strong>（小スリーブ・小刻印が正しい）。<br>正解：<strong>ハ</strong>'
+  },
+  {
+    id: 20, label: '一般問題',
+    q: '【問20】単相 3 線式 100/200 V の電力が供給されている 2 階建て木造住宅の低圧屋内配線工事として，不適切なものは。',
+    choices: [
+      'イ．乾燥した場所の天井ふところに，600V ビニル絶縁ビニルシースケーブル平形を用いた，ケーブル工事を行った。',
+      'ロ．乾燥した場所の点検口のある天井裏に，600V ビニル絶縁電線を合成樹脂製可とう電線管（CD 管）に通線して，施工した。',
+      'ハ．湿気の多い場所の床下に，硬質ポリ塩化ビニル電線管による合成樹脂管工事を行った。',
+      'ニ．展開した場所で乾燥した場所の居間に，ライティングダクト工事を行った。'
+    ],
+    answer: 1,
+    explanation: '<strong>CD 管</strong>（Combined Duct 管）は自己消火性がない合成樹脂製可とう電線管で，<strong>コンクリート埋設専用</strong>。<br>天井裏などの隠ぺい場所には使用できない（火災時に燃え広がる危険）。<br>隠ぺい場所には自己消火性のある <strong>PF 管</strong>を使用する。<br>・イ：VVF ケーブルを天井裏で施設 → 適切<br>・ハ：硬質塩ビ管を湿気の多い床下で施設 → 適切<br>・ニ：乾燥した展開場所にライティングダクト → 適切<br>正解：<strong>ロ</strong>'
+  },
+  {
+    id: 21, label: '一般問題',
+    q: '【問21】使用電圧 200 V の三相電動機回路の施工方法で，不適切なものは。',
+    choices: [
+      'イ．湿気の多い場所に 1 種金属製可とう電線管を用いた金属可とう電線管工事を行った。',
+      'ロ．造営材に沿って取り付けた 600V ビニル絶縁ビニルシースケーブルの支持点間の距離を 2 m 以下とした。',
+      'ハ．金属管工事に 600V ビニル絶縁電線を使用した。',
+      'ニ．乾燥した場所の金属管工事で，管の長さが 3 m なので金属管の D 種接地工事を省略した。'
+    ],
+    answer: 0,
+    explanation: '<strong>1 種金属製可とう電線管</strong>は，乾燥した屋内の露出場所・点検できる隠ぺい場所のみ使用可。<br><strong>湿気の多い場所には使用できない</strong>（2 種金属製可とう電線管は使用可）。<br>・ロ：VVF ケーブル支持間隔 2 m 以下 → 適切<br>・ハ：金属管工事に IV 電線 → 適切<br>・ニ：長さ 4 m 以下の金属管は D 種省略可（乾燥場所）→ 適切<br>正解：<strong>イ</strong>'
+  },
+  {
+    id: 22, label: '一般問題',
+    q: '【問22】D 種接地工事を省略できないものは。ただし，電路には定格感度電流 30 mA，動作時間が 0.1 秒以下の電流動作型の漏電遮断器が取り付けられているものとする。',
+    choices: [
+      'イ．乾燥したコンクリートの床に施設する三相 200 V（対地電圧 200 V）誘導電動機の鉄台',
+      'ロ．乾燥した木製の床の上で取り扱うように施設する三相 200 V（対地電圧 200 V）空気圧縮機の金属製外箱部分',
+      'ハ．乾燥した場所に施設する単相 3 線式 100/200 V（対地電圧 100 V）配線の電線を収めた長さ 7 m の金属管',
+      'ニ．乾燥した場所に施設する三相 200 V（対地電圧 200 V）動力配線の電線を収めた長さ 3 m の金属管'
+    ],
+    answer: 0,
+    explanation: 'D 種接地工事の省略条件（電技解釈第 29 条）：乾燥した場所で漏電遮断器（感度 15 mA・動作 0.1 秒以内）があれば省略可（機器の場合）。金属管は長さ 4 m 以下で省略可。<br><br><strong>イ：乾燥したコンクリートの床</strong>は，人が直接接触しやすい（大地と同等）環境であり，対地電圧 200 V の電動機の鉄台は<strong>省略不可</strong>（漏電時に危険）。<br>・ロ：木製の床（絶縁性），漏電遮断器付き → 省略可<br>・ハ：対地電圧 100 V，金属管は長さ 7 m だが漏電遮断器付き → 省略可<br>・ニ：長さ 3 m の金属管（4 m 以下）→ 省略可<br>正解：<strong>イ</strong>'
+  },
+  {
+    id: 23, label: '一般問題',
+    q: '【問23】電磁的不平衡を生じないように，電線を金属管に挿入する方法として，適切なものは。',
+    pdf: true,
+    choices: [
+      'イ．3φ3W 回路の 3 線すべてを同一管に入れる。',
+      'ロ．1φ2W 回路の往復 2 線を別々の管に入れる。',
+      'ハ．1φ3W 回路の中性線のみを同一管に入れる。',
+      'ニ．3φ3W 回路の 3 線を 2 本・1 本に分けて別々の管に入れる。'
+    ],
+    answer: 0,
+    explanation: '<strong>電磁的不平衡防止</strong>：金属管内を流れる電流の合計が 0 になるよう，同一回路の全電線（往復電流）を同一管に入れる。<br>・<strong>イ：3φ3W 回路の 3 線全部を同一管 → 合計電流 = 0（適切）</strong><br>・ロ：往復を別管 → 各管に不平衡磁束が生じ渦電流損が増える（不適切）<br>・ハ：中性線のみでは不平衡<br>・ニ：3 線を分けると不平衡<br>正解：<strong>イ</strong>'
+  },
+  {
+    id: 24, label: '一般問題',
+    q: '【問24】次の①〜④は，一般用電気工作物の低圧屋内配線工事が完了したときの検査の内容を示したものである。空欄（A），（B）及び（C）に当てはまるものの組合せとして，適切なものは。\n①目視点検②絶縁抵抗の測定：（A）ごとに，所定の抵抗値以上であることを確認する。③接地抵抗の測定：（B）が，所定の抵抗値以下であることを確認する。④導通試験：（C）や導通チェッカーで配線の断線や誤接続などがないか確認する。',
+    choices: [
+      'イ．(A)無充電状態の回路  (B)測定接地極  (C)回路計',
+      'ロ．(A)充電状態の回路  (B)測定接地極  (C)検電器',
+      'ハ．(A)無充電状態の回路  (B)補助接地極  (C)回路計',
+      'ニ．(A)充電状態の回路  (B)補助接地極  (C)検電器'
+    ],
+    answer: 0,
+    explanation: '電気工事完了後の検査手順：<br>②絶縁抵抗測定：<strong>無充電状態の回路</strong>ごとに絶縁抵抗計で測定。<br>③接地抵抗測定：<strong>測定接地極</strong>（被測定の接地極）の抵抗値が規定値以下か確認。<br>④導通試験：<strong>回路計（テスタ）</strong>や導通チェッカーで断線・誤接続確認。<br>正解：<strong>イ</strong>'
+  },
+  {
+    id: 25, label: '一般問題',
+    q: '【問25】絶縁抵抗測定が困難なので，単相 100/200 V の分電盤の各分岐回路に対し，使用電圧が加わった状態で，クランプ形漏れ電流計を用いて，漏えい電流を測定した。その測定結果は，使用電圧 100 V の A 回路は 0.5 mA，使用電圧 200 V の B 回路は 1.5 mA，使用電圧 100 V の C 回路は 3 mA であった。絶縁性能が「電気設備の技術基準の解釈」に適合している回路は。',
+    choices: [
+      'イ．すべて適合している。',
+      'ロ．A 回路と B 回路が適合している。',
+      'ハ．A 回路のみが適合している。',
+      'ニ．すべて適合していない。'
+    ],
+    answer: 2,
+    explanation: '漏えい電流による絶縁性能（電技解釈第 14 条）：最大供給電流の 1/2000 以下，または 1 mA 以下が目安。<br>・A 回路：0.5 mA ≤ 1 mA → <strong>適合</strong><br>・B 回路：1.5 mA ＞ 1 mA → <strong>不適合</strong><br>・C 回路：3 mA ＞ 1 mA → <strong>不適合</strong><br>正解：<strong>ハ. A 回路のみ適合</strong>'
+  },
+  {
+    id: 26, label: '一般問題',
+    q: '【問26】直読式接地抵抗計（アーステスタ）を使用して直読で接地抵抗を測定する場合，補助接地極（2 箇所）の配置として，適切なものは。',
+    choices: [
+      'イ．被測定接地極を端とし，一直線上に 2 箇所の補助接地極を順次 10 m 程度離して配置する。',
+      'ロ．被測定接地極を中央にして，左右一直線上に補助接地極を 5 m 程度離して配置する。',
+      'ハ．被測定接地極を端とし，一直線上に 2 箇所の補助接地極を順次 1 m 程度離して配置する。',
+      'ニ．被測定接地極と 2 箇所の補助接地極を相互に 5 m 程度離して正三角形に配置する。'
+    ],
+    answer: 0,
+    explanation: '直読式接地抵抗計の 3 極法：<br>被測定接地極（E）を端として，一直線上に補助電圧極（P）を約 10 m，補助電流極（C）を約 20 m 離して配置する（イ）。<br>これにより各接地極の影響が分離され，正確な測定が可能。<br>正解：<strong>イ</strong>'
+  },
+  {
+    id: 27, label: '一般問題',
+    q: '【問27】直読式指示電気計器の目盛板に図のような記号があった。記号の意味として正しいものは。',
+    pdf: true,
+    choices: [
+      'イ．永久磁石可動コイル形で目盛板を水平に置いて使用する。',
+      'ロ．永久磁石可動コイル形で目盛板を鉛直に立てて使用する。',
+      'ハ．誘導形で目盛板を水平に置いて使用する。',
+      'ニ．可動鉄片形で目盛板を鉛直に立てて使用する。'
+    ],
+    answer: 3,
+    explanation: '図記号の読み方：<br>・磁石マーク（永久磁石）：永久磁石可動コイル形<br>・鉄片形マーク：可動鉄片形<br>・水平置き記号：目盛板を水平<br>・鉛直置き記号（⊥ や ↑）：鉛直<br>問題の記号は<strong>可動鉄片形，目盛板を鉛直に立てて使用</strong>を示す。<br>正解：<strong>ニ</strong>'
+  },
+  {
+    id: 28, label: '一般問題',
+    q: '【問28】電気の保安に関する法令についての記述として，誤っているものは。',
+    choices: [
+      'イ．「電気工事士法」は，電気工事の作業に従事する者の資格及び義務を定めた法律である。',
+      'ロ．「電気設備に関する技術基準を定める省令」は，電気事業法の規定に基づき定められた経済産業省令である。',
+      'ハ．「電気用品安全法」は，電気用品の製造，販売等を規制し，電気用品の安全性を確保するために定めた法律で電気用品による危険及び障害の発生を防止することを目的とする。',
+      'ニ．「電気用品安全法」において，「一般用電気工作物等」と「自家用電気工作物」を定義している。'
+    ],
+    answer: 3,
+    explanation: '<strong>電気工作物（一般用・自家用）の定義</strong>は「<strong>電気事業法</strong>」に定められている。<br>「電気用品安全法」は電気用品の製造・輸入・販売の規制が目的であり，電気工作物の定義は含まない。<br>・イ：電気工事士法の目的 → 正しい<br>・ロ：電技省令の根拠法 → 正しい<br>・ハ：電気用品安全法の目的 → 正しい<br>正解：<strong>ニ（誤り）</strong>'
+  },
+  {
+    id: 29, label: '一般問題',
+    q: '【問29】「電気用品安全法」の適用を受ける次の電気用品のうち，特定電気用品は。',
+    choices: [
+      'イ．定格電流 20 A の配線用遮断器',
+      'ロ．消費電力 30 W の換気扇',
+      'ハ．外径 19 mm の金属製の電線管',
+      'ニ．消費電力 1 kW の電気ストーブ'
+    ],
+    answer: 0,
+    explanation: '<strong>特定電気用品（◇PSE マーク）</strong>：特に危険・障害の恐れが高い電気用品。<br>主な例：ヒューズ，差込プラグ，コンセント，タンブラースイッチ，<strong>配線用遮断器</strong>，漏電遮断器，電線・コード類など。<br>・ロ：換気扇（特定以外の電気用品）<br>・ハ：金属電線管（特定以外の電気用品）<br>・ニ：電気ストーブ（特定以外の電気用品）<br>正解：<strong>イ. 定格電流 20 A の配線用遮断器</strong>'
+  },
+  {
+    id: 30, label: '一般問題',
+    q: '【問30】「電気設備に関する技術基準を定める省令」に関する記述として，誤っているものは。',
+    choices: [
+      'イ．電圧の種別である低圧，高圧及び特別高圧を規定している。',
+      'ロ．電気設備は，感電，火災その他人体に危害を及ぼし，又は物件に損傷を与えるおそれがないように施設しなければならないと規定している。',
+      'ハ．「電線」とは，電気使用場所において施設する電線（電気機械器具内の電線及び電線路の電線を除く。）をいうと定義している。',
+      'ニ．「電気機械器具」とは，電路を構成する機械器具をいうと定義している。'
+    ],
+    answer: 2,
+    explanation: '電技省令における「電線」の定義（第 1 条）：「強電流電気の伝送に使用する電気導体，絶縁物で被覆した電気導体又は絶縁物で被覆した上を保護被覆で保護した電気導体をいう」。<br><strong>ハの定義（電気使用場所において…電線路の電線を除く）は「電線路」の定義ではなく，電技省令の「電線」の正確な定義とは異なる</strong>（誤り）。<br>・イ：低圧・高圧・特別高圧の区分規定 → 正しい<br>・ロ：感電・火災防止の施設義務 → 正しい<br>・ニ：電気機械器具の定義 → 正しい<br>正解：<strong>ハ（誤り）</strong>'
+  },
+
+  // ════════════════════════════════════════
+  //  配線図問題（問31〜50）
+  // ════════════════════════════════════════
+
+  {
+    id: 31, label: '配線図',
+    q: '【問31】①で示す部分の工事方法として，適切なものは。\n（配線図（15頁）を参照すること）',
+    pdf: true,
+    pdfNote: 'PDF配線図の①の箇所（地中引込部分）を確認してください。',
+    choices: [
+      'イ．金属可とう電線管工事',
+      'ロ．金属線ぴ工事',
+      'ハ．600V ビニル絶縁ビニルシースケーブル丸形を使用したケーブル工事',
+      'ニ．金属管工事'
+    ],
+    answer: 2,
+    explanation: '配線図の①は地中配線（引込）部分。地中配線には<strong>ケーブル（VVR 丸形等）工事</strong>が適切。VVF 平形は地中配線には不適。<br>正解：<strong>ハ. 600V ビニル絶縁ビニルシースケーブル丸形を使用したケーブル工事</strong>'
+  },
+  {
+    id: 32, label: '配線図',
+    q: '【問32】②で示す図記号の器具の種類は。\n（配線図を参照すること）',
+    pdf: true,
+    pdfNote: 'PDF配線図の②の図記号を確認してください。',
+    choices: [
+      'イ．接地極付コンセント',
+      'ロ．接地端子付コンセント',
+      'ハ．接地極付接地端子付コンセント',
+      'ニ．漏電遮断器付コンセント'
+    ],
+    answer: 1,
+    explanation: '図記号に「ET」が付いているコンセントは<strong>接地端子付コンセント</strong>。<br>・「E」のみ：接地極付<br>・「ET」：接地端子付<br>・「E」+「ET」：接地極付接地端子付<br>正解：<strong>ロ. 接地端子付コンセント</strong>'
+  },
+  {
+    id: 33, label: '配線図',
+    q: '【問33】③で示す部分の小勢力回路で使用できる電圧の最大値［V］は。\n（配線図を参照すること）',
+    pdf: true,
+    pdfNote: 'PDF配線図の③（チャイム回路等）を確認してください。',
+    choices: ['イ．24', 'ロ．30', 'ハ．40', 'ニ．60'],
+    answer: 3,
+    explanation: '<strong>小勢力回路</strong>（電技解釈第 181 条）で使用できる電圧の最大値は <strong>60 V</strong>。<br>インターホン・チャイム・リモコン回路など低電圧の信号用回路に使用。<br>正解：<strong>ニ. 60 V</strong>'
+  },
+  {
+    id: 34, label: '配線図',
+    q: '【問34】④で示す部分の配線で（VE28）とあるのは。\n（配線図を参照すること）',
+    pdf: true,
+    pdfNote: 'PDF配線図の④の傍記（VE28）を確認してください。',
+    choices: [
+      'イ．内径 28 mm の硬質ポリ塩化ビニル電線管',
+      'ロ．内径 28 mm の合成樹脂製可とう電線管',
+      'ハ．外径 28 mm の硬質ポリ塩化ビニル電線管',
+      'ニ．外径 28 mm の合成樹脂製可とう電線管'
+    ],
+    answer: 0,
+    explanation: '<strong>VE 管（硬質ポリ塩化ビニル電線管）</strong>の呼び番号は<strong>内径</strong>を示す。<br>VE28 → 内径 28 mm の硬質ポリ塩化ビニル電線管。<br>正解：<strong>イ. 内径 28 mm の硬質ポリ塩化ビニル電線管</strong>'
+  },
+  {
+    id: 35, label: '配線図',
+    q: '【問35】⑤で示す図記号の名称は。\n（配線図を参照すること）',
+    pdf: true,
+    pdfNote: 'PDF配線図の⑤の図記号（EM-CE 等）を確認してください。',
+    choices: [
+      'イ．600V 耐燃性ポリエチレン絶縁電線',
+      'ロ．600V 架橋ポリエチレン絶縁耐燃性ポリエチレンシースケーブル',
+      'ハ．600V 耐燃性架橋ポリエチレン絶縁電線',
+      'ニ．600V ポリエチレン絶縁耐燃性ポリエチレンシースケーブル平形'
+    ],
+    answer: 1,
+    explanation: '配線図の⑤は EM-CE（エコケーブル）の図記号。<br><strong>EM-CE</strong> = 600V 架橋ポリエチレン絶縁耐燃性ポリエチレンシースケーブル。<br>・EM-IE：ポリエチレン絶縁電線<br>・EM-EEF：ポリエチレン絶縁ポリエチレンシースケーブル平形<br>正解：<strong>ロ. 600V 架橋ポリエチレン絶縁耐燃性ポリエチレンシースケーブル</strong>'
+  },
+  {
+    id: 36, label: '配線図',
+    q: '【問36】⑥で示す図記号の名称は。\n（配線図を参照すること）',
+    pdf: true,
+    pdfNote: 'PDF配線図の⑥の図記号を確認してください。',
+    choices: [
+      'イ．ジャンクションボックス',
+      'ロ．ジョイントボックス',
+      'ハ．VVF 用ジョイントボックス',
+      'ニ．プルボックス'
+    ],
+    answer: 2,
+    explanation: '配線図の⑥は VVF 用ジョイントボックスの図記号（◇または□の記号）。<br><strong>VVF 用ジョイントボックス</strong>は VVF ケーブルの接続箇所を収める樹脂製ボックス。<br>・ジョイントボックス（金属製）：一般の電線接続用<br>・プルボックス：ケーブルを引き込む大型ボックス<br>正解：<strong>ハ. VVF 用ジョイントボックス</strong>'
+  },
+  {
+    id: 37, label: '配線図',
+    q: '【問37】⑦で示す部分の最少電線本数（心線数）は。\n（配線図を参照すること）',
+    pdf: true,
+    pdfNote: 'PDF配線図の⑦の部分（3路スイッチ間の配線）を確認してください。',
+    choices: ['イ．2', 'ロ．3', 'ハ．4', 'ニ．5'],
+    answer: 1,
+    explanation: '3 路スイッチ間の配線に必要な電線本数：<br>3 路スイッチの渡り配線は 3 本が必要（スイッチ端子 1・3 番 2 本＋共通端子 0 番 1 本の計 3 本渡り）。<br>正解：<strong>ロ. 3 本</strong>'
+  },
+  {
+    id: 38, label: '配線図',
+    q: '【問38】⑧で示す図記号の名称は。\n（配線図を参照すること）',
+    pdf: true,
+    pdfNote: 'PDF配線図の⑧の図記号を確認してください。',
+    choices: [
+      'イ．一般形調光器',
+      'ロ．ワイド形調光器',
+      'ハ．一般形点滅器',
+      'ニ．ワイドハンドル形点滅器'
+    ],
+    answer: 3,
+    explanation: '配線図の⑧はワイドハンドル形点滅器（ワイドスイッチ）の図記号。<br>図記号に「W」が付くものはワイド形，「DL」が付くものは調光器。<br><strong>ワイドハンドル形点滅器</strong>：幅が広い操作面を持つ一般的なスイッチ（ホタルスイッチ等を除く）。<br>正解：<strong>ニ. ワイドハンドル形点滅器</strong>'
+  },
+  {
+    id: 39, label: '配線図',
+    q: '【問39】⑨で示す部分の電路と大地間の絶縁抵抗として，許容される最小値［MΩ］は。\n（配線図を参照すること）',
+    pdf: true,
+    pdfNote: 'PDF配線図の⑨（単相 100V 回路）の対地電圧を確認してください。',
+    choices: ['イ．0.1', 'ロ．0.2', 'ハ．0.3', 'ニ．0.4'],
+    answer: 0,
+    explanation: '絶縁抵抗の最小値（電技省令第 58 条）：<br>・対地電圧 150 V 以下：<strong>0.1 MΩ</strong> 以上<br>・300 V 以下（150 V 超）：0.2 MΩ 以上<br>⑨は単相 100V 回路（対地電圧 100V）なので，<strong>0.1 MΩ</strong> 以上。<br>正解：<strong>イ. 0.1 MΩ</strong>'
+  },
+  {
+    id: 40, label: '配線図',
+    q: '【問40】⑩で示す部分の接地工事の種類及びその接地抵抗の許容される最大値［Ω］の組合せとして，正しいものは。\n（配線図を参照すること）',
+    pdf: true,
+    pdfNote: 'PDF配線図の⑩（分電盤接地）と漏電遮断器の有無を確認してください。',
+    choices: [
+      'イ．C 種接地工事 10 Ω',
+      'ロ．C 種接地工事 50 Ω',
+      'ハ．D 種接地工事 100 Ω',
+      'ニ．D 種接地工事 500 Ω'
+    ],
+    answer: 3,
+    explanation: '⑩は低圧（100/200V）分電盤の接地。低圧電路の保護接地は<strong>D 種接地工事（100Ω 以下）</strong>。<br>ただし，配線図には漏電遮断器（30mA，0.1秒以内）が設置されており，0.5秒以内に動作する装置がある場合は <strong>500Ω 以下</strong>に緩和される。<br>正解：<strong>ニ. D 種接地工事 500 Ω</strong>'
+  },
+  {
+    id: 41, label: '配線図',
+    q: '【問41】⑪で示すボックス内の接続をすべて差込形コネクタとする場合，使用する差込形コネクタの種類と最少個数の組合せで，正しいものは。ただし，使用する電線はすべて VVF1.6 とする。\n（配線図を参照すること）',
+    pdf: true,
+    choices: ['イ．', 'ロ．', 'ハ．', 'ニ．'],
+    answer: 2,
+    explanation: 'PDF配線図の⑪ボックスへ入る電線本数を数え，差込形コネクタの種類（2・3・4極）と個数を求める。<br>正解：<strong>ハ</strong>（PDF図で確認）'
+  },
+  {
+    id: 42, label: '配線図',
+    q: '【問42】⑫で示す図記号のものは。\n（PDF問題集の写真を参照すること）',
+    pdf: true,
+    choices: ['イ．', 'ロ．', 'ハ．', 'ニ．'],
+    answer: 1,
+    explanation: '配線図の⑫の図記号に対応する器具（写真）を確認する。<br>正解：<strong>ロ</strong>（PDF写真で確認）'
+  },
+  {
+    id: 43, label: '配線図',
+    q: '【問43】⑬で示す図記号の器具は。\n（PDF問題集の写真を参照すること）',
+    pdf: true,
+    choices: ['イ．', 'ロ．', 'ハ．', 'ニ．'],
+    answer: 2,
+    explanation: '配線図の⑬の図記号に対応する器具（写真）を確認する。<br>正解：<strong>ハ</strong>（PDF写真で確認）'
+  },
+  {
+    id: 44, label: '配線図',
+    q: '【問44】⑭で示す図記号の器具は。\n（PDF問題集の写真を参照すること）',
+    pdf: true,
+    choices: ['イ．', 'ロ．', 'ハ．', 'ニ．'],
+    answer: 0,
+    explanation: '配線図の⑭の図記号に対応する器具（写真）を確認する。<br>正解：<strong>イ</strong>（PDF写真で確認）'
+  },
+  {
+    id: 45, label: '配線図',
+    q: '【問45】⑮で示す部分の配線工事に必要なケーブルは。ただし，使用するケーブルの心線数は最少とする。\n（PDF問題集の写真と配線図を参照すること）',
+    pdf: true,
+    choices: ['イ．', 'ロ．', 'ハ．', 'ニ．'],
+    answer: 1,
+    explanation: '配線図の⑮部分に必要な心線数を数え，ケーブルの種類（写真）を選ぶ。<br>正解：<strong>ロ</strong>（PDF図・写真で確認）'
+  },
+  {
+    id: 46, label: '配線図',
+    q: '【問46】⑯で示すボックス内の接続をリングスリーブで圧着接続した場合のリングスリーブの種類，個数及び圧着接続後の刻印との組合せで，正しいものは。ただし，使用する電線はすべて VVF1.6 とする。なお，ボックスからスイッチ（ク，ケ，コ）に至るケーブルの心線数は最少とする。\n（配線図を参照すること）',
+    pdf: true,
+    choices: ['イ．', 'ロ．', 'ハ．', 'ニ．'],
+    answer: 0,
+    explanation: 'PDF配線図の⑯ボックスへ入る電線を数え，VVF1.6mm の接続ごとにリングスリーブの種類と刻印を決める。<br>正解：<strong>イ</strong>（PDF図で確認）'
+  },
+  {
+    id: 47, label: '配線図',
+    q: '【問47】⑰で示すボックス内の接続をすべて圧着接続とする場合，使用するリングスリーブの種類と最少個数の組合せで，正しいものは。ただし，使用する電線はすべて VVF1.6 とする。\n（配線図を参照すること）',
+    pdf: true,
+    choices: ['イ．', 'ロ．', 'ハ．', 'ニ．'],
+    answer: 3,
+    explanation: 'PDF配線図の⑰ボックスへ入る電線を数え，リングスリーブの種類と個数を求める。<br>正解：<strong>ニ</strong>（PDF図で確認）'
+  },
+  {
+    id: 48, label: '配線図',
+    q: '【問48】この配線図で，使用されていないスイッチは。ただし，写真下の図は，接点の構成を示す。\n（PDF問題集の写真と配線図を参照すること）',
+    pdf: true,
+    choices: ['イ．', 'ロ．', 'ハ．', 'ニ．'],
+    answer: 0,
+    explanation: 'PDF配線図全体を見て，使用されているスイッチの種類（単極・3路・4路・特殊）を確認する。使用されていないものを選ぶ。<br>正解：<strong>イ</strong>（PDF図・写真で確認）'
+  },
+  {
+    id: 49, label: '配線図',
+    q: '【問49】この配線図の 2 階部分の施工で，一般的に使用されることのないものは。\n（PDF問題集の写真と配線図を参照すること）',
+    pdf: true,
+    choices: ['イ．', 'ロ．', 'ハ．', 'ニ．'],
+    answer: 1,
+    explanation: 'PDF配線図の 2 階部分を確認し，使用される材料・工具の写真から使用されないものを選ぶ。<br>正解：<strong>ロ</strong>（PDF写真で確認）'
+  },
+  {
+    id: 50, label: '配線図',
+    q: '【問50】この配線図の施工で，一般的に使用されることのないものは。\n（PDF問題集の写真と配線図を参照すること）',
+    pdf: true,
+    choices: ['イ．', 'ロ．', 'ハ．', 'ニ．'],
+    answer: 2,
+    explanation: 'PDF配線図全体を確認し，施工に使用される材料・工具の写真から使用されないものを選ぶ。<br>正解：<strong>ハ</strong>（PDF写真で確認）'
+  }
+];
+
+// ============================================================
+// 問題画像マッピング
+// ============================================================
+const Q_IMAGES = {
+  1:  './r7shimo_images/q01.png',
+  4:  './r7shimo_images/q04.png',
+  5:  './r7shimo_images/q05.png',
+  6:  './r7shimo_images/q06.png',
+  7:  './r7shimo_images/q07.png',
+  9:  './r7shimo_images/q09.png',
+  10: './r7shimo_images/q10.png',
+  16: './r7shimo_images/q16.png',
+  17: './r7shimo_images/q17.png',
+  18: './r7shimo_images/q18.png',
+  23: './r7shimo_images/q23.png',
+  27: './r7shimo_images/q27.png',
+  41: './r7shimo_images/q41.png',
+  42: './r7shimo_images/q42.png',
+  43: './r7shimo_images/q43.png',
+  44: './r7shimo_images/q44.png',
+  45: './r7shimo_images/q45.png',
+  46: './r7shimo_images/q46.png',
+  47: './r7shimo_images/q47.png',
+  48: './r7shimo_images/q48.png',
+  49: './r7shimo_images/q49.png',
+  50: './r7shimo_images/q50.png',
+};
+const WIRING_QS = new Set([31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50]);
+
+// ============================================================
+// 問題セット定義
+// ============================================================
+const MODES = {
+  all:     { label: '全問題（50問）', questions: () => QUESTIONS, timer: true },
+  general: { label: '一般問題（問1〜30）', questions: () => QUESTIONS.slice(0, 30), timer: false },
+  wiring:  { label: '配線図問題（問31〜50）', questions: () => QUESTIONS.slice(30, 50), timer: false }
+};
+
+// ============================================================
+// アプリ状態
+// ============================================================
+let state = {
+  mode: 'all',
+  questions: [],
+  currentIndex: 0,
+  score: 0,
+  userAnswers: [],
+  selectedAnswer: null,
+  timerInterval: null,
+  timeLeft: 0
+};
+
+// ============================================================
+// 初期化
+// ============================================================
+function startQuiz(mode) {
+  stopTimer();
+  state.mode = mode;
+  state.questions = MODES[mode].questions();
+  state.currentIndex = 0;
+  state.score = 0;
+  state.userAnswers = [];
+
+  document.getElementById('quizLabel').textContent = MODES[mode].label;
+  document.getElementById('quizSubLabel').textContent = state.questions.length + ' 問';
+  document.getElementById('headerBadge').textContent = MODES[mode].label;
+
+  const timerEl = document.getElementById('timerDisplay');
+  if (MODES[mode].timer) {
+    timerEl.style.display = 'block';
+    startTimer(120 * 60);
+  } else {
+    timerEl.style.display = 'none';
+  }
+
+  showScreen('quizScreen');
+  showQuestion();
+}
+
+// ============================================================
+// タイマー
+// ============================================================
+function startTimer(seconds) {
+  state.timeLeft = seconds;
+  updateTimerDisplay();
+  state.timerInterval = setInterval(() => {
+    state.timeLeft--;
+    updateTimerDisplay();
+    if (state.timeLeft <= 0) {
+      stopTimer();
+      while (state.currentIndex < state.questions.length) {
+        state.userAnswers.push({ q: state.questions[state.currentIndex], selected: -1, correct: false });
+        state.currentIndex++;
+      }
+      showResult();
+    }
+  }, 1000);
+}
+
+function stopTimer() {
+  if (state.timerInterval) { clearInterval(state.timerInterval); state.timerInterval = null; }
+}
+
+function updateTimerDisplay() {
+  const el = document.getElementById('timerDisplay');
+  const m = Math.floor(state.timeLeft / 60);
+  const s = state.timeLeft % 60;
+  el.textContent = `⏱ ${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  if (state.timeLeft <= 300) el.className = 'timer-display danger';
+  else if (state.timeLeft <= 900) el.className = 'timer-display warning';
+  else el.className = 'timer-display';
+}
+
+// ============================================================
+// 問題表示
+// ============================================================
+function showQuestion() {
+  const q = state.questions[state.currentIndex];
+  state.selectedAnswer = null;
+
+  const pct = (state.currentIndex / state.questions.length) * 100;
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressText').textContent = (state.currentIndex + 1) + ' / ' + state.questions.length;
+  document.getElementById('scoreText').textContent = '正解: ' + state.score;
+
+  updateStepDots(1);
+
+  document.getElementById('qNum').textContent = '問' + q.id;
+  document.getElementById('qLabel').textContent = q.label;
+
+  const pdfBadge = document.getElementById('pdfBadge');
+  pdfBadge.style.display = q.pdf ? 'inline-block' : 'none';
+
+  document.getElementById('questionText').textContent = q.q;
+
+  const noteEl = document.getElementById('questionNote');
+  if (q.note) { noteEl.textContent = q.note; noteEl.style.display = 'block'; }
+  else noteEl.style.display = 'none';
+
+  const pdfNoteEl = document.getElementById('pdfNote');
+  if (q.pdfNote) { pdfNoteEl.textContent = '📄 ' + q.pdfNote; pdfNoteEl.style.display = 'block'; }
+  else pdfNoteEl.style.display = 'none';
+
+  // 問題画像
+  const imgWrap = document.getElementById('qImageWrap');
+  const imgEl = document.getElementById('qImage');
+  if (Q_IMAGES[q.id]) {
+    imgEl.src = Q_IMAGES[q.id];
+    imgWrap.style.display = 'block';
+  } else {
+    imgWrap.style.display = 'none';
+  }
+
+  // 配線図ボタン
+  document.getElementById('wiringBtn').style.display = WIRING_QS.has(q.id) ? 'block' : 'none';
+
+  renderChoices('choicesContainer', q, null);
+
+  document.getElementById('stepQuestion').style.display = 'block';
+  document.getElementById('stepExplanation').style.display = 'none';
+}
+
+function renderChoices(containerId, q, selectedIdx) {
+  const letters = ['イ', 'ロ', 'ハ', 'ニ'];
+  const container = document.getElementById(containerId);
+  container.innerHTML = '';
+  q.choices.forEach((c, i) => {
+    const btn = document.createElement('button');
+    let cls = 'choice-btn';
+    if (selectedIdx !== null) {
+      btn.disabled = true;
+      if (i === q.answer) cls += ' correct';
+      else if (i === selectedIdx && i !== q.answer) cls += ' wrong';
+      else cls += ' dimmed';
+    }
+    btn.className = cls;
+    btn.innerHTML = `<span class="letter">${letters[i]}</span><span>${c}</span>`;
+    if (selectedIdx === null) btn.onclick = () => selectAnswer(i);
+    container.appendChild(btn);
+  });
+}
+
+function selectAnswer(idx) {
+  state.selectedAnswer = idx;
+  const q = state.questions[state.currentIndex];
+  const correct = idx === q.answer;
+  if (correct) state.score++;
+  state.userAnswers.push({ q, selected: idx, correct });
+  document.getElementById('scoreText').textContent = '正解: ' + state.score;
+
+  updateStepDots(2);
+  document.getElementById('stepQuestion').style.display = 'none';
+  showExplanation();
+}
+
+function showExplanation() {
+  const q = state.questions[state.currentIndex];
+  document.getElementById('stepExplanation').style.display = 'block';
+
+  document.getElementById('qNum3').textContent = '問' + q.id;
+  document.getElementById('qLabel3').textContent = q.label;
+  document.getElementById('questionText3').textContent = q.q;
+
+  const imgSrc3 = Q_IMAGES[q.id];
+  if (imgSrc3) {
+    document.getElementById('qImage3').src = imgSrc3;
+    document.getElementById('qImageWrap3').style.display = 'block';
+  } else {
+    document.getElementById('qImageWrap3').style.display = 'none';
+  }
+
+  renderChoices('choicesContainer3', q, state.selectedAnswer);
+
+  const letters = ['イ', 'ロ', 'ハ', 'ニ'];
+  const correct = state.selectedAnswer === q.answer;
+  const banner3 = document.getElementById('answerBanner3');
+  const icon3 = document.getElementById('answerIcon3');
+  const result3 = document.getElementById('answerResult3');
+  if (correct) {
+    banner3.className = 'answer-banner correct-banner';
+    icon3.textContent = '✅';
+    result3.textContent = '正解！ ' + letters[q.answer] + '「' + q.choices[q.answer] + '」';
+  } else {
+    banner3.className = 'answer-banner wrong-banner';
+    icon3.textContent = '❌';
+    result3.innerHTML = '不正解 ／ 正解：' + letters[q.answer] + '「' + q.choices[q.answer] + '」';
+  }
+
+  document.getElementById('explanationText').innerHTML = q.explanation;
+
+  const isLast = state.currentIndex === state.questions.length - 1;
+  document.getElementById('nextBtn').textContent = isLast ? '結果を見る 🎉' : '次の問題 →';
+}
+
+function nextQuestion() {
+  state.currentIndex++;
+  if (state.currentIndex >= state.questions.length) showResult();
+  else showQuestion();
+}
+
+// ============================================================
+// 結果画面
+// ============================================================
+function showResult() {
+  stopTimer();
+  document.getElementById('timerDisplay').style.display = 'none';
+  showScreen('resultScreen');
+  document.getElementById('reviewSection').style.display = 'none';
+
+  const total = state.questions.length;
+  const correct = state.score;
+  const wrong = total - correct;
+  const pct = Math.round((correct / total) * 100);
+
+  document.getElementById('resultScore').textContent = pct;
+  document.getElementById('correctCount').textContent = correct;
+  document.getElementById('wrongCount').textContent = wrong;
+  document.getElementById('totalCount').textContent = total;
+
+  const verdictEl = document.getElementById('examVerdict');
+  if (state.mode === 'all') {
+    const passed = correct >= 30;
+    verdictEl.className = 'exam-verdict ' + (passed ? 'pass' : 'fail');
+    verdictEl.textContent = passed ? '✅ 合格！（30問以上正解）' : '❌ 不合格（あと ' + (30 - correct) + ' 問）';
+    verdictEl.style.display = 'block';
+  } else {
+    verdictEl.style.display = 'none';
+  }
+
+  let title, sub;
+  if (pct >= 80) { title = '素晴らしい！'; sub = `${total}問中 ${correct}問正解（${pct}%）。この調子で本番も頑張ろう！`; }
+  else if (pct >= 60) { title = 'もう少し！'; sub = `${total}問中 ${correct}問正解（${pct}%）。間違えた問題を復習しよう。`; }
+  else { title = '復習が必要です'; sub = `${total}問中 ${correct}問正解（${pct}%）。解説をよく読んで弱点を克服しよう。`; }
+
+  document.getElementById('resultTitle').textContent = title;
+  document.getElementById('resultSub').textContent = sub;
+  document.getElementById('headerBadge').textContent = '結果';
+}
+
+function showReview() {
+  const section = document.getElementById('reviewSection');
+  section.style.display = 'block';
+  const list = document.getElementById('reviewList');
+  list.innerHTML = '';
+  const letters = ['イ', 'ロ', 'ハ', 'ニ'];
+  const wrongAnswers = state.userAnswers.filter(a => !a.correct);
+  if (wrongAnswers.length === 0) {
+    list.innerHTML = '<div class="review-item"><div class="r-q">全問正解です！🎉</div></div>';
+    return;
+  }
+  wrongAnswers.forEach(a => {
+    const div = document.createElement('div');
+    div.className = 'review-item wrong-item';
+    const selText = a.selected >= 0 ? `${letters[a.selected]}「${a.q.choices[a.selected]}」` : '（未回答）';
+    div.innerHTML = `<div class="r-q">問${a.q.id}　${a.q.q.substring(0, 40)}…</div>
+      <div class="r-ans">
+        あなたの回答：<span class="w">${selText}</span><br>
+        正解：<span class="c">${letters[a.q.answer]}「${a.q.choices[a.q.answer]}」</span>
+      </div>`;
+    list.appendChild(div);
+  });
+  section.scrollIntoView({ behavior: 'smooth' });
+}
+
+// ============================================================
+// ユーティリティ
+// ============================================================
+function updateStepDots(activeStep) {
+  for (let i = 1; i <= 2; i++) {
+    const dot = document.getElementById('step' + i + 'dot');
+    if (i < activeStep) dot.className = 'step-dot done';
+    else if (i === activeStep) dot.className = 'step-dot active';
+    else dot.className = 'step-dot';
+  }
+}
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function goHome() {
+  stopTimer();
+  document.getElementById('timerDisplay').style.display = 'none';
+  document.getElementById('headerBadge').textContent = '令和7年度 下期';
+  showScreen('homeScreen');
+}
+
+// ── 配線図モーダル ズーム＆パン ──
+let wScale = 1, wX = 0, wY = 0;
+let wDragging = false, wLastX = 0, wLastY = 0;
+// タッチ（ピンチ）用
+let wLastDist = null;
+
+function wiringApplyTransform() {
+  const img = document.getElementById('wiringImg');
+  img.style.transform = `translate(${wX}px, ${wY}px) scale(${wScale})`;
+  document.getElementById('wiringZoomLevel').textContent = Math.round(wScale * 100) + '%';
+}
+
+function wiringClampPan() {
+  const vp = document.getElementById('wiringViewport');
+  const img = document.getElementById('wiringImg');
+  const vpW = vp.clientWidth, vpH = vp.clientHeight;
+  const imgW = img.naturalWidth * wScale, imgH = img.naturalHeight * wScale;
+  // 画像がビューポートより小さければ中央寄せ
+  if (imgW <= vpW) { wX = (vpW - imgW) / 2; }
+  else { wX = Math.min(0, Math.max(vpW - imgW, wX)); }
+  if (imgH <= vpH) { wY = (vpH - imgH) / 2; }
+  else { wY = Math.min(0, Math.max(vpH - imgH, wY)); }
+}
+
+function wiringZoom(delta) {
+  const vp = document.getElementById('wiringViewport');
+  const cx = vp.clientWidth / 2, cy = vp.clientHeight / 2;
+  const prev = wScale;
+  wScale = Math.min(4, Math.max(0.5, wScale + delta));
+  // ビューポート中心を基準にズーム
+  wX = cx - (cx - wX) * (wScale / prev);
+  wY = cy - (cy - wY) * (wScale / prev);
+  wiringClampPan();
+  wiringApplyTransform();
+}
+
+function wiringZoomReset() {
+  const vp = document.getElementById('wiringViewport');
+  const img = document.getElementById('wiringImg');
+  // 画面幅に合わせてフィット
+  if (img.naturalWidth > 0) {
+    wScale = vp.clientWidth / img.naturalWidth;
+  } else {
+    wScale = 1;
+  }
+  wX = 0; wY = 0;
+  wiringClampPan();
+  wiringApplyTransform();
+}
+
+function openWiring() {
+  wScale = 1; wX = 0; wY = 0;
+  document.getElementById('wiringModal').classList.add('open');
+  // 画像ロード後にフィット
+  const img = document.getElementById('wiringImg');
+  if (img.complete && img.naturalWidth > 0) {
+    setTimeout(wiringZoomReset, 0);
+  } else {
+    img.onload = wiringZoomReset;
+  }
+  wiringApplyTransform();
+}
+
+function toggleWiringNotes() {
+  const notes = document.getElementById('wiringNotes');
+  const btn = document.getElementById('wiringNotesToggle');
+  notes.classList.toggle('open');
+  btn.classList.toggle('active');
+}
+function closeWiring() {
+  document.getElementById('wiringModal').classList.remove('open');
+}
+
+// マウスホイール ズーム
+document.getElementById('wiringViewport').addEventListener('wheel', function(e) {
+  e.preventDefault();
+  const vp = this;
+  const rect = vp.getBoundingClientRect();
+  const cx = e.clientX - rect.left;
+  const cy = e.clientY - rect.top;
+  const delta = e.deltaY < 0 ? 0.15 : -0.15;
+  const prev = wScale;
+  wScale = Math.min(4, Math.max(0.5, wScale + delta));
+  wX = cx - (cx - wX) * (wScale / prev);
+  wY = cy - (cy - wY) * (wScale / prev);
+  wiringClampPan();
+  wiringApplyTransform();
+}, { passive: false });
+
+// マウス ドラッグ
+document.getElementById('wiringViewport').addEventListener('mousedown', function(e) {
+  wDragging = true; wLastX = e.clientX; wLastY = e.clientY;
+  this.classList.add('dragging');
+});
+document.addEventListener('mousemove', function(e) {
+  if (!wDragging) return;
+  wX += e.clientX - wLastX; wY += e.clientY - wLastY;
+  wLastX = e.clientX; wLastY = e.clientY;
+  wiringClampPan();
+  wiringApplyTransform();
+});
+document.addEventListener('mouseup', function() {
+  if (!wDragging) return;
+  wDragging = false;
+  const vp = document.getElementById('wiringViewport');
+  if (vp) vp.classList.remove('dragging');
+});
+
+// タッチ ピンチ＆ドラッグ
+document.getElementById('wiringViewport').addEventListener('touchstart', function(e) {
+  if (e.touches.length === 2) {
+    wLastDist = Math.hypot(
+      e.touches[0].clientX - e.touches[1].clientX,
+      e.touches[0].clientY - e.touches[1].clientY
+    );
+  } else if (e.touches.length === 1) {
+    wDragging = true;
+    wLastX = e.touches[0].clientX; wLastY = e.touches[0].clientY;
+  }
+}, { passive: true });
+
+document.getElementById('wiringViewport').addEventListener('touchmove', function(e) {
+  e.preventDefault();
+  if (e.touches.length === 2) {
+    const dist = Math.hypot(
+      e.touches[0].clientX - e.touches[1].clientX,
+      e.touches[0].clientY - e.touches[1].clientY
+    );
+    if (wLastDist) {
+      const vp = this;
+      const rect = vp.getBoundingClientRect();
+      const cx = (e.touches[0].clientX + e.touches[1].clientX) / 2 - rect.left;
+      const cy = (e.touches[0].clientY + e.touches[1].clientY) / 2 - rect.top;
+      const prev = wScale;
+      wScale = Math.min(4, Math.max(0.5, wScale * (dist / wLastDist)));
+      wX = cx - (cx - wX) * (wScale / prev);
+      wY = cy - (cy - wY) * (wScale / prev);
+      wiringClampPan();
+      wiringApplyTransform();
+    }
+    wLastDist = dist;
+  } else if (e.touches.length === 1 && wDragging) {
+    wX += e.touches[0].clientX - wLastX;
+    wY += e.touches[0].clientY - wLastY;
+    wLastX = e.touches[0].clientX; wLastY = e.touches[0].clientY;
+    wiringClampPan();
+    wiringApplyTransform();
+  }
+}, { passive: false });
+
+document.getElementById('wiringViewport').addEventListener('touchend', function(e) {
+  if (e.touches.length < 2) wLastDist = null;
+  if (e.touches.length === 0) wDragging = false;
+}, { passive: true });
+</script>
+</body>
+</html>

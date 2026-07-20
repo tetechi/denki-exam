@@ -1,0 +1,1392 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>莉､蜥・蟷ｴ蠎ｦ荳頑悄・亥壕蜑搾ｼ・隨ｬ莠檎ｨｮ髮ｻ豌怜ｷ･莠句｣ｫ 遲・ｨ倩ｩｦ鬨・/title>
+<style>
+  :root {
+    --primary: #1a56db;
+    --primary-dark: #1e429f;
+    --success: #057a55;
+    --danger: #c81e1e;
+    --warning: #ff5a1f;
+    --bg: #f3f4f6;
+    --card: #ffffff;
+    --text: #111827;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --radius: 12px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Hiragino Sans', 'Meiryo', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+  .header {
+    background: linear-gradient(135deg, #1a56db 0%, #1e429f 100%);
+    color: white; padding: 14px 20px;
+    display: flex; align-items: center; justify-content: space-between;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    position: sticky; top: 0; z-index: 100;
+  }
+  .header h1 { font-size: 16px; font-weight: 700; }
+  .header .sub { font-size: 11px; opacity: 0.8; margin-top: 1px; }
+  .back-to-index {
+    display: inline-flex; align-items: center; gap: 4px;
+    color: rgba(255,255,255,0.65); text-decoration: none;
+    font-size: 11px; font-weight: 600; margin-bottom: 3px;
+    transition: color 0.15s;
+  }
+  .back-to-index:hover { color: white; }
+  .badge {
+    background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 20px; padding: 4px 12px; font-size: 12px; white-space: nowrap;
+  }
+
+  .container { max-width: 820px; margin: 0 auto; padding: 20px 16px; }
+  .screen { display: none; }
+  .screen.active { display: block; }
+
+  .home-hero {
+    background: var(--card); border-radius: var(--radius);
+    padding: 28px; margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+    text-align: center;
+  }
+  .home-hero .year-badge {
+    display: inline-block; background: #eff6ff; color: var(--primary);
+    font-weight: 700; font-size: 13px; border-radius: 20px;
+    padding: 4px 14px; margin-bottom: 14px;
+  }
+  .home-hero h2 { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
+  .home-hero p { color: var(--muted); font-size: 14px; line-height: 1.7; }
+  .stats-row {
+    display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin: 20px 0;
+  }
+  .stat-card { background: #f9fafb; border-radius: 10px; padding: 14px; text-align: center; }
+  .stat-card .num { font-size: 28px; font-weight: 800; color: var(--primary); }
+  .stat-card .lbl { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+  .section-btn { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
+  .btn-mode {
+    flex: 1; min-width: 180px; padding: 16px;
+    background: var(--card); border: 2px solid var(--border);
+    border-radius: var(--radius); cursor: pointer;
+    text-align: left; transition: all 0.18s; font-family: inherit;
+  }
+  .btn-mode:hover { border-color: var(--primary); box-shadow: 0 4px 14px rgba(26,86,219,0.15); }
+  .btn-mode .m-icon { font-size: 26px; margin-bottom: 6px; display: block; }
+  .btn-mode .m-title { font-size: 15px; font-weight: 700; display: block; margin-bottom: 2px; }
+  .btn-mode .m-desc { font-size: 12px; color: var(--muted); }
+  .btn-mode.primary-mode { background: linear-gradient(135deg,#1a56db,#7e3af2); color: white; border-color: transparent; }
+  .btn-mode.primary-mode .m-desc { color: rgba(255,255,255,0.8); }
+  .btn-mode.secondary-mode { background: linear-gradient(135deg,#065f46,#047857); color: white; border-color: transparent; }
+  .btn-mode.secondary-mode .m-desc { color: rgba(255,255,255,0.8); }
+
+  .notice-box {
+    background: #fffbeb; border: 1px solid #fcd34d; border-radius: 10px;
+    padding: 14px 16px; font-size: 13px; color: #78350f; line-height: 1.7;
+    margin-bottom: 16px;
+  }
+  .notice-box strong { color: #92400e; }
+  .citation { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 16px; line-height: 1.7; }
+
+  .quiz-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .back-btn {
+    background: white; border: 2px solid var(--border); border-radius: 8px;
+    padding: 8px 12px; font-size: 13px; font-weight: 600; cursor: pointer;
+    color: var(--text); transition: all 0.15s; font-family: inherit; white-space: nowrap;
+  }
+  .back-btn:hover { border-color: var(--primary); color: var(--primary); }
+  .quiz-title-info { flex: 1; }
+  .quiz-title-info h3 { font-size: 15px; font-weight: 700; }
+  .quiz-title-info p { font-size: 12px; color: var(--muted); }
+  .timer-display {
+    display: none; background: #1f2937; color: white;
+    border-radius: 8px; padding: 6px 12px; font-size: 15px; font-weight: 700;
+    font-variant-numeric: tabular-nums; letter-spacing: 1px; white-space: nowrap;
+  }
+  .timer-display.warning { background: #ff5a1f; }
+  .timer-display.danger { background: var(--danger); animation: timerPulse 1s infinite; }
+  @keyframes timerPulse { 0%,100%{opacity:1} 50%{opacity:0.6} }
+
+  .progress-bar-wrap { background: var(--border); border-radius: 99px; height: 8px; margin-bottom: 8px; overflow: hidden; }
+  .progress-bar-fill { height: 100%; background: linear-gradient(90deg,var(--primary),#7e3af2); border-radius: 99px; transition: width 0.4s ease; }
+  .progress-info { display: flex; justify-content: space-between; font-size: 13px; color: var(--muted); margin-bottom: 18px; }
+
+  .step-indicator { display: flex; gap: 6px; margin-bottom: 18px; }
+  .step-dot { height: 4px; flex: 1; border-radius: 99px; background: var(--border); transition: background 0.3s; }
+  .step-dot.active { background: var(--primary); }
+  .step-dot.done { background: var(--success); }
+
+  .quiz-card {
+    background: var(--card); border-radius: var(--radius);
+    padding: 24px; box-shadow: 0 2px 10px rgba(0,0,0,0.07); margin-bottom: 14px;
+  }
+  .question-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+  .q-num { background: var(--primary); color: white; border-radius: 8px; padding: 4px 10px; font-size: 13px; font-weight: 700; }
+  .q-label { background: #eff6ff; color: var(--primary); border-radius: 6px; padding: 3px 8px; font-size: 12px; font-weight: 600; }
+  .pdf-badge { background: #fef3c7; color: #92400e; border-radius: 6px; padding: 3px 8px; font-size: 11px; font-weight: 600; }
+  .question-text { font-size: 15px; line-height: 1.8; margin-bottom: 12px; font-weight: 500; }
+  .question-note {
+    background: #f0fdf4; border-left: 3px solid var(--success);
+    border-radius: 6px; padding: 8px 12px; font-size: 13px;
+    color: #065f46; margin-bottom: 14px; line-height: 1.6; display: none;
+  }
+  .pdf-note { display: none !important; }
+  .choices { display: flex; flex-direction: column; gap: 9px; }
+  .choice-btn {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 13px 15px; background: #f9fafb; border: 2px solid var(--border);
+    border-radius: 10px; cursor: pointer; text-align: left;
+    font-size: 14px; line-height: 1.5; transition: all 0.15s;
+    width: 100%; color: var(--text); font-family: inherit;
+  }
+  .choice-btn:hover:not(:disabled) { border-color: var(--primary); background: #eff6ff; }
+  .choice-btn .letter {
+    min-width: 26px; height: 26px; border-radius: 50%;
+    background: var(--border); color: var(--muted);
+    font-weight: 700; font-size: 12px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; transition: all 0.15s;
+  }
+  .choice-btn.correct { border-color: var(--success); background: #f0fdf4; }
+  .choice-btn.correct .letter { background: var(--success); color: white; }
+  .choice-btn.wrong { border-color: var(--danger); background: #fff5f5; }
+  .choice-btn.wrong .letter { background: var(--danger); color: white; }
+  .choice-btn.dimmed { opacity: 0.4; }
+  .choice-btn:disabled { cursor: default; }
+
+  .answer-banner {
+    border-radius: 10px; padding: 14px 18px; margin-bottom: 14px;
+    display: flex; align-items: center; gap: 12px;
+    font-size: 15px; font-weight: 600;
+  }
+  .answer-banner.correct-banner { background: #f0fdf4; border: 2px solid #a7f3d0; color: var(--success); }
+  .answer-banner.wrong-banner { background: #fff5f5; border: 2px solid #fca5a5; color: var(--danger); }
+  .answer-banner .big-icon { font-size: 22px; }
+
+  .explanation-box {
+    background: #fefce8; border: 2px solid #fde68a;
+    border-radius: 10px; padding: 18px; margin-bottom: 14px;
+  }
+  .explanation-box h4 { font-size: 13px; font-weight: 700; color: #92400e; margin-bottom: 8px; }
+  .explanation-box div { font-size: 14px; line-height: 1.8; color: #451a03; }
+  .formula {
+    background: white; border: 1px solid #fde68a; border-radius: 6px;
+    padding: 8px 12px; margin: 8px 0; font-family: monospace;
+    font-size: 14px; color: #1e293b;
+  }
+
+  .btn-row { display: flex; gap: 10px; }
+  .btn { padding: 12px 22px; border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer; border: none; transition: all 0.15s; font-family: inherit; }
+  .btn-primary { background: var(--primary); color: white; flex: 1; }
+  .btn-primary:hover { background: var(--primary-dark); }
+  .btn-secondary { background: #f3f4f6; color: var(--text); border: 2px solid var(--border); }
+  .btn-secondary:hover { background: var(--border); }
+
+  .result-card { background: var(--card); border-radius: var(--radius); padding: 36px 24px; text-align: center; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+  .exam-verdict { display: none; font-size: 26px; font-weight: 800; border-radius: 12px; padding: 14px; margin-bottom: 16px; }
+  .exam-verdict.pass { background: #f0fdf4; color: var(--success); border: 3px solid #a7f3d0; }
+  .exam-verdict.fail { background: #fff5f5; color: var(--danger); border: 3px solid #fca5a5; }
+  .score-circle {
+    width: 130px; height: 130px; border-radius: 50%;
+    background: linear-gradient(135deg,var(--primary),#7e3af2);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    margin: 0 auto 20px; color: white;
+    box-shadow: 0 8px 24px rgba(26,86,219,0.3);
+  }
+  .score-circle .score-num { font-size: 38px; font-weight: 800; line-height: 1; }
+  .score-circle .score-label { font-size: 12px; opacity: 0.9; margin-top: 4px; }
+  .result-title { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+  .result-sub { color: var(--muted); font-size: 14px; margin-bottom: 24px; line-height: 1.6; }
+  .result-stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 24px; }
+  .stat-box { background: #f9fafb; border-radius: 10px; padding: 14px; }
+  .stat-box .val { font-size: 24px; font-weight: 700; }
+  .stat-box .lbl { font-size: 12px; color: var(--muted); margin-top: 3px; }
+  .stat-box.green .val { color: var(--success); }
+  .stat-box.red .val { color: var(--danger); }
+
+  .review-list { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
+  .review-item { background: white; border-radius: 10px; padding: 14px; border-left: 4px solid var(--border); }
+  .review-item.wrong-item { border-color: var(--danger); }
+  .review-item .r-q { font-size: 14px; font-weight: 600; margin-bottom: 5px; }
+  .review-item .r-ans { font-size: 13px; color: var(--muted); line-height: 1.7; }
+  .review-item .r-ans .c { color: var(--success); font-weight: 600; }
+  .review-item .r-ans .w { color: var(--danger); font-weight: 600; }
+
+  .q-image-wrap { margin: 12px 0; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; background: #f9fafb; }
+  .q-image-wrap img { width: 100%; display: block; }
+  .q-image-label { font-size: 11px; color: var(--muted); padding: 4px 10px; background: #f3f4f6; border-top: 1px solid var(--border); }
+
+  .wiring-btn {
+    width: 100%; padding: 10px; margin-bottom: 10px;
+    background: #eff6ff; border: 2px solid var(--primary);
+    border-radius: 10px; color: var(--primary); font-weight: 700;
+    font-size: 14px; cursor: pointer; font-family: inherit; display: none;
+  }
+  .wiring-btn:hover { background: #dbeafe; }
+
+  .wiring-modal {
+    display: none; position: fixed; inset: 0; z-index: 200;
+    background: rgba(0,0,0,0.8);
+  }
+  .wiring-modal.open { display: flex; flex-direction: column; }
+  .wiring-modal-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 14px; background: var(--primary); color: white;
+    flex-shrink: 0; gap: 10px;
+  }
+  .wiring-modal-header h3 { font-size: 14px; font-weight: 700; white-space: nowrap; }
+  .wiring-zoom-controls { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+  .wiring-zoom-controls button {
+    background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.4);
+    color: white; border-radius: 6px; cursor: pointer;
+    font-size: 16px; font-weight: 700; width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.15s; font-family: inherit;
+  }
+  .wiring-zoom-controls button:hover { background: rgba(255,255,255,0.35); }
+  .wiring-zoom-level {
+    color: rgba(255,255,255,0.9); font-size: 13px; font-weight: 600;
+    min-width: 42px; text-align: center;
+  }
+  .wiring-close {
+    background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.4);
+    color: white; font-size: 18px; cursor: pointer; border-radius: 6px;
+    width: 32px; height: 32px; display: flex; align-items: center;
+    justify-content: center; flex-shrink: 0; font-family: inherit;
+  }
+  .wiring-close:hover { background: rgba(255,255,255,0.3); }
+  .wiring-viewport {
+    flex: 1; overflow: hidden; position: relative;
+    cursor: grab; touch-action: none; background: #1f2937;
+  }
+  .wiring-viewport.dragging { cursor: grabbing; }
+  .wiring-viewport img {
+    position: absolute; top: 0; left: 0;
+    transform-origin: 0 0; user-select: none; pointer-events: none; max-width: none;
+  }
+  .wiring-hint {
+    position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
+    background: rgba(0,0,0,0.6); color: white; font-size: 11px;
+    padding: 4px 10px; border-radius: 20px; pointer-events: none;
+    white-space: nowrap; opacity: 0.8;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <a href="index.html" class="back-to-index">竊・蝠城｡御ｸ隕ｧ</a>
+    <h1>笞｡ 隨ｬ莠檎ｨｮ髮ｻ豌怜ｷ･莠句｣ｫ</h1>
+  </div>
+  <div class="badge" id="headerBadge">莉､蜥・蟷ｴ蠎ｦ 荳頑悄 竭</div>
+</div>
+
+<!-- HOME SCREEN -->
+<div class="screen active" id="homeScreen">
+  <div class="container">
+    <div class="home-hero">
+      <div class="year-badge">莉､蜥・蟷ｴ蠎ｦ・・023蟷ｴ蠎ｦ・我ｸ頑悄繝ｻ蜊亥燕</div>
+      <h2>隨ｬ莠檎ｨｮ髮ｻ豌怜ｷ･莠句｣ｫ<br>遲・ｨ倩ｩｦ鬨・蜈ｨ50蝠・/h2>
+      <p>荳闊ｬ蝠城｡鯉ｼ亥撫1縲・0・峨→驟咲ｷ壼峙蝠城｡鯉ｼ亥撫31縲・0・峨ｒ<br>譛ｬ逡ｪ縺ｨ蜷後§鬆・ｺ上〒隗｣縺・※縺・￠縺ｾ縺吶・/p>
+      <div class="stats-row">
+        <div class="stat-card"><div class="num">50</div><div class="lbl">邱丞撫鬘梧焚</div></div>
+        <div class="stat-card"><div class="num">30</div><div class="lbl">蜷域ｼ繝ｩ繧､繝ｳ</div></div>
+        <div class="stat-card"><div class="num">120</div><div class="lbl">蛻ｶ髯先凾髢難ｼ亥・・・/div></div>
+      </div>
+    </div>
+
+    <div class="notice-box">
+      東 <strong>驟咲ｷ壼峙繝ｻ蜀咏悄蝠城｡後↓縺､縺・※</strong><br>
+      蝠・繝ｻ4繝ｻ5繝ｻ6繝ｻ7繝ｻ9繝ｻ10繝ｻ16繝ｻ17繝ｻ18繝ｻ21繝ｻ27繝ｻ蝠・1縲・0縺ｯ・悟ｮ滄圀縺ｮPDF蝠城｡碁寔縺ｮ蝗ｳ繧・・逵溘ｒ蜿ら・縺励↑縺後ｉ隗｣遲斐＠縺ｦ縺上□縺輔＞縲・br>
+      蝠城｡檎判髱｢縺ｫ縲交沒・PDF蜿ら・縲阪・繝槭・繧ｯ縺ｨ蝗ｳ縺瑚｡ｨ遉ｺ縺輔ｌ縺ｾ縺吶・    </div>
+
+    <div class="section-btn">
+      <button class="btn-mode primary-mode" onclick="startQuiz('all')">
+        <span class="m-icon">統</span>
+        <span class="m-title">蜈ｨ蝠城｡鯉ｼ・0蝠擾ｼ・/span>
+        <span class="m-desc">蝠・縲・0繧帝・分縺ｫ隗｣縺上・2譎る俣繧ｿ繧､繝槭・莉倥″</span>
+      </button>
+      <button class="btn-mode secondary-mode" onclick="startQuiz('general')">
+        <span class="m-icon">箸</span>
+        <span class="m-title">荳闊ｬ蝠城｡後・縺ｿ・亥撫1縲・0・・/span>
+        <span class="m-desc">險育ｮ励・譁ｽ蟾･繝ｻ豕穂ｻ､繝ｻ蝎ｨ蜈ｷ縺ｮ蝠城｡・/span>
+      </button>
+    </div>
+    <div class="section-btn">
+      <button class="btn-mode" onclick="startQuiz('wiring')" style="border-color:#7e3af2;">
+        <span class="m-icon">亮・・/span>
+        <span class="m-title">驟咲ｷ壼峙蝠城｡後・縺ｿ・亥撫31縲・0・・/span>
+        <span class="m-desc">PDF驟咲ｷ壼峙繧貞盾辣ｧ縺励↑縺後ｉ隗｣縺・/span>
+      </button>
+    </div>
+
+    <p class="citation">
+      蜃ｺ蜈ｸ・壻ｸ闊ｬ雋｡蝗｣豕穂ｺｺ 髮ｻ豌玲橿陦楢・ｩｦ鬨薙そ繝ｳ繧ｿ繝ｼ 莉､蜥・蟷ｴ蠎ｦ隨ｬ莠檎ｨｮ髮ｻ豌怜ｷ･莠句｣ｫ荳頑悄蟄ｦ遘題ｩｦ鬨薙仙壕蜑阪托ｼ井ｻ､蜥・蟷ｴ5譛・8譌･螳滓命・・br>
+      闡嶺ｽ懈ｨｩ・壻ｸ闊ｬ雋｡蝗｣豕穂ｺｺ 髮ｻ豌玲橿陦楢・ｩｦ鬨薙そ繝ｳ繧ｿ繝ｼ All Rights Reserved.
+    </p>
+  </div>
+</div>
+
+<!-- QUIZ SCREEN -->
+<div class="screen" id="quizScreen">
+  <div class="container">
+    <div class="quiz-header">
+      <button class="back-btn" onclick="goHome()">竊・繝帙・繝</button>
+      <div class="quiz-title-info">
+        <h3 id="quizLabel">蜈ｨ蝠城｡・/h3>
+        <p id="quizSubLabel">50蝠・/p>
+      </div>
+      <div class="timer-display" id="timerDisplay">120:00</div>
+    </div>
+
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill" id="progressBar" style="width:0%"></div>
+    </div>
+    <div class="progress-info">
+      <span id="progressText">1 / 50</span>
+      <span id="scoreText">豁｣隗｣: 0</span>
+    </div>
+
+    <div class="step-indicator">
+      <div class="step-dot active" id="step1dot"></div>
+      <div class="step-dot" id="step2dot"></div>
+    </div>
+
+    <button class="wiring-btn" id="wiringBtn" onclick="openWiring()">亮・・驟咲ｷ壼峙繧定｡ｨ遉ｺ・亥撫31縲・0 蜿ら・逕ｨ・・/button>
+
+    <div id="stepQuestion">
+      <div class="quiz-card">
+        <div class="question-meta">
+          <span class="q-num" id="qNum">Q1</span>
+          <span class="q-label" id="qLabel">荳闊ｬ蝠城｡・/span>
+          <span class="pdf-badge" id="pdfBadge" style="display:none">塘 PDF蜿ら・</span>
+        </div>
+        <div class="question-text" id="questionText"></div>
+        <div class="question-note" id="questionNote"></div>
+        <div class="pdf-note" id="pdfNote"></div>
+        <div class="q-image-wrap" id="qImageWrap" style="display:none">
+          <img id="qImage" src="" alt="蝠城｡悟峙">
+          <div class="q-image-label">盗 PDF蝠城｡碁寔繧医ｊ・亥次譛ｬ蜿ら・謗ｨ螂ｨ・・/div>
+        </div>
+        <div class="choices" id="choicesContainer"></div>
+      </div>
+    </div>
+
+    <div id="stepExplanation" style="display:none">
+      <div class="quiz-card">
+        <div class="question-meta">
+          <span class="q-num" id="qNum3"></span>
+          <span class="q-label" id="qLabel3"></span>
+        </div>
+        <div class="question-text" id="questionText3"></div>
+        <div class="q-image-wrap" id="qImageWrap3" style="display:none">
+          <img id="qImage3" src="" alt="蝠城｡悟峙">
+          <div class="q-image-label">盗 PDF蝠城｡碁寔繧医ｊ・亥次譛ｬ蜿ら・謗ｨ螂ｨ・・/div>
+        </div>
+        <div class="choices" id="choicesContainer3"></div>
+      </div>
+      <div class="answer-banner" id="answerBanner3">
+        <span class="big-icon" id="answerIcon3"></span>
+        <div id="answerResult3"></div>
+      </div>
+      <div class="explanation-box">
+        <h4>当 隗｣隱ｬ</h4>
+        <div id="explanationText"></div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="nextQuestion()" id="nextBtn">谺｡縺ｮ蝠城｡・竊・/button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- RESULT SCREEN -->
+<div class="screen" id="resultScreen">
+  <div class="container">
+    <div class="result-card">
+      <div class="exam-verdict" id="examVerdict"></div>
+      <div class="score-circle">
+        <div class="score-num" id="resultScore">0</div>
+        <div class="score-label">轤ｹ</div>
+      </div>
+      <div class="result-title" id="resultTitle"></div>
+      <div class="result-sub" id="resultSub"></div>
+      <div class="result-stats">
+        <div class="stat-box green"><div class="val" id="correctCount">0</div><div class="lbl">豁｣隗｣</div></div>
+        <div class="stat-box red"><div class="val" id="wrongCount">0</div><div class="lbl">荳肴ｭ｣隗｣</div></div>
+        <div class="stat-box"><div class="val" id="totalCount">0</div><div class="lbl">蝠城｡梧焚</div></div>
+      </div>
+      <div class="btn-row" style="flex-direction:column;gap:10px;">
+        <button class="btn btn-primary" onclick="showReview()">統 髢馴＆縺医◆蝠城｡後ｒ遒ｺ隱・/button>
+        <button class="btn btn-secondary" onclick="goHome()">匠 繝帙・繝縺ｫ謌ｻ繧・/button>
+      </div>
+    </div>
+    <div id="reviewSection" style="display:none;margin-top:20px;">
+      <h3 style="font-size:15px;font-weight:700;margin-bottom:14px;">髢馴＆縺医◆蝠城｡御ｸ隕ｧ</h3>
+      <div class="review-list" id="reviewList"></div>
+    </div>
+  </div>
+</div>
+
+<!-- WIRING DIAGRAM MODAL -->
+<div class="wiring-modal" id="wiringModal">
+  <div class="wiring-modal-header">
+    <h3>亮・・驟咲ｷ壼峙・亥撫31縲・0 蜿ら・逕ｨ・・/h3>
+    <div class="wiring-zoom-controls">
+      <button onclick="wiringZoom(-0.25)" title="邵ｮ蟆・>・・/button>
+      <span class="wiring-zoom-level" id="wiringZoomLevel">100%</span>
+      <button onclick="wiringZoom(+0.25)" title="諡｡螟ｧ">・・/button>
+      <button onclick="wiringZoomReset()" title="繝ｪ繧ｻ繝・ヨ" style="font-size:12px;width:auto;padding:0 8px;">繝ｪ繧ｻ繝・ヨ</button>
+    </div>
+        <button class="wiring-notes-toggle" id="wiringNotesToggle" onclick="toggleWiringNotes()" title="注意事項を表示">注意事項</button>
+    <button class="wiring-close" onclick="closeWiring()">笨・/button>
+  </div>
+  
+  <div class="wiring-notes" id="wiringNotes">
+    <div class="wiring-notes-inner">
+      <p class="wiring-intro">図は，木造３階建住宅の配線図である。この図に関する次の各問いには４通りの答え（イ，ロ，ハ，ニ）が書いてある。それぞれの問いに対して，答えを１つ選びなさい。</p>
+      <span class="wiring-notes-title">【注意】配線図の問題（問31〜50）に関する注意事項</span>
+      <ol class="wiring-notes-list">
+        <li>屋内配線の工事は，特記のある場合を除き600Vビニル絶縁ビニルシースケーブル平形（VVF）を用いたケーブル工事である。</li>
+        <li>屋内配線等の電線の本数，電線の太さ，その他，問いに直接関係のない部分等は省略又は簡略化してある。</li>
+        <li>漏電遮断器は，定格感度電流30 mA，動作時間0.1秒以内のものを使用している。</li>
+        <li>選択肢（答え）の写真にあるコンセント及び点滅器は，「JIS C 0303：2000 構内電気設備の配線用図記号」で示す「一般形」である。</li>
+        <li>ジョイントボックスを経由する電線は，すべて接続箇所を設けている。</li>
+        <li>３路スイッチの記号「0」の端子には，電源側又は負荷側の電線を結線する。</li>
+      </ol>
+    </div>
+  </div>
+  <div class="wiring-viewport" id="wiringViewport">
+    <img src="./r4kami_images/wiring_diagram.png" alt="驟咲ｷ壼峙" id="wiringImg" draggable="false">
+    <div class="wiring-hint">繧ｹ繧ｯ繝ｭ繝ｼ繝ｫ繝ｻ繝斐Φ繝√〒諡｡螟ｧ邵ｮ蟆・・・繝峨Λ繝・げ縺ｧ遘ｻ蜍・/div>
+  </div>
+</div>
+
+<script src="r4kami_data.js"></script>
+<script>
+// ============================================================
+// 蝠城｡後ョ繝ｼ繧ｿ 窶・莉､蜥・蟷ｴ蠎ｦ・・023蟷ｴ蠎ｦ・我ｸ頑悄縲仙壕蜑阪・// ============================================================
+const QUESTIONS = window.R4KAMI.questions;
+const _DUMMY = [
+
+  // 笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武
+  //  荳闊ｬ蝠城｡鯉ｼ亥撫1縲・0・・  // 笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武
+
+  {
+    id: 1, label: '荳闊ｬ蝠城｡・,
+    q: '縲仙撫1縲大峙縺ｮ繧医≧縺ｪ蝗櫁ｷｯ縺ｧ・・ﾎｩ縺ｮ謚ｵ謚励〒縺ｮ豸郁ｲｻ髮ｻ蜉媼W]縺ｯ縲・,
+    pdf: true,
+    choices: ['繧､・・00', '繝ｭ・・00', '繝擾ｼ・200', '繝具ｼ・000'],
+    answer: 1,
+    explanation: '蝗櫁ｷｯ縺ｯ200V髮ｻ貅舌↓・・0ﾎｩ・井ｸ頑ｮｵ・峨→30ﾎｩ・井ｸ区ｮｵ・峨′荳ｦ蛻暦ｼ後◎繧後↓8ﾎｩ縺檎峩蛻励↓謗･邯壹＆繧後※縺・ｋ縲・div class="formula">荳ｦ蛻怜粋謌先慣謚・= (20ﾃ・0)ﾃｷ(20+30) = 12ﾎｩ<br>蜈ｨ謚ｵ謚・= 8 + 12 = 20ﾎｩ<br>蜈ｨ髮ｻ豬・I = 200ﾃｷ20 = 10A<br>8ﾎｩ縺ｮ豸郁ｲｻ髮ｻ蜉・P = Iﾂｲﾃ由 = 10ﾂｲﾃ・ = 800W</div>豁｣隗｣・・strong>繝ｭ. 800W</strong>'
+  },
+  {
+    id: 2, label: '荳闊ｬ蝠城｡・,
+    q: '縲仙撫2縲第慣謚礼紫ﾏーﾎｩ繝ｻm]・檎峩蠕Д[mm]・碁聞縺畢[m]縺ｮ蟆守ｷ壹・髮ｻ豌玲慣謚夕ﾎｩ]繧定｡ｨ縺吝ｼ上・縲・,
+    choices: ['繧､・・ﾏ´/(ﾏDﾂｲ)ﾃ・0竅ｶ', '繝ｭ・煮´ﾂｲ/(ﾏDﾂｲ)ﾃ・0竅ｶ', '繝擾ｼ・ﾏ´/(ﾏD)ﾃ・0竅ｶ', '繝具ｼ・ﾏ´ﾂｲ/(ﾏD)ﾃ・0竅ｶ'],
+    answer: 0,
+    explanation: '謚ｵ謚・R = ﾏ´/A・梧妙髱｢遨・A = ﾏ(D/2)ﾂｲ縲・縺ｯmm縺ｪ縺ｮ縺ｧm縺ｸ螟画鋤・咼[m] = Dﾃ・0竅ｻﾂｳ<div class="formula">A = ﾏ(Dﾃ・0竅ｻﾂｳ)ﾂｲ/4<br>R = ﾏ´ ﾃｷ (ﾏDﾂｲﾃ・0竅ｻ竅ｶ/4) = 4ﾏ´ﾃ・0竅ｶ/(ﾏDﾂｲ)</div>豁｣隗｣・・strong>繧､. 4ﾏ´/(ﾏDﾂｲ)ﾃ・0竅ｶ</strong>'
+  },
+  {
+    id: 3, label: '荳闊ｬ蝠城｡・,
+    q: '縲仙撫3縲鷹崕邱壹・謗･邯壻ｸ崎憶縺ｫ繧医ｊ・梧磁邯夂せ縺ｮ謗･隗ｦ謚ｵ謚励′0.2ﾎｩ縺ｨ縺ｪ縺｣縺溘ゅ％縺ｮ髮ｻ邱壹↓10A縺ｮ髮ｻ豬√′豬√ｌ繧九→・梧磁邯夂せ縺九ｉ1譎る俣縺ｫ逋ｺ逕溘☆繧狗・驥充kJ]縺ｯ縲ゅ◆縺縺暦ｼ梧磁隗ｦ謚ｵ謚励・蛟､縺ｯ螟牙喧縺励↑縺・ｂ縺ｮ縺ｨ縺吶ｋ縲・,
+    choices: ['繧､・・2', '繝ｭ・・44', '繝擾ｼ・88', '繝具ｼ・76'],
+    answer: 0,
+    explanation: '繧ｸ繝･繝ｼ繝ｫ辭ｱ Q = IﾂｲRt・・縺ｯ遘抵ｼ・div class="formula">Q = 10ﾂｲ ﾃ・0.2 ﾃ・3600 = 100 ﾃ・0.2 ﾃ・3600 = 72,000J = 72kJ</div>豁｣隗｣・・strong>繧､. 72kJ</strong>'
+  },
+  {
+    id: 4, label: '荳闊ｬ蝠城｡・,
+    q: '縲仙撫4縲大峙縺ｮ繧医≧縺ｪ謚ｵ謚励→繝ｪ繧｢繧ｯ繧ｿ繝ｳ繧ｹ縺ｨ縺檎峩蛻励↓謗･邯壹＆繧後◆蝗櫁ｷｯ縺ｮ豸郁ｲｻ髮ｻ蜉媼W]縺ｯ縲・,
+    pdf: true,
+    choices: ['繧､・・00', '繝ｭ・・00', '繝擾ｼ・000', '繝具ｼ・250'],
+    answer: 1,
+    explanation: '100V髮ｻ貅撰ｼ梧慣謚・ﾎｩ・後Μ繧｢繧ｯ繧ｿ繝ｳ繧ｹ6ﾎｩ縺ｮR-L逶ｴ蛻怜屓霍ｯ縲・div class="formula">繧､繝ｳ繝斐・繝繝ｳ繧ｹ Z = 竏・8ﾂｲ+6ﾂｲ) = 竏・00 = 10ﾎｩ<br>髮ｻ豬・I = 100ﾃｷ10 = 10A<br>豸郁ｲｻ髮ｻ蜉・P = Iﾂｲﾃ由 = 10ﾂｲﾃ・ = 800W</div>豁｣隗｣・・strong>繝ｭ. 800W</strong>'
+  },
+  {
+    id: 5, label: '荳闊ｬ蝠城｡・,
+    q: '縲仙撫5縲大峙縺ｮ繧医≧縺ｪ荳臥嶌雋闕ｷ縺ｫ荳臥嶌莠､豬・崕蝨ｧ繧貞刈縺医◆縺ｨ縺搾ｼ悟推邱壹↓20A縺ｮ髮ｻ豬√′豬√ｌ縺溘らｷ夐俣髮ｻ蝨ｧE[V]縺ｯ縲・,
+    pdf: true,
+    choices: ['繧､・・20', '繝ｭ・・73', '繝擾ｼ・08', '繝具ｼ・40'],
+    answer: 2,
+    explanation: 'Y邨千ｷ夲ｼ域弌蠖｢・峨〒蜷・嶌縺ｮ謚ｵ謚励′6ﾎｩ・檎ｷ夐崕豬・ｼ・逶ｸ髮ｻ豬・ｼ峨′20A縲・div class="formula">逶ｸ髮ｻ蝨ｧ = 20 ﾃ・6 = 120V<br>邱夐俣髮ｻ蝨ｧ E = 竏・ ﾃ・120 竕・1.73 ﾃ・120 = 207.8 竕・208V</div>豁｣隗｣・・strong>繝・ 208V</strong>'
+  },
+  {
+    id: 6, label: '荳闊ｬ蝠城｡・,
+    q: '縲仙撫6縲大峙縺ｮ繧医≧縺ｪ荳臥嶌3邱壼ｼ丞屓霍ｯ縺ｧ・碁崕邱・邱壼ｽ薙◆繧翫・謚ｵ謚怜､縺・.15ﾎｩ・檎ｷ夐崕豬√′10A縺ｮ縺ｨ縺搾ｼ後％縺ｮ驟咲ｷ壹・髮ｻ蜉帶錐螟ｱ[W]縺ｯ縲・,
+    pdf: true,
+    choices: ['繧､・・.6', '繝ｭ・・5', '繝擾ｼ・6', '繝具ｼ・5'],
+    answer: 3,
+    explanation: '荳臥嶌3邱壼ｼ上↑縺ｮ縺ｧ3譛ｬ縺ｮ髮ｻ邱壹〒髮ｻ蜉帶錐螟ｱ縺檎匱逕溘☆繧九・div class="formula">髮ｻ蜉帶錐螟ｱ = 3 ﾃ・Iﾂｲ ﾃ・R = 3 ﾃ・10ﾂｲ ﾃ・0.15 = 45W</div>豁｣隗｣・・strong>繝・ 45W</strong>'
+  },
+  {
+    id: 7, label: '荳闊ｬ蝠城｡・,
+    q: '縲仙撫7縲大峙縺ｮ繧医≧縺ｪ蜊倡嶌3邱壼ｼ丞屓霍ｯ・磯崕貅宣崕蝨ｧ210/105V・峨↓縺翫＞縺ｦ・梧慣謚苓ｲ闕ｷA 20ﾎｩ・沓 10ﾎｩ繧剃ｽｿ逕ｨ荳ｭ縺ｫ・悟峙荳ｭ縺ｮﾃ怜魂轤ｹP縺ｧ荳ｭ諤ｧ邱壹′譁ｭ邱壹＠縺溘よ妙邱壼ｾ後・謚ｵ謚苓ｲ闕ｷA縺ｫ蜉繧上ｋ髮ｻ蝨ｧ[V]縺ｯ縲ゅ◆縺縺暦ｼ梧妙邱壹↓繧医▲縺ｦ雋闕ｷ縺ｮ謚ｵ謚怜､縺ｯ螟牙喧縺帙★・後←縺ｮ驟咲ｷ夂畑驕ｮ譁ｭ蝎ｨ繧ょ虚菴懊＠縺ｪ縺九▲縺溘ｂ縺ｮ縺ｨ縺吶ｋ縲・,
+    pdf: true,
+    choices: ['繧､・・0', '繝ｭ・・05', '繝擾ｼ・40', '繝具ｼ・10'],
+    answer: 2,
+    explanation: '荳ｭ諤ｧ邱壽妙邱壼ｾ鯉ｼ窟・・0ﾎｩ・峨→B・・0ﾎｩ・峨′210V縺ｫ逶ｴ蛻玲磁邯壹＆繧後ｋ縲・div class="formula">蜈ｨ謚ｵ謚・= 20 + 10 = 30ﾎｩ<br>髮ｻ豬・= 210ﾃｷ30 = 7A<br>A縺ｮ髮ｻ蝨ｧ = 7 ﾃ・20 = 140V</div>豁｣隗｣・・strong>繝・ 140V</strong>'
+  },
+  {
+    id: 8, label: '荳闊ｬ蝠城｡・,
+    q: '縲仙撫8縲鷹≡螻樒ｮ｡縺ｫ繧医ｋ菴主悸螻句・驟咲ｷ壼ｷ･莠九〒・檎ｮ｡蜀・↓譁ｭ髱｢遨・.5mmﾂｲ縺ｮ600V繝薙ル繝ｫ邨ｶ邵・崕邱夲ｼ郁ｻ滄喝邱夲ｼ・譛ｬ繧貞庶繧√※譁ｽ險ｭ縺励◆蝣ｴ蜷茨ｼ碁崕邱・譛ｬ蠖薙◆繧翫・險ｱ螳ｹ髮ｻ豬ーA]縺ｯ縲ゅ◆縺縺暦ｼ悟捉蝗ｲ貂ｩ蠎ｦ縺ｯ30邃・ｻ･荳具ｼ碁崕豬∵ｸ帛ｰ台ｿよ焚縺ｯ0.63縺ｨ縺吶ｋ縲・,
+    choices: ['繧､・・9', '繝ｭ・・3', '繝擾ｼ・1', '繝具ｼ・9'],
+    answer: 1,
+    explanation: '3.5mmﾂｲ霆滄喝邱壹・蝓ｺ譛ｬ險ｱ螳ｹ髮ｻ豬√・37A縲・譛ｬ蜿主ｮｹ縺ｮ髮ｻ豬∵ｸ帛ｰ台ｿよ焚0.63繧剃ｹ励§繧九・div class="formula">險ｱ螳ｹ髮ｻ豬・= 37 ﾃ・0.63 竕・23.3A 竊・23A</div>豁｣隗｣・・strong>繝ｭ. 23A</strong>'
+  },
+  {
+    id: 9, label: '荳闊ｬ蝠城｡・,
+    q: '縲仙撫9縲大峙縺ｮ繧医≧縺ｫ螳壽ｼ髮ｻ豬・0A縺ｮ驟咲ｷ夂畑驕ｮ譁ｭ蝎ｨ縺ｧ菫晁ｭｷ縺輔ｌ縺滉ｽ主悸螻句・蟷ｹ邱壹°繧鰻VR繧ｱ繝ｼ繝悶Ν螟ｪ縺・mmﾂｲ・郁ｨｱ螳ｹ髮ｻ豬・2A・峨〒菴主悸螻句・髮ｻ霍ｯ繧貞・蟯舌☆繧句ｴ蜷茨ｼ径-b髢薙・髟ｷ縺輔・譛螟ｧ蛟､[m]縺ｯ縲ゅ◆縺縺暦ｼ御ｽ主悸螻句・蟷ｹ邱壹↓謗･邯壹＆繧後ｋ雋闕ｷ縺ｯ・碁崕轣ｯ雋闕ｷ縺ｨ縺吶ｋ縲・,
+    pdf: true,
+    choices: ['繧､・・', '繝ｭ・・', '繝擾ｼ・', '繝具ｼ主宛髯舌↑縺・],
+    answer: 3,
+    explanation: '蛻・ｲ宣崕邱壹・險ｱ螳ｹ髮ｻ豬・ｼ・2A・峨′蟷ｹ邱壹・驕朱崕豬・・譁ｭ蝎ｨ螳壽ｼ・・0A・峨・55%莉･荳翫°遒ｺ隱阪☆繧九・div class="formula">42 ﾃｷ 50 = 0.84 = 84% 竕･ 55% 笨・/div>縺薙・譚｡莉ｶ繧呈ｺ縺溘☆蝣ｴ蜷茨ｼ径-b髢薙・霍晞屬縺ｫ蛻ｶ髯舌・縺ｪ縺・・br>豁｣隗｣・・strong>繝・ 蛻ｶ髯舌↑縺・/strong>'
+  },
+  {
+    id: 10, label: '荳闊ｬ蝠城｡・,
+    q: '縲仙撫10縲台ｽ主悸螻句・驟咲ｷ壹・蛻・ｲ仙屓霍ｯ縺ｮ險ｭ險医〒・碁・邱夂畑驕ｮ譁ｭ蝎ｨ縺ｮ螳壽ｼ髮ｻ豬√→繧ｳ繝ｳ繧ｻ繝ｳ繝医・邨・粋縺帙→縺励※・御ｸ埼←蛻・↑繧ゅ・縺ｯ縲・,
+    pdf: true,
+    choices: ['繧､・・, '繝ｭ・・, '繝擾ｼ・, '繝具ｼ・],
+    answer: 1,
+    explanation: '繝ｭ・・0A縺ｮ驟咲ｷ夂畑驕ｮ譁ｭ蝎ｨ縺ｫ15A繧ｳ繝ｳ繧ｻ繝ｳ繝医ｒ謗･邯壹☆繧九・縺ｯ荳埼←蛻・・0A繧定ｶ・∴繧句・蟯仙屓霍ｯ縺ｫ縺ｯ・・0A莉･荳翫・繧ｳ繝ｳ繧ｻ繝ｳ繝医ｒ菴ｿ逕ｨ縺励↑縺代ｌ縺ｰ縺ｪ繧峨↑縺・・0A蝗櫁ｷｯ縺ｫ15A繧ｳ繝ｳ繧ｻ繝ｳ繝医〒縺ｯ驕朱崕豬∽ｿ晁ｭｷ縺梧ｩ溯・縺励↑縺・・br>豁｣隗｣・・strong>繝ｭ</strong>'
+  },
+  {
+    id: 11, label: '荳闊ｬ蝠城｡・,
+    q: '縲仙撫11縲代・繝ｫ繝懊ャ繧ｯ繧ｹ縺ｮ荳ｻ縺ｪ菴ｿ逕ｨ逶ｮ逧・・縲・,
+    choices: [
+      '繧､・主､壽焚縺ｮ驥大ｱ樒ｮ｡縺碁寔蜷医☆繧句ｴ謇遲峨〒・碁崕邱壹・蠑輔″蜈･繧後ｒ螳ｹ譏薙↓縺吶ｋ縺溘ａ縺ｫ逕ｨ縺・ｋ縲・,
+      '繝ｭ・主､壽焚縺ｮ髢矩哩蝎ｨ鬘槭ｒ髮・粋縺励※險ｭ鄂ｮ縺吶ｋ縺溘ａ縺ｫ逕ｨ縺・ｋ縲・,
+      '繝擾ｼ主沂霎ｼ縺ｿ縺ｮ驥大ｱ樒ｮ｡蟾･莠九〒・後せ繧､繝・メ繧・さ繝ｳ繧ｻ繝ｳ繝医ｒ蜿悶ｊ莉倥￠繧九◆繧√↓逕ｨ縺・ｋ縲・,
+      '繝具ｼ主､ｩ莠輔↓豈碑ｼ・噪驥阪＞辣ｧ譏主勣蜈ｷ繧貞叙繧贋ｻ倥￠繧九◆繧√↓逕ｨ縺・ｋ縲・
+    ],
+    answer: 0,
+    explanation: '繝励Ν繝懊ャ繧ｯ繧ｹ縺ｯ螟壽焚縺ｮ髮ｻ邱夂ｮ｡縺碁寔蜷医☆繧句ｴ謇縺ｫ險ｭ縺代ｉ繧鯉ｼ碁崕邱壹・蠑輔″霎ｼ縺ｿ繝ｻ蛻・ｲ舌・謗･邯壹ｒ螳ｹ譏薙↓縺吶ｋ驥大ｱ櫁｣ｽ繝懊ャ繧ｯ繧ｹ縺ｧ縺ゅｋ縲ゅΟ・壼・髮ｻ逶､縺ｮ蠖ｹ蜑ｲ縲ゅワ・壹せ繧､繝・メ繝懊ャ繧ｯ繧ｹ縺ｮ蠖ｹ蜑ｲ縲ゅル・壹ヵ繧｣繧ｯ繧ｹ繝√Η繧｢繧ｹ繧ｿ繝・ラ縺ｮ蠖ｹ蜑ｲ縲・br>豁｣隗｣・・strong>繧､</strong>'
+  },
+  {
+    id: 12, label: '荳闊ｬ蝠城｡・,
+    q: '縲仙撫12縲・00V繝昴Μ繧ｨ繝√Ξ繝ｳ邨ｶ邵∬千㏍諤ｧ繝昴Μ繧ｨ繝√Ξ繝ｳ繧ｷ繝ｼ繧ｹ繧ｱ繝ｼ繝悶Ν縺ｮ迚ｹ蠕ｴ縺ｨ縺励※・瑚ｪ､縺｣縺ｦ縺・ｋ繧ゅ・縺ｯ縲・,
+    choices: [
+      '繧､・主・蛻･縺悟ｮｹ譏薙〒繝ｪ繧ｵ繧､繧ｯ繝ｫ諤ｧ縺後ｈ縺・・,
+      '繝ｭ・守㏍辟ｼ譎ゅ↓譛画ｯ偵↑繝上Ο繧ｲ繝ｳ邉ｻ繧ｬ繧ｹ縺檎匱逕溘☆繧九・,
+      '繝擾ｼ弱ン繝九Ν邨ｶ邵√ン繝九Ν繧ｷ繝ｼ繧ｹ繧ｱ繝ｼ繝悶Ν縺ｨ豈斐∋邨ｶ邵∫黄縺ｮ譛鬮倩ｨｱ螳ｹ貂ｩ蠎ｦ縺碁ｫ倥＞縲・,
+      '繝具ｼ朱屮辯・ｧ縺後≠繧九・
+    ],
+    answer: 1,
+    explanation: '繝昴Μ繧ｨ繝√Ξ繝ｳ邉ｻ繧ｨ繧ｳ繧ｱ繝ｼ繝悶Ν縺ｯ繝上Ο繧ｲ繝ｳ繝輔Μ繝ｼ邏譚舌ｒ菴ｿ逕ｨ縺励※縺・ｋ縺溘ａ・檎㏍辟ｼ譎ゅ↓繝上Ο繧ｲ繝ｳ邉ｻ譛画ｯ偵ぎ繧ｹ繧堤匱逕溘＠縺ｪ縺・７VF繧ｱ繝ｼ繝悶Ν・・VC・峨→縺ｮ螟ｧ縺阪↑驕輔＞縺ｧ縺ゅｊ・後Ο縺ｮ險倩ｿｰ縺ｯ隱､繧翫・br>豁｣隗｣・・strong>繝ｭ</strong>'
+  },
+  {
+    id: 13, label: '荳闊ｬ蝠城｡・,
+    q: '縲仙撫13縲代ヮ繝・け繧｢繧ｦ繝医ヱ繝ｳ繝√Ε縺ｮ逕ｨ騾斐〒・碁←蛻・↑繧ゅ・縺ｯ縲・,
+    choices: [
+      '繧､・朱≡螻櫁｣ｽ繧ｭ繝｣繝薙ロ繝・ヨ縺ｫ遨ｴ繧帝幕縺代ｋ縺ｮ縺ｫ逕ｨ縺・ｋ縲・,
+      '繝ｭ・主､ｪ縺・崕邱壹ｒ莉ｻ諢上↑蠖｢迥ｶ縺ｫ譖ｲ縺偵ｋ蝣ｴ蜷医↓逕ｨ縺・ｋ縲・,
+      '繝擾ｼ弱さ繝ｳ繧ｯ繝ｪ繝ｼ繝亥｣√↓遨ｴ繧帝幕縺代ｋ縺ｮ縺ｫ逕ｨ縺・ｋ縲・,
+      '繝具ｼ主､ｧ蠕・崕邱夂ｮ｡繧呈峇縺偵ｋ縺ｮ縺ｫ逕ｨ縺・ｋ縲・
+    ],
+    answer: 0,
+    explanation: '繝弱ャ繧ｯ繧｢繧ｦ繝医ヱ繝ｳ繝√Ε縺ｯ・悟・髮ｻ逶､繝ｻ驟埼崕逶､繝ｻ繧ｳ繝ｳ繝医Ο繝ｼ繝ｫ繝懊ャ繧ｯ繧ｹ縺ｪ縺ｩ縺ｮ驥大ｱ櫁｣ｽ繧ｭ繝｣繝薙ロ繝・ヨ繧・≡螻樊攸縺ｫ・碁崕邱夂ｮ｡繧帝壹☆縺溘ａ縺ｮ荳ｸ遨ｴ繧呈遠縺｡謚懊＞縺ｦ髢九￠繧九◆繧√・蟾･蜈ｷ縺ｧ縺ゅｋ縲・br>豁｣隗｣・・strong>繧､</strong>'
+  },
+  {
+    id: 14, label: '荳闊ｬ蝠城｡・,
+    q: '縲仙撫14縲台ｸ臥嶌隱伜ｰ朱崕蜍墓ｩ溘′蜻ｨ豕｢謨ｰ50Hz縺ｮ髮ｻ貅舌〒辟｡雋闕ｷ驕玖ｻ｢縺輔ｌ縺ｦ縺・ｋ縲ゅ％縺ｮ髮ｻ蜍墓ｩ溘ｒ蜻ｨ豕｢謨ｰ60Hz縺ｮ髮ｻ貅舌〒辟｡雋闕ｷ驕玖ｻ｢縺励◆蝣ｴ蜷医・蝗櫁ｻ｢縺ｮ迥ｶ諷九・縲・,
+    choices: [
+      '繧､・主屓霆｢騾溷ｺｦ縺ｯ螟牙喧縺励↑縺・・,
+      '繝ｭ・主屓霆｢縺励↑縺・・,
+      '繝擾ｼ主屓霆｢騾溷ｺｦ縺梧ｸ帛ｰ代☆繧九・,
+      '繝具ｼ主屓霆｢騾溷ｺｦ縺悟｢怜刈縺吶ｋ縲・
+    ],
+    answer: 3,
+    explanation: '荳臥嶌隱伜ｰ朱崕蜍墓ｩ溘・蜷梧悄蝗櫁ｻ｢騾溷ｺｦ N = 120f/P・・縺ｯ蜻ｨ豕｢謨ｰ・訓縺ｯ讌ｵ謨ｰ・峨・div class="formula">50Hz 竊・60Hz縺ｫ荳翫′繧九→f縺悟｢怜刈縺吶ｋ縺溘ａN繧ょ｢怜刈縺吶ｋ</div>豁｣隗｣・・strong>繝・ 蝗櫁ｻ｢騾溷ｺｦ縺悟｢怜刈縺吶ｋ</strong>'
+  },
+  {
+    id: 15, label: '荳闊ｬ蝠城｡・,
+    q: '縲仙撫15縲第ｼ城崕驕ｮ譁ｭ蝎ｨ縺ｫ髢｢縺吶ｋ險倩ｿｰ縺ｨ縺励※・瑚ｪ､縺｣縺ｦ縺・ｋ繧ゅ・縺ｯ縲・,
+    choices: [
+      '繧､・朱ｫ倬溷ｽ｢貍城崕驕ｮ譁ｭ蝎ｨ縺ｯ・悟ｮ壽ｼ諢溷ｺｦ髮ｻ豬√↓縺翫￠繧句虚菴懈凾髢薙′0.1遘剃ｻ･蜀・〒縺ゅｋ縲・,
+      '繝ｭ・取ｼ城崕驕ｮ譁ｭ蝎ｨ縺ｫ縺ｯ・梧ｼ城崕髮ｻ豬√ｒ讓｡謫ｬ縺励◆繝・せ繝郁｣・ｽｮ縺後≠繧九・,
+      '繝擾ｼ取ｼ城崕驕ｮ譁ｭ蝎ｨ縺ｯ・碁峺逶ｸ螟画ｵ∝勣縺ｫ繧医▲縺ｦ蝨ｰ邨｡髮ｻ豬√ｒ讀懷・縺吶ｋ縲・,
+      '繝具ｼ朱ｫ俶─蠎ｦ蠖｢貍城崕驕ｮ譁ｭ蝎ｨ縺ｯ・悟ｮ壽ｼ諢溷ｺｦ髮ｻ豬√′1000mA莉･荳九〒縺ゅｋ縲・
+    ],
+    answer: 3,
+    explanation: '鬮俶─蠎ｦ蠖｢貍城崕驕ｮ譁ｭ蝎ｨ縺ｮ螳壽ｼ諢溷ｺｦ髮ｻ豬√・30mA莉･荳具ｼ・IS隕乗ｼ・峨・000mA莉･荳九・荳ｭ諢溷ｺｦ蠖｢縺ｮ遽・峇縺ｫ逶ｸ蠖薙☆繧九◆繧・ｼ後ル縺ｮ險倩ｿｰ縺ｯ隱､繧翫・br>豁｣隗｣・・strong>繝・/strong>'
+  },
+  {
+    id: 16, label: '荳闊ｬ蝠城｡・,
+    q: '縲仙撫16縲大・逵溘↓遉ｺ縺呎攝譁吶・逕ｨ騾斐・縲・,
+    pdf: true,
+    choices: [
+      '繧､・守｡ｬ雉ｪ繝昴Μ蝪ｩ蛹悶ン繝九Ν髮ｻ邱夂ｮ｡逶ｸ莠偵ｒ謗･邯壹☆繧九・縺ｫ逕ｨ縺・ｋ縲・,
+      '繝ｭ・朱≡螻樒ｮ｡縺ｨ遑ｬ雉ｪ繝昴Μ蝪ｩ蛹悶ン繝九Ν髮ｻ邱夂ｮ｡縺ｨ繧呈磁邯壹☆繧九・縺ｫ逕ｨ縺・ｋ縲・,
+      '繝擾ｼ主粋謌先ｨｹ閼り｣ｽ蜿ｯ縺ｨ縺・崕邱夂ｮ｡逶ｸ莠偵ｒ謗･邯壹☆繧九・縺ｫ逕ｨ縺・ｋ縲・,
+      '繝具ｼ主粋謌先ｨｹ閼り｣ｽ蜿ｯ縺ｨ縺・崕邱夂ｮ｡縺ｨCD邂｡縺ｨ繧呈磁邯壹☆繧九・縺ｫ逕ｨ縺・ｋ縲・
+    ],
+    answer: 0,
+    explanation: '蜀咏悄縺ｯTS繧ｫ繝・・繝ｪ繝ｳ繧ｰ・育｡ｬ雉ｪ繝昴Μ蝪ｩ蛹悶ン繝九Ν髮ｻ邱夂ｮ｡逕ｨ繧ｽ繧ｱ繝・ヨ・峨ら｡ｬ雉ｪPVC髮ｻ邱夂ｮ｡・・E邂｡・牙酔螢ｫ繧呈磁邯壹☆繧九◆繧√・邯呎焔縺ｨ縺励※菴ｿ逕ｨ縺輔ｌ繧九・br>豁｣隗｣・・strong>繧､</strong>'
+  },
+  {
+    id: 17, label: '荳闊ｬ蝠城｡・,
+    q: '縲仙撫17縲大・逵溘↓遉ｺ縺吝勣蜈ｷ縺ｮ逕ｨ騾斐・縲・,
+    pdf: true,
+    choices: [
+      '繧､・弱Μ繝｢繧ｳ繝ｳ驟咲ｷ壹・謫堺ｽ憺崕貅仙､牙悸蝎ｨ縺ｨ縺励※逕ｨ縺・ｋ縲・,
+      '繝ｭ・弱Μ繝｢繧ｳ繝ｳ驟咲ｷ壹・繝ｪ繝ｬ繝ｼ縺ｨ縺励※逕ｨ縺・ｋ縲・,
+      '繝擾ｼ弱Μ繝｢繧ｳ繝ｳ繝ｪ繝ｬ繝ｼ謫堺ｽ懃畑縺ｮ繧ｻ繝ｬ繧ｯ繧ｿ繧ｹ繧､繝・メ縺ｨ縺励※逕ｨ縺・ｋ縲・,
+      '繝具ｼ弱Μ繝｢繧ｳ繝ｳ逕ｨ隱ｿ蜈峨せ繧､繝・メ縺ｨ縺励※逕ｨ縺・ｋ縲・
+    ],
+    answer: 1,
+    explanation: '蜀咏悄縺ｯ繝ｪ繝｢繧ｳ繝ｳ繝ｪ繝ｬ繝ｼ縲ゅΜ繝｢繧ｳ繝ｳ驟咲ｷ壹↓縺翫＞縺ｦ・後Μ繝｢繧ｳ繝ｳ繧ｹ繧､繝・メ縺九ｉ縺ｮ菴朱崕蝨ｧ菫｡蜿ｷ繧貞女縺托ｼ檎・譏主屓霍ｯ縺ｮ髮ｻ貅舌ｒ髢矩哩縺吶ｋ繝ｪ繝ｬ繝ｼ・育ｶ咎崕蝎ｨ・峨→縺励※菴ｿ逕ｨ縺輔ｌ繧九・br>豁｣隗｣・・strong>繝ｭ</strong>'
+  },
+  {
+    id: 18, label: '荳闊ｬ蝠城｡・,
+    q: '縲仙撫18縲大・逵溘↓遉ｺ縺吝ｷ･蜈ｷ縺ｮ逕ｨ騾斐・縲・,
+    pdf: true,
+    choices: [
+      '繧､・朱≡螻樒ｮ｡縺ｮ蛻・妙縺ｫ菴ｿ逕ｨ縺吶ｋ縲・,
+      '繝ｭ・弱Λ繧､繝・ぅ繝ｳ繧ｰ繝繧ｯ繝医・蛻・妙縺ｫ菴ｿ逕ｨ縺吶ｋ縲・,
+      '繝擾ｼ守｡ｬ雉ｪ繝昴Μ蝪ｩ蛹悶ン繝九Ν髮ｻ邱夂ｮ｡縺ｮ蛻・妙縺ｫ菴ｿ逕ｨ縺吶ｋ縲・,
+      '繝具ｼ朱≡螻樣矯縺ｳ縺ｮ蛻・妙縺ｫ菴ｿ逕ｨ縺吶ｋ縲・
+    ],
+    answer: 2,
+    explanation: '蜀咏悄縺ｯ蝪ｩ繝鍋ｮ｡繧ｫ繝・ち繝ｼ・医ヱ繧､繝励き繝・ち繝ｼ・峨ら｡ｬ雉ｪ繝昴Μ蝪ｩ蛹悶ン繝九Ν髮ｻ邱夂ｮ｡・・E邂｡・峨ｒ邏譌ｩ縺丞・譁ｭ縺吶ｋ縺溘ａ縺ｮ蟆ら畑蟾･蜈ｷ縲・br>豁｣隗｣・・strong>繝・/strong>'
+  },
+  {
+    id: 19, label: '荳闊ｬ蝠城｡・,
+    q: '縲仙撫19縲・00V繝薙ル繝ｫ邨ｶ邵・崕邱壹ｒ菴ｿ逕ｨ縺励◆菴主悸螻句・驟咲ｷ壼ｷ･莠九〒・檎ｵｶ邵・崕邱夂嶌莠偵・謗･邯夐Κ蛻・・邨ｶ邵∝・逅・→縺励※・御ｸ埼←蛻・↑繧ゅ・縺ｯ縲ゅ◆縺縺暦ｼ後ン繝九Ν繝・・繝励・JIS縺ｫ螳壹ａ繧句字縺慕ｴ・.2mm縺ｮ髮ｻ豌礼畑繝薙ル繝ｫ邊倡捩繝・・繝励→縺吶ｋ縲・,
+    choices: [
+      '繧､・弱Μ繝ｳ繧ｰ繧ｹ繝ｪ繝ｼ繝悶↓繧医ｊ謗･邯壹＠・梧磁邯夐Κ蛻・ｒ閾ｪ蟾ｱ陞咲捩諤ｧ邨ｶ邵√ユ繝ｼ繝暦ｼ亥字縺慕ｴ・.5mm・峨〒蜊雁ｹ・ｻ･荳企㍾縺ｭ縺ｦ1蝗橸ｼ・螻､・牙ｷｻ縺・◆縲・,
+      '繝ｭ・弱Μ繝ｳ繧ｰ繧ｹ繝ｪ繝ｼ繝悶↓繧医ｊ謗･邯壹＠・梧磁邯夐Κ蛻・ｒ鮟定牡邊倡捩諤ｧ繝昴Μ繧ｨ繝√Ξ繝ｳ邨ｶ邵√ユ繝ｼ繝暦ｼ亥字縺慕ｴ・.5mm・峨〒蜊雁ｹ・ｻ･荳企㍾縺ｭ縺ｦ1蝗橸ｼ・螻､・牙ｷｻ縺・◆縲・,
+      '繝擾ｼ弱Μ繝ｳ繧ｰ繧ｹ繝ｪ繝ｼ繝悶↓繧医ｊ謗･邯壹＠・梧磁邯夐Κ蛻・ｒ繝薙ル繝ｫ繝・・繝励〒蜊雁ｹ・ｻ･荳企㍾縺ｭ縺ｦ2蝗橸ｼ・螻､・牙ｷｻ縺・◆縲・,
+      '繝具ｼ主ｷｮ霎ｼ蠖｢繧ｳ繝阪け繧ｿ縺ｫ繧医ｊ謗･邯壹＠・梧磁邯夐Κ蛻・ｒ繝薙ル繝ｫ繝・・繝励〒蜊雁ｹ・ｻ･荳企㍾縺ｭ縺ｦ1蝗橸ｼ・螻､・牙ｷｻ縺九↑縺九▲縺溘・
+    ],
+    answer: 2,
+    explanation: '繝薙ル繝ｫ繝・・繝暦ｼ亥字縺・.2mm・峨〒邨ｶ邵∝・逅・☆繧句ｴ蜷医・・悟濠蟷・ｻ･荳企㍾縺ｭ縺ｦ3蝗樔ｻ･荳奇ｼ・螻､莉･荳奇ｼ牙ｷｻ縺丞ｿ・ｦ√′縺ゅｋ縲・蝗橸ｼ・螻､・峨〒縺ｯ隕丞ｮ壹↓驕斐＠縺ｪ縺・◆繧∽ｸ埼←蛻・り・蟾ｱ陞咲捩諤ｧ繝・・繝励ｄ蜴壹＆0.5mm莉･荳翫・邨ｶ邵√ユ繝ｼ繝励・1蝗橸ｼ・螻､・峨〒繧医＞縲ょｷｮ霎ｼ蠖｢繧ｳ繝阪け繧ｿ縺ｯ邨ｶ邵√＆繧後※縺・ｋ縺ｮ縺ｧ霑ｽ蜉縺ｮ邨ｶ邵∝・逅・・荳崎ｦ√・br>豁｣隗｣・・strong>繝・/strong>'
+  },
+  {
+    id: 20, label: '荳闊ｬ蝠城｡・,
+    q: '縲仙撫20縲台ｽｿ逕ｨ髮ｻ蝨ｧ100V縺ｮ菴主悸螻句・驟咲ｷ壼ｷ･莠九〒・御ｸ埼←蛻・↑繧ゅ・縺ｯ縲・,
+    choices: [
+      '繧､・惹ｹｾ辯･縺励◆蝣ｴ謇縺ｮ螟ｩ莠募・縺ｮ髮ｻ豌怜ｷ･莠九↓・檎ｵｶ邵∵ｧ縺ｮ縺ゅｋ騾蝟ｶ譚舌↓0.75mmﾂｲ縺ｮ繝薙ル繝ｫ繧ｳ繝ｼ繝峨ｒ菴ｿ逕ｨ縺暦ｼ・m髢馴囈縺ｧ謾ｯ謖√＠縺溘・,
+      '繝ｭ・主ｱ暮幕縺励◆蝣ｴ謇縺ｫ譁ｽ險ｭ縺吶ｋ繧ｱ繝ｼ繝悶Ν蟾･莠九〒・・遞ｮ繧ｭ繝｣繝励ち繧､繝､繧ｱ繝ｼ繝悶Ν繧帝蝟ｶ譚舌・蛛ｴ髱｢縺ｫ蜿悶ｊ莉倥￠・後％縺ｮ繧ｱ繝ｼ繝悶Ν縺ｮ謾ｯ謖∫せ髢薙・霍晞屬繧・.5m縺ｨ縺励◆縲・,
+      '繝擾ｼ主粋謌先ｨｹ閼らｮ｡蟾･莠九〒・悟粋謌先ｨｹ閼らｮ｡・亥粋謌先ｨｹ閼り｣ｽ蜿ｯ縺ｨ縺・崕邱夂ｮ｡蜿翫・CD邂｡繧帝勁縺擾ｼ峨ｒ騾蝟ｶ譚舌・蛛ｴ髱｢縺ｫ豐ｿ縺｣縺ｦ蜿悶ｊ莉倥￠・後％縺ｮ邂｡縺ｮ謾ｯ謖∫せ髢薙・霍晞屬繧・.5m縺ｨ縺励◆縲・,
+      '繝具ｼ弱Λ繧､繝・ぅ繝ｳ繧ｰ繝繧ｯ繝亥ｷ･莠九〒・碁蝟ｶ譚舌・荳矩擇縺ｫ蜿悶ｊ莉倥￠繧九ｈ縺・↓縺暦ｼ後％縺ｮ繝繧ｯ繝医・謾ｯ謖∫せ髢薙・霍晞屬繧・m縺ｨ縺励◆縲・
+    ],
+    answer: 1,
+    explanation: '2遞ｮ繧ｭ繝｣繝励ち繧､繝､繧ｱ繝ｼ繝悶Ν縺ｯ・御ｽ主悸螻句・驟咲ｷ壹・蝗ｺ螳夐・邱壼ｷ･莠具ｼ医こ繝ｼ繝悶Ν蟾･莠具ｼ峨↓菴ｿ逕ｨ縺ｧ縺阪ｋ髮ｻ邱夂ｨｮ鬘槭→縺励※隱阪ａ繧峨ｌ縺ｦ縺・↑縺・る蝟ｶ譚舌∈縺ｮ蝗ｺ螳夐・邱壹↓縺ｯ・祁VF縺ｪ縺ｩ謇螳壹・繧ｱ繝ｼ繝悶Ν繧剃ｽｿ逕ｨ縺吶ｋ蠢・ｦ√′縺ゅｋ縲・br>豁｣隗｣・・strong>繝ｭ</strong>'
+  },
+  {
+    id: 21, label: '荳闊ｬ蝠城｡・,
+    q: '縲仙撫21縲大ｺ苓・莉倥″菴丞ｮ・・螻句・縺ｫ荳臥嶌3邱壼ｼ・00V・悟ｮ壽ｼ豸郁ｲｻ髮ｻ蜉・.5kW縺ｮ繝ｫ繝ｼ繝繧ｨ繧｢繧ｳ繝ｳ繧呈命險ｭ縺励◆縲ゅ％縺ｮ繝ｫ繝ｼ繝繧ｨ繧｢繧ｳ繝ｳ縺ｫ髮ｻ豌励ｒ萓帷ｵｦ縺吶ｋ縺溘ａ縺ｮ螻句・驟咲ｷ壼ｷ･莠区婿豕輔→縺励※・碁←蛻・↑繧ゅ・縺ｯ縲ゅ◆縺縺暦ｼ碁・邱壹・謗･隗ｦ髦ｲ隴ｷ謗ｪ鄂ｮ繧定ｦ√＠・後Ν繝ｼ繝繧ｨ繧｢繧ｳ繝ｳ蟆ら畑縺ｮ繧ｳ繝ｳ繧ｻ繝ｳ繝医↓謗･邯壹☆繧九ｂ縺ｮ縺ｨ縺暦ｼ後お繧｢繧ｳ繝ｳ螟夜Κ縺九ｉ莠ｺ縺瑚ｧｦ繧後ｋ縺翫◎繧後・縺ゅｋ驛ｨ蛻・・邨ｶ邵∵ｧ縺ｮ譚先侭縺ｧ隕・≧繧ゅ・縺ｨ縺吶ｋ縲・,
+    choices: [
+      '繧､・主ｰら畑縺ｮ驕朱崕豬・・譁ｭ蝎ｨ繧呈命險ｭ縺暦ｼ悟粋謌先ｨｹ閼らｮ｡蟾･莠九〒驟咲ｷ壹＠・後さ繝ｳ繧ｻ繝ｳ繝医ｒ菴ｿ逕ｨ縺励※繝ｫ繝ｼ繝繧ｨ繧｢繧ｳ繝ｳ縺ｨ謗･邯壹＠縺溘・,
+      '繝ｭ・主ｰら畑縺ｮ髮ｻ貅宣・譁ｭ蝎ｨ・郁ｲ闕ｷ蛛ｴ菫晁ｭｷ莉假ｼ峨ｒ譁ｽ險ｭ縺暦ｼ後こ繝ｼ繝悶Ν蟾･莠九〒驟咲ｷ壹＠・後Ν繝ｼ繝繧ｨ繧｢繧ｳ繝ｳ縺ｨ逶ｴ謗･謗･邯壹＠縺溘・,
+      '繝擾ｼ主ｰら畑縺ｮ驟咲ｷ夂畑驕ｮ譁ｭ蝎ｨ繧呈命險ｭ縺暦ｼ碁≡螻樒ｮ｡蟾･莠九〒驟咲ｷ壹＠・後さ繝ｳ繧ｻ繝ｳ繝医ｒ菴ｿ逕ｨ縺励※繝ｫ繝ｼ繝繧ｨ繧｢繧ｳ繝ｳ縺ｨ謗･邯壹＠縺溘・,
+      '繝具ｼ主ｰら畑縺ｮ髢矩哩蝎ｨ縺ｮ縺ｿ繧呈命險ｭ縺暦ｼ碁≡螻樒ｮ｡蟾･莠九〒驟咲ｷ壹＠・後Ν繝ｼ繝繧ｨ繧｢繧ｳ繝ｳ縺ｨ逶ｴ謗･謗･邯壹＠縺溘・
+    ],
+    answer: 1,
+    explanation: '繝具ｼ夐℃髮ｻ豬∽ｿ晁ｭｷ陬・ｽｮ縺ｪ縺励・縺溘ａ荳埼←蛻・ゅう繝ｻ繝擾ｼ壻ｸ臥嶌200V蟆ら畑繧ｳ繝ｳ繧ｻ繝ｳ繝医↓繧医ｋ謗･邯壹・迴ｾ螳溽噪縺ｧ縺ｪ縺・ゅΟ・壼ｰら畑髮ｻ貅宣・譁ｭ蝎ｨ・郁ｲ闕ｷ蛛ｴ菫晁ｭｷ莉假ｼ峨・譁ｽ險ｭ縺ｨ繧ｱ繝ｼ繝悶Ν蟾･莠九↓繧医ｋ逶ｴ謗･謗･邯壹′驕ｩ蛻・↑譁ｹ豕輔・br>豁｣隗｣・・strong>繝ｭ</strong>'
+  },
+  {
+    id: 22, label: '荳闊ｬ蝠城｡・,
+    q: '縲仙撫22縲醍音谿雁ｴ謇縺ｨ縺昴％縺ｫ譁ｽ蟾･縺吶ｋ菴主悸螻句・驟咲ｷ壼ｷ･莠九・邨・粋縺帙〒・御ｸ埼←蛻・↑繧ゅ・縺ｯ縲・,
+    choices: [
+      '繧､・弱・繝ｭ繝代Φ繧ｬ繧ｹ繧剃ｻ悶・蟆上＆縺ｪ螳ｹ蝎ｨ縺ｫ蟆丞・縺代☆繧句庄辯・ｧ繧ｬ繧ｹ縺ｮ縺ゅｋ蝣ｴ謇 竊・600V繝薙ル繝ｫ邨ｶ邵√ン繝九Ν繧ｷ繝ｼ繧ｹ繧ｱ繝ｼ繝悶Ν繧堤畑縺・◆繧ｱ繝ｼ繝悶Ν蟾･莠・,
+      '繝ｭ・主ｰ城ｺｦ邊峨ｒ蝮・ｸ縺ｫ蛻・￠繧句庄辯・ｧ邊峨§繧薙・縺ゅｋ蝣ｴ謇 竊・遑ｬ雉ｪ繝昴Μ蝪ｩ蛹悶ン繝九Ν髮ｻ邱夂ｮ｡VE28繧剃ｽｿ逕ｨ縺励◆蜷域・讓ｹ閼らｮ｡蟾･莠・,
+      '繝擾ｼ守浹豐ｹ繧定ｲｯ阡ｵ縺吶ｋ辷・匱諤ｧ縺ｮ迚ｩ縺後≠繧句ｴ謇 竊・驥大ｱ樣・邱壼ｷ･莠・,
+      '繝具ｼ手・蜍戊ｻ贋ｿｮ逅・ｷ･蝣ｴ縺ｮ蝪苓｣・ｽ懈･ｭ繧定｡後≧蜿ｯ辯・ｧ繧ｬ繧ｹ縺ｮ縺ゅｋ蝣ｴ謇 竊・蜴夐蕎髮ｻ邱夂ｮ｡繧剃ｽｿ逕ｨ縺励◆驥大ｱ樒ｮ｡蟾･莠・
+    ],
+    answer: 2,
+    explanation: '辷・匱諤ｧ縺ｮ迚ｩ縺後≠繧句ｴ謇・亥些髯ｺ蝣ｴ謇・峨〒縺ｯ・御ｸ闊ｬ縺ｮ驥大ｱ樣・邱壼ｷ･莠九・譁ｽ險ｭ縺瑚ｪ阪ａ繧峨ｌ縺ｦ縺・↑縺・る亟辷・梛縺ｮ髮ｻ豌玲ｩ溷勣繧・・邱壽婿蠑上′蠢・ｦ√・br>豁｣隗｣・・strong>繝・/strong>'
+  },
+  {
+    id: 23, label: '荳闊ｬ蝠城｡・,
+    q: '縲仙撫23縲醍｡ｬ雉ｪ繝昴Μ蝪ｩ蛹悶ン繝九Ν髮ｻ邱夂ｮ｡縺ｫ繧医ｋ蜷域・讓ｹ閼らｮ｡蟾･莠九→縺励※・御ｸ埼←蛻・↑繧ゅ・縺ｯ縲・,
+    choices: [
+      '繧､・守ｮ｡縺ｮ謾ｯ謖∫せ髢薙・霍晞屬繧・m縺ｨ縺励◆縲・,
+      '繝ｭ・守ｮ｡縺ｨ繝懊ャ繧ｯ繧ｹ縺ｨ縺ｮ謗･邯壹↓・梧磁逹蜑､繧剃ｽｿ逕ｨ縺暦ｼ檎ｮ｡縺ｮ蟾ｮ縺苓ｾｼ縺ｿ豺ｱ縺輔ｒ邂｡縺ｮ螟門ｾ・・0.9蛟阪→縺励◆縲・,
+      '繝擾ｼ取ｹｿ豌励・縺ゅｋ蝣ｴ謇縺ｫ譁ｽ險ｭ縺暦ｼ檎ｮ｡蜀・↓髦ｲ貉ｿ謗ｪ鄂ｮ繧呈命縺励◆縲・,
+      '繝具ｼ惹ｸ臥嶌200V邱夊ｷｯ縺ｮ髮ｻ蜍墓ｩ溘∈縺ｮD遞ｮ謗･蝨ｰ蟾･莠九ｒ・碁≡螻櫁｣ｽ繝懊ャ繧ｯ繧ｹ縺ｫ譁ｽ縺励◆縲・
+    ],
+    answer: 0,
+    explanation: '遑ｬ雉ｪ繝昴Μ蝪ｩ蛹悶ン繝九Ν髮ｻ邱夂ｮ｡・・E邂｡・峨・謾ｯ謖∫せ髢楢ｷ晞屬縺ｯ1.5m莉･荳九→隕丞ｮ壹＆繧後※縺・ｋ縲・m縺ｯ隕丞ｮ壹ｒ雜・∴繧九◆繧∽ｸ埼←蛻・・br>豁｣隗｣・・strong>繧､</strong>'
+  },
+  {
+    id: 24, label: '荳闊ｬ蝠城｡・,
+    q: '縲仙撫24縲代い繝翫Ο繧ｰ蠑丞屓霍ｯ險茨ｼ磯崕豎蜀・鳩・峨・蝗櫁ｷｯ謚ｵ謚玲ｸｬ螳壹↓髢｢縺吶ｋ險倩ｿｰ縺ｨ縺励※・瑚ｪ､縺｣縺ｦ縺・ｋ繧ゅ・縺ｯ縲・,
+    choices: [
+      '繧､・取ｸｬ螳壹Ξ繝ｳ繧ｸ繧丹FF縺ｫ縺励※・梧欠驥昴′髮ｻ蝨ｧ陦ｨ遉ｺ縺ｮ髮ｶ縺ｮ菴咲ｽｮ縺ｨ荳閾ｴ縺励※縺・ｋ縺狗｢ｺ隱阪☆繧九・,
+      '繝ｭ・取慣謚玲ｸｬ螳壹Ξ繝ｳ繧ｸ縺ｫ蛻・ｊ譖ｿ縺医ｋ縲り｢ｫ貂ｬ螳夂黄縺ｮ讎ら払縺梧Φ螳壹＆繧後ｋ蝣ｴ蜷医・・梧ｸｬ螳壹・邊ｾ蠎ｦ繧帝ｫ倥ａ繧九◆繧√↓驕ｩ豁｣縺ｪ繝ｬ繝ｳ繧ｸ繧帝∈縺ｶ縲・,
+      '繝擾ｼ手ｵ､縺ｨ鮟偵・貂ｬ螳夂ｫｯ蟄撰ｼ医ユ繧ｹ繝医・繝ｪ繝ｼ繝会ｼ峨ｒ遏ｭ邨｡縺暦ｼ梧欠驥昴′0ﾎｩ縺ｫ縺ｪ繧九ｈ縺・ｪｿ謨ｴ縺吶ｋ・磯峺隱ｿ謨ｴ・峨・,
+      '繝具ｼ手｢ｫ貂ｬ螳夂黄縺ｫ襍､縺ｨ鮟偵・貂ｬ螳夂ｫｯ蟄舌ｒ謗･邯壹＠・梧欠驥昴・謖・､ｺ蛟､繧定ｪｭ繧縲よｸｬ螳壹Ξ繝ｳ繧ｸ縺ｫ蛟咲紫陦ｨ遉ｺ縺後≠繧句ｴ蜷医・・瑚ｪｭ繧薙□謖・､ｺ蛟､繧貞咲紫縺ｧ荵励§繧九・
+    ],
+    answer: 3,
+    explanation: '繧｢繝翫Ο繧ｰ繝・せ繧ｿ繝ｼ縺ｧ謚ｵ謚玲ｸｬ螳壹ｒ縺吶ｋ髫幢ｼ後Ξ繝ｳ繧ｸ繧貞､峨∴繧九◆縺ｳ縺ｫ遶ｯ蟄舌ｒ遏ｭ邨｡縺励※髮ｶ隱ｿ謨ｴ繧定｡後≧蠢・ｦ√′縺ゅｋ縲ゅル縺ｮ謇矩・〒縺ｯ髮ｶ隱ｿ謨ｴ縺ｮ險倩ｿｰ縺檎怐逡･縺輔ｌ縺ｦ縺翫ｊ・後∪縺滓慣謚励Ξ繝ｳ繧ｸ縺ｮ螟画峩蠕後・蠢・★蜀榊ｺｦ髮ｶ隱ｿ謨ｴ繧定｡後ｏ縺ｪ縺・→豁｣遒ｺ縺ｪ貂ｬ螳壹′縺ｧ縺阪↑縺・・br>豁｣隗｣・・strong>繝・/strong>'
+  },
+  {
+    id: 25, label: '荳闊ｬ蝠城｡・,
+    q: '縲仙撫25縲代い繝翫Ο繧ｰ蠖｢邨ｶ邵∵慣謚苓ｨ茨ｼ磯崕豎蜀・鳩・峨ｒ逕ｨ縺・◆邨ｶ邵∵慣謚玲ｸｬ螳壹↓髢｢縺吶ｋ險倩ｿｰ縺ｨ縺励※・瑚ｪ､縺｣縺ｦ縺・ｋ繧ゅ・縺ｯ縲・,
+    choices: [
+      '繧､・守ｵｶ邵∵慣謚玲ｸｬ螳壹・蜑阪↓縺ｯ・檎ｵｶ邵∵慣謚苓ｨ医・髮ｻ豎縺梧怏蜉ｹ縺ｧ縺ゅｋ縺薙→繧堤｢ｺ隱阪☆繧九・,
+      '繝ｭ・守ｵｶ邵∵慣謚苓ｨ医・貂ｬ螳壹Ξ繝ｳ繧ｸ縺ｫ蛻・ｊ譖ｿ縺茨ｼ梧磁蝨ｰ遶ｯ蟄撰ｼ・:繧｢繝ｼ繧ｹ・峨→邱夊ｷｯ遶ｯ蟄撰ｼ・:繝ｩ繧､繝ｳ・峨〒貂ｬ螳壹☆繧九・,
+      '繝擾ｼ朱崕蟄先ｩ溷勣縺梧磁邯壹＆繧後◆蝗櫁ｷｯ縺ｮ邨ｶ邵∵慣謚励ｒ陦後≧蝣ｴ蜷医・・梧ｩ溷勣遲峨ｒ謳榊す縺輔○縺ｪ縺・←蠖薙↑螳壽ｼ髮ｻ蝨ｧ繧帝∈螳壹☆繧九・,
+      '繝具ｼ手｢ｫ貂ｬ螳壼屓霍ｯ縺ｫ髮ｻ貅宣崕蝨ｧ縺悟刈繧上▲縺ｦ縺・ｋ迥ｶ諷九〒貂ｬ螳壹☆繧九・
+    ],
+    answer: 3,
+    explanation: '邨ｶ邵∵慣謚玲ｸｬ螳壹・・悟ｿ・★髮ｻ貅舌ｒ驕ｮ譁ｭ縺励◆迥ｶ諷具ｼ亥●髮ｻ迥ｶ諷具ｼ峨〒陦後≧縲る崕貅宣崕蝨ｧ縺悟刈繧上▲縺ｦ縺・ｋ迥ｶ諷九〒縺ｮ貂ｬ螳壹・・檎ｵｶ邵∵慣謚苓ｨ医ｄ貂ｬ螳夊・′蜊ｱ髯ｺ縺ｫ縺輔ｉ縺輔ｌ繧九◆繧∬ｪ､繧翫・br>豁｣隗｣・・strong>繝・/strong>'
+  },
+  {
+    id: 26, label: '荳闊ｬ蝠城｡・,
+    q: '縲仙撫26縲大ｷ･蝣ｴ縺ｮ200V荳臥嶌隱伜ｰ朱崕蜍墓ｩ滂ｼ亥ｯｾ蝨ｰ髮ｻ蝨ｧ200V・峨∈縺ｮ驟咲ｷ壹・邨ｶ邵∵慣謚怜､[Mﾎｩ]蜿翫・縺薙・髮ｻ蜍墓ｩ溘・驩・床縺ｮ謗･蝨ｰ謚ｵ謚怜､[ﾎｩ]繧呈ｸｬ螳壹＠縺溘る崕豌苓ｨｭ蛯呎橿陦灘渕貅也ｭ峨↓驕ｩ蜷医☆繧区ｸｬ螳壼､縺ｮ邨・粋縺帙→縺励※・碁←蛻・↑繧ゅ・縺ｯ縲ゅ◆縺縺暦ｼ・00V髮ｻ霍ｯ縺ｫ譁ｽ險ｭ縺輔ｌ縺滓ｼ城崕驕ｮ譁ｭ蝎ｨ縺ｮ蜍穂ｽ懈凾髢薙・0.1遘偵→縺吶ｋ縲・,
+    choices: ['繧､・・.2Mﾎｩ繝ｻ300ﾎｩ', '繝ｭ・・.4Mﾎｩ繝ｻ600ﾎｩ', '繝擾ｼ・.1Mﾎｩ繝ｻ200ﾎｩ', '繝具ｼ・.1Mﾎｩ繝ｻ50ﾎｩ'],
+    answer: 0,
+    explanation: '蟇ｾ蝨ｰ髮ｻ蝨ｧ200V・・00V莉･荳具ｼ峨・髮ｻ霍ｯ・夂ｵｶ邵∵慣謚・.2Mﾎｩ莉･荳翫・遞ｮ謗･蝨ｰ・壽ｼ城崕驕ｮ譁ｭ蝎ｨ・・.1s莉･蜀・ｼ芽ｨｭ鄂ｮ縺ｮ蝣ｴ蜷・00ﾎｩ莉･荳九・div class="formula">繧､・・.2Mﾎｩ・・K・・ 300ﾎｩ・・00ﾎｩ莉･荳軌K・俄・ 驕ｩ蜷・br>繝ｭ・・.4Mﾎｩ・・K・・ 600ﾎｩ・・00ﾎｩ雜・G・・br>繝上・繝具ｼ・.1Mﾎｩ・・.2Mﾎｩ譛ｪ貅NG・・/div>豁｣隗｣・・strong>繧､</strong>'
+  },
+  {
+    id: 27, label: '荳闊ｬ蝠城｡・,
+    q: '縲仙撫27縲代け繝ｩ繝ｳ繝怜ｽ｢髮ｻ豬∬ｨ医↓髢｢縺吶ｋ險倩ｿｰ縺ｨ縺励※・瑚ｪ､縺｣縺ｦ縺・ｋ繧ゅ・縺ｯ縲・,
+    choices: [
+      '繧､・弱け繝ｩ繝ｳ繝怜ｽ｢髮ｻ豬∬ｨ医ｒ菴ｿ逕ｨ縺吶ｋ縺ｨ騾夐崕迥ｶ諷九・縺ｾ縺ｾ髮ｻ豬√ｒ貂ｬ螳壹〒縺阪ｋ縲・,
+      '繝ｭ・弱け繝ｩ繝ｳ繝怜ｽ｢髮ｻ豬∬ｨ医・莠､豬∝ｰら畑縺ｮ繧ゅ・縺ｧ縺ゅｊ・檎峩豬√ｒ貂ｬ螳壹〒縺阪ｋ繧ゅ・縺ｯ縺ｪ縺・・,
+      '繝擾ｼ弱け繝ｩ繝ｳ繝鈴Κ縺ｮ蠖｢繧・､ｧ縺阪＆縺ｫ繧医ｊ・梧ｸｬ螳壹〒縺阪ｋ髮ｻ邱壹・螟ｧ縺阪＆繧・怙螟ｧ髮ｻ豬√↓蛻ｶ髯舌′縺ゅｋ縲・,
+      '繝具ｼ弱け繝ｩ繝ｳ繝怜ｽ｢髮ｻ豬∬ｨ医↓縺ｯ繧｢繝翫Ο繧ｰ蠑上→繝・ず繧ｿ繝ｫ蠑上′縺ゅｋ縲・
+    ],
+    answer: 1,
+    explanation: '繝ｭ縺瑚ｪ､繧翫ゅけ繝ｩ繝ｳ繝怜ｽ｢髮ｻ豬∬ｨ医↓縺ｯ繝帙・繝ｫ邏蟄舌ｒ菴ｿ逕ｨ縺励◆逶ｴ豬√ｂ貂ｬ螳壹〒縺阪ｋDC蟇ｾ蠢懊・繧ゅ・縺後≠繧奇ｼ後御ｺ､豬∝ｰら畑縺励°縺ｪ縺・阪→縺・≧險倩ｿｰ縺ｯ隱､繧翫・br>豁｣隗｣・・strong>繝ｭ</strong>'
+  },
+  {
+    id: 28, label: '荳闊ｬ蝠城｡・,
+    q: '縲仙撫28縲代碁崕豌怜ｷ･莠句｣ｫ豕輔阪↓縺翫＞縺ｦ・御ｸ闊ｬ逕ｨ髮ｻ豌怜ｷ･菴懃黄縺ｮ蟾･莠句処縺ｯ菴懈･ｭ縺ｧ髮ｻ豌怜ｷ･莠句｣ｫ縺ｧ縺ｪ縺代ｌ縺ｰ蠕謎ｺ九〒縺阪↑縺・ｂ縺ｮ縺ｯ縲・,
+    choices: [
+      '繧､・朱崕蝨ｧ600V莉･荳九〒菴ｿ逕ｨ縺吶ｋ髮ｻ蜍墓ｩ溘・遶ｯ蟄舌↓繧ｭ繝｣繝励ち繧､繝､繧ｱ繝ｼ繝悶Ν繧偵・縺俶ｭ｢繧√☆繧九・,
+      '繝ｭ・守↓轣ｽ諢溽衍蝎ｨ縺ｫ菴ｿ逕ｨ縺吶ｋ蟆丞梛螟牙悸蝎ｨ・井ｺ梧ｬ｡髮ｻ蝨ｧ縺・6V莉･荳具ｼ我ｺ梧ｬ｡蛛ｴ縺ｮ驟咲ｷ壹ｒ譁ｽ縺吶・,
+      '繝擾ｼ朱崕邱壹ｒ謾ｯ謖√☆繧区浤繧定ｨｭ鄂ｮ縺吶ｋ縲・,
+      '繝具ｼ朱・髮ｻ逶､繧帝蝟ｶ譚舌↓蜿悶ｊ莉倥￠繧九・
+    ],
+    answer: 3,
+    explanation: '驟埼崕逶､繧帝蝟ｶ譚舌↓蜿悶ｊ莉倥￠繧句ｷ･莠九・髮ｻ豌怜ｷ･莠句｣ｫ縺瑚｡後ｏ縺ｪ縺代ｌ縺ｰ縺ｪ繧峨↑縺・ｷ･莠九↓隧ｲ蠖薙☆繧九ゅう繝ｻ繝ｭ繝ｻ繝上・髮ｻ豌怜ｷ･莠句｣ｫ豕墓命陦御ｻ､縺ｧ螳壹ａ繧玖ｻｽ蠕ｮ縺ｪ蟾･莠九・霆ｽ蠕ｮ縺ｪ菴懈･ｭ縺ｨ縺励※・碁崕豌怜ｷ･莠句｣ｫ縺ｮ雉・ｼ縺後↑縺上※繧り｡後∴繧九・br>豁｣隗｣・・strong>繝・/strong>'
+  },
+  {
+    id: 29, label: '荳闊ｬ蝠城｡・,
+    q: '縲仙撫29縲代碁崕豌礼畑蜩∝ｮ牙・豕輔阪↓縺翫￠繧矩崕豌礼畑蜩√↓髢｢縺吶ｋ險倩ｿｰ縺ｨ縺励※・瑚ｪ､縺｣縺ｦ縺・ｋ繧ゅ・縺ｯ縲・,
+    choices: [
+      '繧､・朱崕豌礼畑蜩√・陬ｽ騾蜿医・霈ｸ蜈･縺ｮ莠区･ｭ繧定｡後≧閠・・・後碁崕豌礼畑蜩∝ｮ牙・豕輔阪↓隕丞ｮ壹☆繧狗ｾｩ蜍吶ｒ螻･陦後＠縺溘→縺阪・・檎ｵ梧ｸ育肇讌ｭ逵∽ｻ､縺ｧ螳壹ａ繧区婿蠑上↓繧医ｋ陦ｨ遉ｺ繧剃ｻ倥☆繧九％縺ｨ縺後〒縺阪ｋ縲・,
+      '繝ｭ・守音螳夐崕豌礼畑蜩√↓縺ｯ・・S・右縺ｾ縺溘・PS(E)縺ｮ陦ｨ遉ｺ縺御ｻ倥＆繧後※縺・ｋ縲・,
+      '繝擾ｼ朱崕豌礼畑蜩√・雋ｩ螢ｲ縺ｮ莠区･ｭ繧定｡後≧閠・・・檎ｵ梧ｸ育肇讌ｭ螟ｧ閾｣縺ｮ謇ｿ隱阪ｒ蜿励￠縺溷ｴ蜷育ｭ峨ｒ髯､縺搾ｼ梧ｳ募粋縺ｫ螳壹ａ繧玖｡ｨ遉ｺ縺ｮ縺ｪ縺・崕豌礼畑蜩√ｒ雋ｩ螢ｲ縺励※縺ｯ縺ｪ繧峨↑縺・・,
+      '繝具ｼ朱崕豌怜ｷ･莠句｣ｫ縺ｯ・後碁崕豌礼畑蜩∝ｮ牙・豕輔阪↓隕丞ｮ壹☆繧玖｡ｨ遉ｺ縺御ｻ倥＆繧後※縺・↑縺・崕豌礼畑蜩√ｒ髮ｻ豌怜ｷ･菴懃黄縺ｮ險ｭ鄂ｮ蜿医・螟画峩縺ｮ蟾･莠九↓菴ｿ逕ｨ縺励※縺ｯ縺ｪ繧峨↑縺・・
+    ],
+    answer: 1,
+    explanation: '迚ｹ螳夐崕豌礼畑蜩√・豁｣縺励＞陦ｨ遉ｺ縺ｯ縲・PS>E縲搾ｼ亥ｱｱ蠖｢諡ｬ蠑ｧ・峨ゅΟ縺ｧ遉ｺ縺吶鯉ｼ・S・右縲搾ｼ井ｸｸ諡ｬ蠑ｧ・峨・迚ｹ螳夐崕豌礼畑蜩∽ｻ･螟悶・髮ｻ豌礼畑蜩√・陦ｨ遉ｺ縲・PS)E縲阪→蜷後§蠖｢蠑上〒縺ゅｊ・檎音螳夐崕豌礼畑蜩√・陦ｨ遉ｺ縺ｨ縺励※縺ｯ隱､繧翫・br>豁｣隗｣・・strong>繝ｭ</strong>'
+  },
+  {
+    id: 30, label: '荳闊ｬ蝠城｡・,
+    q: '縲仙撫30縲代碁崕豌苓ｨｭ蛯吶↓髢｢縺吶ｋ謚陦灘渕貅悶ｒ螳壹ａ繧狗怐莉､縲阪↓縺翫＞縺ｦ・梧ｬ｡縺ｮ遨ｺ谺・A)蜿翫・(B)縺ｮ邨・粋縺帙→縺励※・梧ｭ｣縺励＞繧ゅ・縺ｯ縲る崕蝨ｧ縺ｮ遞ｮ蛻･縺御ｽ主悸縺ｨ縺ｪ繧九・縺ｯ・碁崕豬√↓縺ゅ▲縺ｦ縺ｯ(A)・御ｺ､豬√↓縺ゅ▲縺ｦ縺ｯ(B)縺ｮ繧ゅ・縺ｧ縺ゅｋ縲・,
+    choices: [
+      '繧､・・A)600V莉･荳・ (B)650V莉･荳・,
+      '繝ｭ・・A)650V莉･荳・ (B)750V莉･荳・,
+      '繝擾ｼ・A)750V莉･荳・ (B)600V莉･荳・,
+      '繝具ｼ・A)750V莉･荳・ (B)650V莉･荳・
+    ],
+    answer: 2,
+    explanation: '髮ｻ豌苓ｨｭ蛯呎橿陦灘渕貅也ｬｬ2譚｡縺ｫ繧医ｋ菴主悸縺ｮ螳夂ｾｩ・夂峩豬√・750V莉･荳具ｼ御ｺ､豬√・600V莉･荳九・br>豁｣隗｣・・strong>繝・ (A)750V莉･荳・ (B)600V莉･荳・/strong>'
+  },
+
+  // 笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武
+  //  驟咲ｷ壼峙蝠城｡鯉ｼ亥撫31縲・0・・  // 笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武
+
+  {
+    id: 31, label: '驟咲ｷ壼峙',
+    q: '縲仙撫31縲鯛蔵縺ｧ遉ｺ縺吝峙險伜捷縺ｮ蜷咲ｧｰ縺ｯ縲・,
+    isWiring: true,
+    choices: [
+      '繧､・弱ず繝ｧ繧､繝ｳ繝医・繝・け繧ｹ',
+      '繝ｭ・桟VF逕ｨ繧ｸ繝ｧ繧､繝ｳ繝医・繝・け繧ｹ',
+      '繝擾ｼ弱・繝ｫ繝懊ャ繧ｯ繧ｹ',
+      '繝具ｼ弱ず繝｣繝ｳ繧ｯ繧ｷ繝ｧ繝ｳ繝懊ャ繧ｯ繧ｹ'
+    ],
+    answer: 0,
+    explanation: '竭縺ｮ蝗ｳ險伜捷・遺雷縺ｫ邱夲ｼ峨・繧ｸ繝ｧ繧､繝ｳ繝医・繝・け繧ｹ繧堤､ｺ縺吶る崕邱壹・謗･邯壹・蛻・ｲ舌↓菴ｿ逕ｨ縺輔ｌ繧矩≡螻櫁｣ｽ縺ｾ縺溘・蜷域・讓ｹ閼り｣ｽ縺ｮ繝懊ャ繧ｯ繧ｹ縲・br>豁｣隗｣・・strong>繧､</strong>'
+  },
+  {
+    id: 32, label: '驟咲ｷ壼峙',
+    q: '縲仙撫32縲鯛贈縺ｧ遉ｺ縺咎Κ蛻・・繝ｫ繝ｼ繝繧ｨ繧｢繧ｳ繝ｳ縺ｮ螻句・繝ｦ繝九ャ繝医〒縺ゅｋ縲ゅ◎縺ｮ蝗ｳ險伜捷縺ｮ蛯崎ｨ倩｡ｨ遉ｺ縺ｨ縺励※・梧ｭ｣縺励＞繧ゅ・縺ｯ縲・,
+    isWiring: true,
+    choices: ['繧､・撮', '繝ｭ・三', '繝擾ｼ鯖', '繝具ｼ山'],
+    answer: 2,
+    explanation: '繝ｫ繝ｼ繝繧ｨ繧｢繧ｳ繝ｳ縺ｮ螻句・・亥ｮ､蜀・ｼ峨Θ繝九ャ繝医・蛯崎ｨ倩｡ｨ遉ｺ縺ｯI・・ndoor Unit縺ｮ逡･・峨０・壼ｱ句､悶Θ繝九ャ繝茨ｼ・utdoor Unit・峨・br>豁｣隗｣・・strong>繝・ I</strong>'
+  },
+  {
+    id: 33, label: '驟咲ｷ壼峙',
+    q: '縲仙撫33縲鯛造縺ｧ遉ｺ縺咎Κ蛻・・譛蟆鷹崕邱壽悽謨ｰ・亥ｿ・ｷ壽焚・峨・縲・,
+    isWiring: true,
+    choices: ['繧､・・', '繝ｭ・・', '繝擾ｼ・', '繝具ｼ・'],
+    answer: 0,
+    explanation: '竭｢縺ｮ驛ｨ蛻・・蝗櫁ｷｯ讒区・繧帝・邱壼峙縺九ｉ隱ｭ縺ｿ蜿悶ｋ縺ｨ・梧怙蟆鷹崕邱壽悽謨ｰ縺ｯ2譛ｬ縲・br>豁｣隗｣・・strong>繧､. 2譛ｬ</strong>'
+  },
+  {
+    id: 34, label: '驟咲ｷ壼峙',
+    q: '縲仙撫34縲鯛促縺ｧ遉ｺ縺吩ｽ主悸繧ｱ繝ｼ繝悶Ν縺ｮ蜷咲ｧｰ縺ｯ縲・,
+    isWiring: true,
+    choices: [
+      '繧､・主ｼ戊ｾｼ逕ｨ繝薙ル繝ｫ邨ｶ邵・崕邱・,
+      '繝ｭ・・00V繝薙ル繝ｫ邨ｶ邵√ン繝九Ν繧ｷ繝ｼ繧ｹ繧ｱ繝ｼ繝悶Ν蟷ｳ蠖｢',
+      '繝擾ｼ・00V繝薙ル繝ｫ邨ｶ邵√ン繝九Ν繧ｷ繝ｼ繧ｹ繧ｱ繝ｼ繝悶Ν荳ｸ蠖｢',
+      '繝具ｼ・00V譫ｶ讖九・繝ｪ繧ｨ繝√Ξ繝ｳ邨ｶ邵√ン繝九Ν繧ｷ繝ｼ繧ｹ繧ｱ繝ｼ繝悶Ν・亥腰蠢・譛ｬ縺ｮ繧医ｊ邱夲ｼ・
+    ],
+    answer: 3,
+    explanation: '驟咲ｷ壼峙縺ｮ竭｣縺ｯ蛯崎ｨ倥靴V縲阪→陦ｨ險倥＆繧後※縺翫ｊ・・00V譫ｶ讖九・繝ｪ繧ｨ繝√Ξ繝ｳ邨ｶ邵√ン繝九Ν繧ｷ繝ｼ繧ｹ繧ｱ繝ｼ繝悶Ν・・VT・壼腰蠢・譛ｬ繧医ｊ邱夲ｼ峨ｒ遉ｺ縺吶・br>豁｣隗｣・・strong>繝・/strong>'
+  },
+  {
+    id: 35, label: '驟咲ｷ壼峙',
+    q: '縲仙撫35縲鯛側縺ｧ遉ｺ縺咎Κ蛻・・髮ｻ霍ｯ縺ｨ螟ｧ蝨ｰ髢薙・邨ｶ邵∵慣謚励→縺励※・瑚ｨｱ螳ｹ縺輔ｌ繧区怙蟆丞､[Mﾎｩ]縺ｯ縲・,
+    isWiring: true,
+    choices: ['繧､・・.1', '繝ｭ・・.2', '繝擾ｼ・.4', '繝具ｼ・.0'],
+    answer: 1,
+    explanation: '竭､縺ｮ驛ｨ蛻・・菴ｿ逕ｨ髮ｻ蝨ｧ200V・亥ｯｾ蝨ｰ髮ｻ蝨ｧ300V莉･荳具ｼ峨・髮ｻ霍ｯ縲る崕謚隗｣驥育ｬｬ14譚｡繧医ｊ・檎ｵｶ邵∵慣謚玲怙蟆丞､縺ｯ0.2Mﾎｩ莉･荳翫・br>豁｣隗｣・・strong>繝ｭ. 0.2Mﾎｩ</strong>'
+  },
+  {
+    id: 36, label: '驟咲ｷ壼峙',
+    q: '縲仙撫36縲鯛則縺ｧ遉ｺ縺咎Κ蛻・・謗･蝨ｰ蟾･莠九・遞ｮ鬘槫所縺ｳ縺昴・謗･蝨ｰ謚ｵ謚励・險ｱ螳ｹ縺輔ｌ繧区怙螟ｧ蛟､[ﾎｩ]縺ｮ邨・粋縺帙→縺励※・梧ｭ｣縺励＞繧ゅ・縺ｯ縲・,
+    isWiring: true,
+    choices: [
+      '繧､・擦遞ｮ謗･蝨ｰ蟾･莠・ 10ﾎｩ',
+      '繝ｭ・擦遞ｮ謗･蝨ｰ蟾･莠・ 50ﾎｩ',
+      '繝擾ｼ札遞ｮ謗･蝨ｰ蟾･莠・ 100ﾎｩ',
+      '繝具ｼ札遞ｮ謗･蝨ｰ蟾･莠・ 500ﾎｩ'
+    ],
+    answer: 3,
+    explanation: '竭･縺ｯ菴主悸・・00V莉･荳具ｼ画ｩ溷勣縺ｮD遞ｮ謗･蝨ｰ蟾･莠狗ｮ・園縲ょ虚菴懈凾髢・.1遘剃ｻ･蜀・・貍城崕驕ｮ譁ｭ蝎ｨ縺梧命險ｭ縺輔ｌ縺ｦ縺・ｋ縺溘ａ・梧磁蝨ｰ謚ｵ謚励・500ﾎｩ莉･荳九〒繧医＞縲・br>豁｣隗｣・・strong>繝・ D遞ｮ謗･蝨ｰ蟾･莠・ 500ﾎｩ</strong>'
+  },
+  {
+    id: 37, label: '驟咲ｷ壼峙',
+    q: '縲仙撫37縲鯛即縺ｧ遉ｺ縺吝峙險伜捷縺ｮ蜷咲ｧｰ縺ｯ縲・,
+    isWiring: true,
+    choices: [
+      '繧､・朱・邱夂畑驕ｮ譁ｭ蝎ｨ',
+      '繝ｭ・弱き繝・ヨ繧｢繧ｦ繝医せ繧､繝・メ',
+      '繝擾ｼ弱Δ繝ｼ繧ｿ繝悶Ξ繝ｼ繧ｫ',
+      '繝具ｼ取ｼ城崕驕ｮ譁ｭ蝎ｨ・磯℃雋闕ｷ菫晁ｭｷ莉假ｼ・
+    ],
+    answer: 3,
+    explanation: '竭ｦ縺ｮ蝗ｳ險伜捷・・LB・峨・貍城崕驕ｮ譁ｭ蝎ｨ・磯℃雋闕ｷ菫晁ｭｷ莉假ｼ峨ｒ遉ｺ縺吶る・邱夂畑驕ｮ譁ｭ蝎ｨ・・CCB・峨→縺ｮ驕輔＞縺ｯ貍城崕讀懷・讖溯・縺御ｻ伜刈縺輔ｌ縺ｦ縺・ｋ轤ｹ縲・br>豁｣隗｣・・strong>繝・/strong>'
+  },
+  {
+    id: 38, label: '驟咲ｷ壼峙',
+    q: '縲仙撫38縲鯛息縺ｧ遉ｺ縺吝峙險伜捷縺ｮ蜷咲ｧｰ縺ｯ縲・,
+    isWiring: true,
+    choices: [
+      '繧､・守↓轣ｽ陦ｨ遉ｺ轣ｯ',
+      '繝ｭ・取ｼ城崕隴ｦ蝣ｱ蝎ｨ',
+      '繝擾ｼ弱Μ繝｢繧ｳ繝ｳ繧ｻ繝ｬ繧ｯ繧ｿ繧ｹ繧､繝・メ',
+      '繝具ｼ手｡ｨ遉ｺ繧ｹ繧､繝・メ'
+    ],
+    answer: 2,
+    explanation: '竭ｧ縺ｮ蝗ｳ險伜捷縺ｯ繝ｪ繝｢繧ｳ繝ｳ繧ｻ繝ｬ繧ｯ繧ｿ繧ｹ繧､繝・メ繧堤､ｺ縺吶り､・焚縺ｮ辣ｧ譏主屓霍ｯ繧帝∈謚樒噪縺ｫ蛻ｶ蠕｡縺吶ｋ縺溘ａ縺ｮ繧ｹ繧､繝・メ縲・br>豁｣隗｣・・strong>繝・/strong>'
+  },
+  {
+    id: 39, label: '驟咲ｷ壼峙',
+    q: '縲仙撫39縲鯛捉縺ｧ遉ｺ縺吝峙險伜捷縺ｮ蝎ｨ蜈ｷ縺ｮ蜿悶ｊ莉倥￠蝣ｴ謇縺ｯ縲・,
+    isWiring: true,
+    choices: ['繧､・惹ｺ碁㍾蠎企擇', '繝ｭ・主｣・擇', '繝擾ｼ主ｺ企擇', '繝具ｼ主､ｩ莠暮擇'],
+    answer: 3,
+    explanation: '竭ｨ縺ｮ蝗ｳ險伜捷・井ｸ句髄縺阪す繝ｳ繝懊Ν・峨・螟ｩ莠暮擇縺ｫ蜿悶ｊ莉倥￠繧九ム繧ｦ繝ｳ繝ｩ繧､繝茨ｼ亥沂霎ｼ辣ｧ譏主勣蜈ｷ・峨ｒ遉ｺ縺吶・br>豁｣隗｣・・strong>繝・ 螟ｩ莠暮擇</strong>'
+  },
+  {
+    id: 40, label: '驟咲ｷ壼峙',
+    q: '縲仙撫40縲鯛束縺ｧ遉ｺ縺咎・邱壼ｷ･莠九〒閠占｡晄茶諤ｧ遑ｬ雉ｪ繝昴Μ蝪ｩ蛹悶ン繝九Ν髮ｻ邱夂ｮ｡繧剃ｽｿ逕ｨ縺励◆縲ゅ◎縺ｮ蛯崎ｨ倩｡ｨ遉ｺ縺ｯ縲・,
+    isWiring: true,
+    choices: ['繧､・薩EP', '繝ｭ・皐IVE', '繝擾ｼ桟E', '繝具ｼ擦D'],
+    answer: 1,
+    explanation: '閠占｡晄茶諤ｧ遑ｬ雉ｪ繝昴Μ蝪ｩ蛹悶ン繝九Ν髮ｻ邱夂ｮ｡縺ｮ蛯崎ｨ倩｡ｨ遉ｺ縺ｯHIVE縲７E縺ｯ騾壼ｸｸ縺ｮ遑ｬ雉ｪPVC邂｡・熊EP縺ｯ豕｢莉倡｡ｬ雉ｪ蜷域・讓ｹ閼らｮ｡・靴D縺ｯCD邂｡縺ｮ蛯崎ｨ倥・br>豁｣隗｣・・strong>繝ｭ. HIVE</strong>'
+  },
+  {
+    id: 41, label: '驟咲ｷ壼峙',
+    q: '縲仙撫41縲鯛蔵縺ｧ遉ｺ縺吶・繝・け繧ｹ蜀・・謗･邯壹ｒ縺吶∋縺ｦ蝨ｧ逹謗･邯壹＠縺溷ｴ蜷医・繝ｪ繝ｳ繧ｰ繧ｹ繝ｪ繝ｼ繝悶・遞ｮ鬘橸ｼ悟区焚蜿翫・蝨ｧ逹謗･邯壼ｾ後・蛻ｻ蜊ｰ縺ｨ縺ｮ邨・粋縺帙〒・梧ｭ｣縺励＞繧ゅ・縺ｯ縲ゅ◆縺縺暦ｼ御ｽｿ逕ｨ縺吶ｋ髮ｻ邱壹・縺吶∋縺ｦVVF1.6縺ｨ縺吶ｋ縲ゅ∪縺滂ｼ悟・逵溘↓遉ｺ縺吶Μ繝ｳ繧ｰ繧ｹ繝ｪ繝ｼ繝紋ｸｭ螟ｮ縺ｮO・悟ｰ擾ｼ御ｸｭ縺ｯ蛻ｻ蜊ｰ繧定｡ｨ縺吶・,
+    pdf: true, isWiring: true,
+    choices: ['繧､・・, '繝ｭ・・, '繝擾ｼ・, '繝具ｼ・],
+    answer: 1,
+    explanation: '繝懊ャ繧ｯ繧ｹ竭縺ｫ髮・∪繧矩崕邱壹・謗･邯壹ｒ遒ｺ隱阪☆繧九７VF1.6ﾃ・譛ｬ謗･邯壹・蟆上せ繝ｪ繝ｼ繝悶・笳句綾蜊ｰ・祁VF1.6ﾃ・縲・譛ｬ謗･邯壹・蟆上せ繝ｪ繝ｼ繝悶・蟆丞綾蜊ｰ縺悟ｿ・ｦ√る・邱壼峙縺九ｉ豁｣縺励＞邨・粋縺帙・繝ｭ縲・br>豁｣隗｣・・strong>繝ｭ</strong>'
+  },
+  {
+    id: 42, label: '驟咲ｷ壼峙',
+    q: '縲仙撫42縲鯛贈縺ｧ遉ｺ縺咎Κ蛻・〒DV邱壹ｒ蠑輔″逡吶ａ繧句ｴ蜷医↓菴ｿ逕ｨ縺吶ｋ繧ゅ・縺ｯ縲・,
+    pdf: true, isWiring: true,
+    choices: ['繧､・・, '繝ｭ・・, '繝擾ｼ・, '繝具ｼ・],
+    answer: 2,
+    explanation: 'DV邱夲ｼ亥ｼ戊ｾｼ逕ｨ邨ｶ邵・崕邱夲ｼ峨ｒ蠑輔″逡吶ａ繧九↓縺ｯ蠑慕蕗遒榊ｭ撰ｼ・P遒榊ｭ撰ｼ峨ｄ髮ｻ邱壼ｼ慕蕗繧ｯ繝ｩ繝ｳ繝励ｒ菴ｿ逕ｨ縺吶ｋ縲ょ・逵溘・繝上′隧ｲ蠖灘刀縲・br>豁｣隗｣・・strong>繝・/strong>'
+  },
+  {
+    id: 43, label: '驟咲ｷ壼峙',
+    q: '縲仙撫43縲鯛造縺ｧ遉ｺ縺吶・繝・け繧ｹ蜀・・謗･邯壹ｒ縺吶∋縺ｦ蝨ｧ逹謗･邯壹→縺吶ｋ蝣ｴ蜷茨ｼ御ｽｿ逕ｨ縺吶ｋ繝ｪ繝ｳ繧ｰ繧ｹ繝ｪ繝ｼ繝悶・遞ｮ鬘槭→譛蟆大区焚縺ｮ邨・粋縺帙〒・梧ｭ｣縺励＞繧ゅ・縺ｯ縲ゅ◆縺縺暦ｼ御ｽｿ逕ｨ縺吶ｋ髮ｻ邱壹・縺吶∋縺ｦVVF1.6縺ｨ縺吶ｋ縲・,
+    pdf: true, isWiring: true,
+    choices: ['繧､・・, '繝ｭ・・, '繝擾ｼ・, '繝具ｼ・],
+    answer: 0,
+    explanation: '繝懊ャ繧ｯ繧ｹ竭｢縺ｮ謗･邯夂ｮ・園縺ｨ髮ｻ邱壽悽謨ｰ繧帝・邱壼峙縺ｧ遒ｺ隱阪☆繧九７VF1.6縺ｮ謗･邯壽悽謨ｰ縺ｫ蠢懊§縺ｦ蟆上せ繝ｪ繝ｼ繝悶ｒ驕ｸ謚槭よ怙蟆大区焚縺ｮ邨・粋縺帙・繧､縲・br>豁｣隗｣・・strong>繧､</strong>'
+  },
+  {
+    id: 44, label: '驟咲ｷ壼峙',
+    q: '縲仙撫44縲鯛促縺ｧ遉ｺ縺吝峙險伜捷縺ｮ驛ｨ蛻・↓菴ｿ逕ｨ縺輔ｌ繧区ｩ溷勣縺ｯ縲・,
+    pdf: true, isWiring: true,
+    choices: ['繧､・・, '繝ｭ・・, '繝擾ｼ・, '繝具ｼ・],
+    answer: 3,
+    explanation: '竭｣縺ｮ蝗ｳ險伜捷縺ｯ繧ｿ繧､繝繧ｹ繧､繝・メ繧堤､ｺ縺吶りｨｭ螳壹＠縺滓凾蛻ｻ縺ｫ閾ｪ蜍慕噪縺ｫON/OFF繧堤ｹｰ繧願ｿ斐☆繧ｹ繧､繝・メ縲ょ・逵溘・繝九′繧ｿ繧､繝繧ｹ繧､繝・メ縲・br>豁｣隗｣・・strong>繝・/strong>'
+  },
+  {
+    id: 45, label: '驟咲ｷ壼峙',
+    q: '縲仙撫45縲鯛側縺ｧ遉ｺ縺吝ｱ句､夜Κ蛻・・謗･蝨ｰ蟾･莠九ｒ譁ｽ縺吶→縺搾ｼ御ｸ闊ｬ逧・↓菴ｿ逕ｨ縺輔ｌ繧九％縺ｨ縺ｮ縺ｪ縺・ｂ縺ｮ縺ｯ縲・,
+    pdf: true, isWiring: true,
+    choices: ['繧､・・, '繝ｭ・・, '繝擾ｼ・, '繝具ｼ・],
+    answer: 2,
+    explanation: '螻句､悶・謗･蝨ｰ蟾･莠具ｼ医い繝ｼ繧ｹ譽呈遠霎ｼ遲会ｼ峨〒縺ｯ・梧磁蝨ｰ譽偵・謗･蝨ｰ邱壹・謗･邯夂ｫｯ蟄千ｭ峨ｒ菴ｿ逕ｨ縺吶ｋ縲ょ・逵溘・繝上↓遉ｺ縺吶ｂ縺ｮ縺ｯ謗･蝨ｰ蟾･莠九〒縺ｯ荳闊ｬ逧・↓菴ｿ逕ｨ縺励↑縺・・br>豁｣隗｣・・strong>繝・/strong>'
+  },
+  {
+    id: 46, label: '驟咲ｷ壼峙',
+    q: '縲仙撫46縲鯛則縺ｧ遉ｺ縺咎Κ蛻・・驟咲ｷ壼ｷ･莠九↓蠢・ｦ√↑繧ｱ繝ｼ繝悶Ν縺ｯ縲ゅ◆縺縺暦ｼ悟ｿ・ｷ壽焚縺ｯ譛蟆代→縺吶ｋ縲・,
+    pdf: true, isWiring: true,
+    choices: ['繧､・・, '繝ｭ・・, '繝擾ｼ・, '繝具ｼ・],
+    answer: 1,
+    explanation: '竭･縺ｮ驟咲ｷ夂ｮ・園縺ｫ蠢・ｦ√↑譛蟆大ｿ・ｷ壽焚繧帝・邱壼峙縺九ｉ隱ｭ縺ｿ蜿悶ｋ縲ょｯｾ蠢懊☆繧九こ繝ｼ繝悶Ν縺ｯ繝ｭ縲・br>豁｣隗｣・・strong>繝ｭ</strong>'
+  },
+  {
+    id: 47, label: '驟咲ｷ壼峙',
+    q: '縲仙撫47縲鯛即縺ｧ遉ｺ縺吶・繝・け繧ｹ蜀・・謗･邯壹ｒ縺吶∋縺ｦ蟾ｮ霎ｼ蠖｢繧ｳ繝阪け繧ｿ縺ｨ縺吶ｋ蝣ｴ蜷茨ｼ御ｽｿ逕ｨ縺吶ｋ蟾ｮ霎ｼ蠖｢繧ｳ繝阪け繧ｿ縺ｮ遞ｮ鬘槭→譛蟆大区焚縺ｮ邨・粋縺帙〒・梧ｭ｣縺励＞繧ゅ・縺ｯ縲ゅ◆縺縺暦ｼ御ｽｿ逕ｨ縺吶ｋ髮ｻ邱壹・縺吶∋縺ｦVVF1.6縺ｨ縺吶ｋ縲・,
+    pdf: true, isWiring: true,
+    choices: ['繧､・・, '繝ｭ・・, '繝擾ｼ・, '繝具ｼ・],
+    answer: 1,
+    explanation: '繝懊ャ繧ｯ繧ｹ竭ｦ蜀・・謗･邯夂ｮ・園縺ｨ蜷・磁邯壹・髮ｻ邱壽悽謨ｰ繧帝・邱壼峙縺ｧ遒ｺ隱阪☆繧九よ磁邯壽悽謨ｰ縺ｫ蠢懊§縺溷ｷｮ霎ｼ蜿｣謨ｰ縺ｮ繧ｳ繝阪け繧ｿ繧帝∈謚槭よｭ｣縺励＞邨・粋縺帙・繝ｭ縲・br>豁｣隗｣・・strong>繝ｭ</strong>'
+  },
+  {
+    id: 48, label: '驟咲ｷ壼峙',
+    q: '縲仙撫48縲鯛息縺ｧ遉ｺ縺吝峙險伜捷縺ｮ繧ゅ・縺ｯ縲・,
+    pdf: true, isWiring: true,
+    choices: ['繧､・・, '繝ｭ・・, '繝擾ｼ・, '繝具ｼ・],
+    answer: 1,
+    explanation: '竭ｧ縺ｮ蝗ｳ險伜捷縺ｯ繝ｩ繧､繝・ぅ繝ｳ繧ｰ繝繧ｯ繝茨ｼ磯・邱壹ム繧ｯ繝茨ｼ峨ｒ遉ｺ縺吶ら・譏主勣蜈ｷ繧定・逕ｱ縺ｪ菴咲ｽｮ縺ｫ蜿悶ｊ莉倥￠繧峨ｌ繧九ム繧ｯ繝亥梛驟咲ｷ夊ｨｭ蛯吶ょ・逵溘・繝ｭ縺後Λ繧､繝・ぅ繝ｳ繧ｰ繝繧ｯ繝医・br>豁｣隗｣・・strong>繝ｭ</strong>'
+  },
+  {
+    id: 49, label: '驟咲ｷ壼峙',
+    q: '縲仙撫49縲代％縺ｮ驟咲ｷ壼峙縺ｮ譁ｽ蟾･縺ｫ・御ｽｿ逕ｨ縺輔ｌ縺ｦ縺・↑縺・ｂ縺ｮ縺ｯ縲ゅ◆縺縺暦ｼ悟・逵滉ｸ九・蝗ｳ縺ｯ・梧磁轤ｹ縺ｮ讒区・繧堤､ｺ縺吶・,
+    pdf: true, isWiring: true,
+    choices: ['繧､・・, '繝ｭ・・, '繝擾ｼ・, '繝具ｼ・],
+    answer: 3,
+    explanation: '驟咲ｷ壼峙蜈ｨ菴薙ｒ遒ｺ隱阪＠・梧命蟾･縺ｫ菴ｿ逕ｨ縺輔ｌ縺ｦ縺・↑縺・せ繧､繝・メ繧・ｩ溷勣繧堤音螳壹☆繧九ゅル縺ｫ遉ｺ縺呎ｩ溷勣縺ｯ譛ｬ驟咲ｷ壼峙縺ｧ縺ｯ菴ｿ逕ｨ縺輔ｌ縺ｦ縺・↑縺・・br>豁｣隗｣・・strong>繝・/strong>'
+  },
+  {
+    id: 50, label: '驟咲ｷ壼峙',
+    q: '縲仙撫50縲代％縺ｮ驟咲ｷ壼峙縺ｧ・御ｽｿ逕ｨ縺輔ｌ縺ｦ縺・ｋ繧ｳ繝ｳ繧ｻ繝ｳ繝医・縲・,
+    pdf: true, isWiring: true,
+    choices: ['繧､・・, '繝ｭ・・, '繝擾ｼ・, '繝具ｼ・],
+    answer: 0,
+    explanation: ''
+  }
+];  // _DUMMY・域悴菴ｿ逕ｨ・・
+// ============================================================
+// 蝠城｡檎判蜒上・繝・ヴ繝ｳ繧ｰ
+// ============================================================
+const Q_IMAGES = window.R4KAMI.images;
+const WIRING_QS = new Set([31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50]);
+
+// ============================================================
+// 蝠城｡後そ繝・ヨ螳夂ｾｩ
+// ============================================================
+const MODES = {
+  all:     { label: '蜈ｨ蝠城｡鯉ｼ・0蝠擾ｼ・, questions: () => QUESTIONS, timer: true },
+  general: { label: '荳闊ｬ蝠城｡鯉ｼ亥撫1縲・0・・, questions: () => QUESTIONS.slice(0, 30), timer: false },
+  wiring:  { label: '驟咲ｷ壼峙蝠城｡鯉ｼ亥撫31縲・0・・, questions: () => QUESTIONS.slice(30, 50), timer: false }
+};
+
+// ============================================================
+// 繧｢繝励Μ迥ｶ諷・// ============================================================
+let state = {
+  mode: 'all',
+  questions: [],
+  currentIndex: 0,
+  score: 0,
+  userAnswers: [],
+  selectedAnswer: null,
+  timerInterval: null,
+  timeLeft: 0
+};
+
+function startQuiz(mode) {
+  stopTimer();
+  state.mode = mode;
+  state.questions = MODES[mode].questions();
+  state.currentIndex = 0;
+  state.score = 0;
+  state.userAnswers = [];
+
+  document.getElementById('quizLabel').textContent = MODES[mode].label;
+  document.getElementById('quizSubLabel').textContent = state.questions.length + ' 蝠・;
+  document.getElementById('headerBadge').textContent = MODES[mode].label;
+
+  const timerEl = document.getElementById('timerDisplay');
+  if (MODES[mode].timer) {
+    timerEl.style.display = 'block';
+    startTimer(120 * 60);
+  } else {
+    timerEl.style.display = 'none';
+  }
+
+  showScreen('quizScreen');
+  showQuestion();
+}
+
+function startTimer(seconds) {
+  state.timeLeft = seconds;
+  updateTimerDisplay();
+  state.timerInterval = setInterval(() => {
+    state.timeLeft--;
+    updateTimerDisplay();
+    if (state.timeLeft <= 0) {
+      stopTimer();
+      while (state.currentIndex < state.questions.length) {
+        state.userAnswers.push({ q: state.questions[state.currentIndex], selected: -1, correct: false });
+        state.currentIndex++;
+      }
+      showResult();
+    }
+  }, 1000);
+}
+
+function stopTimer() {
+  if (state.timerInterval) { clearInterval(state.timerInterval); state.timerInterval = null; }
+}
+
+function updateTimerDisplay() {
+  const el = document.getElementById('timerDisplay');
+  const m = Math.floor(state.timeLeft / 60);
+  const s = state.timeLeft % 60;
+  el.textContent = `竢ｱ ${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  if (state.timeLeft <= 300) el.className = 'timer-display danger';
+  else if (state.timeLeft <= 900) el.className = 'timer-display warning';
+  else el.className = 'timer-display';
+}
+
+function showQuestion() {
+  const q = state.questions[state.currentIndex];
+  state.selectedAnswer = null;
+
+  const pct = (state.currentIndex / state.questions.length) * 100;
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressText').textContent = (state.currentIndex + 1) + ' / ' + state.questions.length;
+  document.getElementById('scoreText').textContent = '豁｣隗｣: ' + state.score;
+
+  updateStepDots(1);
+
+  document.getElementById('qNum').textContent = '蝠・ + q.id;
+  document.getElementById('qLabel').textContent = q.label;
+
+  const pdfBadge = document.getElementById('pdfBadge');
+  pdfBadge.style.display = q.pdf ? 'inline-block' : 'none';
+
+  document.getElementById('questionText').textContent = q.q;
+
+  const noteEl = document.getElementById('questionNote');
+  if (q.note) { noteEl.textContent = q.note; noteEl.style.display = 'block'; }
+  else noteEl.style.display = 'none';
+
+  const pdfNoteEl = document.getElementById('pdfNote');
+  if (q.pdfNote) { pdfNoteEl.textContent = '塘 ' + q.pdfNote; pdfNoteEl.style.display = 'block'; }
+  else pdfNoteEl.style.display = 'none';
+
+  const imgWrap = document.getElementById('qImageWrap');
+  const imgEl = document.getElementById('qImage');
+  if (Q_IMAGES[q.id]) {
+    imgEl.src = Q_IMAGES[q.id];
+    imgWrap.style.display = 'block';
+  } else {
+    imgWrap.style.display = 'none';
+  }
+
+  document.getElementById('wiringBtn').style.display = WIRING_QS.has(q.id) ? 'block' : 'none';
+  renderChoices('choicesContainer', q, null);
+
+  document.getElementById('stepQuestion').style.display = 'block';
+  document.getElementById('stepExplanation').style.display = 'none';
+}
+
+function renderChoices(containerId, q, selectedIdx) {
+  const letters = ['繧､', '繝ｭ', '繝・, '繝・];
+  const container = document.getElementById(containerId);
+  container.innerHTML = '';
+  q.choices.forEach((c, i) => {
+    const btn = document.createElement('button');
+    let cls = 'choice-btn';
+    if (selectedIdx !== null) {
+      btn.disabled = true;
+      if (i === q.answer) cls += ' correct';
+      else if (i === selectedIdx && i !== q.answer) cls += ' wrong';
+      else cls += ' dimmed';
+    }
+    btn.className = cls;
+    btn.innerHTML = `<span class="letter">${letters[i]}</span><span>${c}</span>`;
+    if (selectedIdx === null) btn.onclick = () => selectAnswer(i);
+    container.appendChild(btn);
+  });
+}
+
+function selectAnswer(idx) {
+  state.selectedAnswer = idx;
+  const q = state.questions[state.currentIndex];
+  const correct = idx === q.answer;
+  if (correct) state.score++;
+  state.userAnswers.push({ q, selected: idx, correct });
+  document.getElementById('scoreText').textContent = '豁｣隗｣: ' + state.score;
+
+  updateStepDots(2);
+  document.getElementById('stepQuestion').style.display = 'none';
+  showExplanation();
+}
+
+function showExplanation() {
+  const q = state.questions[state.currentIndex];
+  document.getElementById('stepExplanation').style.display = 'block';
+
+  document.getElementById('qNum3').textContent = '蝠・ + q.id;
+  document.getElementById('qLabel3').textContent = q.label;
+  document.getElementById('questionText3').textContent = q.q;
+
+  const imgSrc3 = Q_IMAGES[q.id];
+  if (imgSrc3) {
+    document.getElementById('qImage3').src = imgSrc3;
+    document.getElementById('qImageWrap3').style.display = 'block';
+  } else {
+    document.getElementById('qImageWrap3').style.display = 'none';
+  }
+
+  renderChoices('choicesContainer3', q, state.selectedAnswer);
+
+  const letters = ['繧､', '繝ｭ', '繝・, '繝・];
+  const correct = state.selectedAnswer === q.answer;
+  const banner3 = document.getElementById('answerBanner3');
+  const icon3 = document.getElementById('answerIcon3');
+  const result3 = document.getElementById('answerResult3');
+  if (correct) {
+    banner3.className = 'answer-banner correct-banner';
+    icon3.textContent = '笨・;
+    result3.textContent = '豁｣隗｣・・' + letters[q.answer] + '縲・ + q.choices[q.answer] + '縲・;
+  } else {
+    banner3.className = 'answer-banner wrong-banner';
+    icon3.textContent = '笶・;
+    result3.innerHTML = '荳肴ｭ｣隗｣ ・・豁｣隗｣・・ + letters[q.answer] + '縲・ + q.choices[q.answer] + '縲・;
+  }
+
+  document.getElementById('explanationText').innerHTML = q.explanation;
+
+  const isLast = state.currentIndex === state.questions.length - 1;
+  document.getElementById('nextBtn').textContent = isLast ? '邨先棡繧定ｦ九ｋ 脂' : '谺｡縺ｮ蝠城｡・竊・;
+}
+
+function nextQuestion() {
+  state.currentIndex++;
+  if (state.currentIndex >= state.questions.length) showResult();
+  else showQuestion();
+}
+
+function showResult() {
+  stopTimer();
+  document.getElementById('timerDisplay').style.display = 'none';
+  showScreen('resultScreen');
+  document.getElementById('reviewSection').style.display = 'none';
+
+  const total = state.questions.length;
+  const correct = state.score;
+  const wrong = total - correct;
+  const pct = Math.round((correct / total) * 100);
+
+  document.getElementById('resultScore').textContent = pct;
+  document.getElementById('correctCount').textContent = correct;
+  document.getElementById('wrongCount').textContent = wrong;
+  document.getElementById('totalCount').textContent = total;
+
+  const verdictEl = document.getElementById('examVerdict');
+  if (state.mode === 'all') {
+    const passed = correct >= 30;
+    verdictEl.className = 'exam-verdict ' + (passed ? 'pass' : 'fail');
+    verdictEl.textContent = passed ? '笨・蜷域ｼ・・ｼ・0蝠丈ｻ･荳頑ｭ｣隗｣・・ : '笶・荳榊粋譬ｼ・医≠縺ｨ ' + (30 - correct) + ' 蝠擾ｼ・;
+    verdictEl.style.display = 'block';
+  } else {
+    verdictEl.style.display = 'none';
+  }
+
+  let title, sub;
+  if (pct >= 80) { title = '邏譎ｴ繧峨＠縺・ｼ・; sub = `${total}蝠丈ｸｭ ${correct}蝠乗ｭ｣隗｣・・{pct}%・峨ゅ％縺ｮ隱ｿ蟄舌〒譛ｬ逡ｪ繧る大ｼｵ繧阪≧・～; }
+  else if (pct >= 60) { title = '繧ゅ≧蟆代＠・・; sub = `${total}蝠丈ｸｭ ${correct}蝠乗ｭ｣隗｣・・{pct}%・峨る俣驕輔∴縺溷撫鬘後ｒ蠕ｩ鄙偵＠繧医≧縲Ａ; }
+  else { title = '蠕ｩ鄙偵′蠢・ｦ√〒縺・; sub = `${total}蝠丈ｸｭ ${correct}蝠乗ｭ｣隗｣・・{pct}%・峨りｧ｣隱ｬ繧偵ｈ縺剰ｪｭ繧薙〒蠑ｱ轤ｹ繧貞・譛阪＠繧医≧縲Ａ; }
+
+  document.getElementById('resultTitle').textContent = title;
+  document.getElementById('resultSub').textContent = sub;
+  document.getElementById('headerBadge').textContent = '邨先棡';
+}
+
+function showReview() {
+  const section = document.getElementById('reviewSection');
+  section.style.display = 'block';
+  const list = document.getElementById('reviewList');
+  list.innerHTML = '';
+  const letters = ['繧､', '繝ｭ', '繝・, '繝・];
+  const wrongAnswers = state.userAnswers.filter(a => !a.correct);
+  if (wrongAnswers.length === 0) {
+    list.innerHTML = '<div class="review-item"><div class="r-q">蜈ｨ蝠乗ｭ｣隗｣縺ｧ縺呻ｼÅ沁・/div></div>';
+    return;
+  }
+  wrongAnswers.forEach(a => {
+    const div = document.createElement('div');
+    div.className = 'review-item wrong-item';
+    const selText = a.selected >= 0 ? `${letters[a.selected]}縲・{a.q.choices[a.selected]}縲港 : '・域悴蝗樒ｭ費ｼ・;
+    div.innerHTML = `<div class="r-q">蝠・{a.q.id}縲${a.q.q.substring(0, 40)}窶ｦ</div>
+      <div class="r-ans">
+        縺ゅ↑縺溘・蝗樒ｭ費ｼ・span class="w">${selText}</span><br>
+        豁｣隗｣・・span class="c">${letters[a.q.answer]}縲・{a.q.choices[a.q.answer]}縲・/span>
+      </div>`;
+    list.appendChild(div);
+  });
+  section.scrollIntoView({ behavior: 'smooth' });
+}
+
+function updateStepDots(activeStep) {
+  for (let i = 1; i <= 2; i++) {
+    const dot = document.getElementById('step' + i + 'dot');
+    if (i < activeStep) dot.className = 'step-dot done';
+    else if (i === activeStep) dot.className = 'step-dot active';
+    else dot.className = 'step-dot';
+  }
+}
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function goHome() {
+  stopTimer();
+  document.getElementById('timerDisplay').style.display = 'none';
+  document.getElementById('headerBadge').textContent = '莉､蜥・蟷ｴ蠎ｦ 荳頑悄 竭';
+  showScreen('homeScreen');
+}
+
+// 笏笏 驟咲ｷ壼峙繝｢繝ｼ繝繝ｫ 繧ｺ繝ｼ繝・・ヱ繝ｳ 笏笏
+let wScale = 1, wX = 0, wY = 0;
+let wDragging = false, wLastX = 0, wLastY = 0;
+let wLastDist = null;
+
+function wiringApplyTransform() {
+  const img = document.getElementById('wiringImg');
+  img.style.transform = `translate(${wX}px, ${wY}px) scale(${wScale})`;
+  document.getElementById('wiringZoomLevel').textContent = Math.round(wScale * 100) + '%';
+}
+
+function wiringClampPan() {
+  const vp = document.getElementById('wiringViewport');
+  const img = document.getElementById('wiringImg');
+  const vpW = vp.clientWidth, vpH = vp.clientHeight;
+  const imgW = img.naturalWidth * wScale, imgH = img.naturalHeight * wScale;
+  if (imgW <= vpW) { wX = (vpW - imgW) / 2; } else { wX = Math.min(0, Math.max(vpW - imgW, wX)); }
+  if (imgH <= vpH) { wY = (vpH - imgH) / 2; } else { wY = Math.min(0, Math.max(vpH - imgH, wY)); }
+}
+
+function wiringZoom(delta) {
+  const vp = document.getElementById('wiringViewport');
+  const cx = vp.clientWidth / 2, cy = vp.clientHeight / 2;
+  const prev = wScale;
+  wScale = Math.min(4, Math.max(0.5, wScale + delta));
+  wX = cx - (cx - wX) * (wScale / prev);
+  wY = cy - (cy - wY) * (wScale / prev);
+  wiringClampPan(); wiringApplyTransform();
+}
+
+function wiringZoomReset() {
+  const vp = document.getElementById('wiringViewport');
+  const img = document.getElementById('wiringImg');
+  wScale = img.naturalWidth > 0 ? vp.clientWidth / img.naturalWidth : 1;
+  wX = 0; wY = 0;
+  wiringClampPan(); wiringApplyTransform();
+}
+
+function openWiring() {
+  wScale = 1; wX = 0; wY = 0;
+  document.getElementById('wiringModal').classList.add('open');
+  const img = document.getElementById('wiringImg');
+  if (img.complete && img.naturalWidth > 0) { setTimeout(wiringZoomReset, 0); }
+  else { img.onload = wiringZoomReset; }
+  wiringApplyTransform();
+}
+
+function toggleWiringNotes() {
+  const notes = document.getElementById('wiringNotes');
+  const btn = document.getElementById('wiringNotesToggle');
+  notes.classList.toggle('open');
+  btn.classList.toggle('active');
+}
+function closeWiring() {
+  document.getElementById('wiringModal').classList.remove('open');
+}
+
+document.getElementById('wiringViewport').addEventListener('wheel', function(e) {
+  e.preventDefault();
+  const rect = this.getBoundingClientRect();
+  const cx = e.clientX - rect.left, cy = e.clientY - rect.top;
+  const delta = e.deltaY < 0 ? 0.15 : -0.15;
+  const prev = wScale;
+  wScale = Math.min(4, Math.max(0.5, wScale + delta));
+  wX = cx - (cx - wX) * (wScale / prev);
+  wY = cy - (cy - wY) * (wScale / prev);
+  wiringClampPan(); wiringApplyTransform();
+}, { passive: false });
+
+document.getElementById('wiringViewport').addEventListener('mousedown', function(e) {
+  wDragging = true; wLastX = e.clientX; wLastY = e.clientY;
+  this.classList.add('dragging');
+});
+document.addEventListener('mousemove', function(e) {
+  if (!wDragging) return;
+  wX += e.clientX - wLastX; wY += e.clientY - wLastY;
+  wLastX = e.clientX; wLastY = e.clientY;
+  wiringClampPan(); wiringApplyTransform();
+});
+document.addEventListener('mouseup', function() {
+  if (!wDragging) return;
+  wDragging = false;
+  const vp = document.getElementById('wiringViewport');
+  if (vp) vp.classList.remove('dragging');
+});
+
+document.getElementById('wiringViewport').addEventListener('touchstart', function(e) {
+  if (e.touches.length === 2) {
+    wLastDist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
+  } else if (e.touches.length === 1) {
+    wDragging = true; wLastX = e.touches[0].clientX; wLastY = e.touches[0].clientY;
+  }
+}, { passive: true });
+
+document.getElementById('wiringViewport').addEventListener('touchmove', function(e) {
+  e.preventDefault();
+  if (e.touches.length === 2) {
+    const dist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
+    if (wLastDist) {
+      const rect = this.getBoundingClientRect();
+      const cx = (e.touches[0].clientX + e.touches[1].clientX) / 2 - rect.left;
+      const cy = (e.touches[0].clientY + e.touches[1].clientY) / 2 - rect.top;
+      const prev = wScale;
+      wScale = Math.min(4, Math.max(0.5, wScale * (dist / wLastDist)));
+      wX = cx - (cx - wX) * (wScale / prev); wY = cy - (cy - wY) * (wScale / prev);
+      wiringClampPan(); wiringApplyTransform();
+    }
+    wLastDist = dist;
+  } else if (e.touches.length === 1 && wDragging) {
+    wX += e.touches[0].clientX - wLastX; wY += e.touches[0].clientY - wLastY;
+    wLastX = e.touches[0].clientX; wLastY = e.touches[0].clientY;
+    wiringClampPan(); wiringApplyTransform();
+  }
+}, { passive: false });
+
+document.getElementById('wiringViewport').addEventListener('touchend', function(e) {
+  if (e.touches.length < 2) wLastDist = null;
+  if (e.touches.length === 0) wDragging = false;
+}, { passive: true });
+</script>
+</body>
+</html>
+
