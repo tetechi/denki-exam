@@ -85,7 +85,7 @@ window.R1SHIMO = {
     q: '【問7】図のような三相3線式回路で，電線1線当たりの抵抗が0.15 Ω，線電流が10 Aのとき，電圧降下（V<sub>s</sub> − V<sub>r</sub>）[V]は。',
     pdf: true,
     choices: ['イ．1.5', 'ロ．2.6', 'ハ．3.0', 'ニ．4.5'],
-    answer: 2,
+    answer: 1,
     explanation: '三相3線式の線間電圧降下：<div class="formula">V<sub>s</sub> − V<sub>r</sub> = √3 × I × r = 1.73 × 10 × 0.15 ≒ 2.6 V</div>正解：<strong>ロ. 2.6 V</strong>'
   },
   {
