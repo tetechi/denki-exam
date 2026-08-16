@@ -230,7 +230,7 @@ window.R4KAMI_GOGO = {
     pdf: true,
     choices: ['イ．b', 'ロ．b, f', 'ハ．e', 'ニ．e, f'],
     answer: 2,
-    explanation: '点検できる隠ぺい場所（乾燥した場所）において，平形保護層工事は施設できない（e）。展開した場所では施設可能。正解：<strong>ハ. e</strong>'
+    explanation: '<strong>平形保護層工事</strong>は，施設できる場所が「<strong>点検できる隠ぺい場所であって乾燥した場所</strong>」に限られる（電技解釈 165 条）。<strong>展開した場所には施設できない</strong>。<br>表を1マスずつ確認すると：<br>・a（展開・金属線ぴ）＝可／b（点検できる隠ぺい・金属線ぴ）＝可<br>・c（展開・合成樹脂管）＝可／d（点検できる隠ぺい・合成樹脂管）＝可<br>・<strong>e（展開した場所・平形保護層）＝施設できない</strong><br>・f（点検できる隠ぺい場所・平形保護層）＝可<br>施設できないのは e だけ。<br>正解：<strong>ハ. e</strong>'
   },
   {
     id: 21, label: '一般問題',

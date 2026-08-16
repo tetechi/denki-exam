@@ -375,7 +375,7 @@ window.R4SHIMO_GOGO = {
       wiring: true,
       choices: ['イ．0.1', 'ロ．0.2', 'ハ．0.4', 'ニ．1.0'],
       answer: 0,
-      explanation: '⑤は単相2線式100V回路（対地電圧100V以下）。絶縁抵抗の最小値は<strong>0.1MΩ</strong>。<br>正解：<strong>イ. 0.1MΩ</strong>'
+      explanation: '⑤は分電盤 L-1 の「200V 2P 20A」の分岐で，凡例の <strong>Ⓐ〜Ⓑ＝単相200V回路</strong> に当たる。つまり<strong>使用電圧は200V</strong>。<br>ここが本問のポイントで，絶縁抵抗の基準に使うのは使用電圧ではなく<strong>対地電圧</strong>。<br>電源は 1φ3W 100/200V で中性線が接地されているため，200V回路は2本の外側電線を使う。各電線と大地の間は <strong>100V</strong> なので<strong>対地電圧は100V</strong>となる。<div class="formula">対地電圧 150V 以下 → 0.1 MΩ<br>対地電圧 150V 超 300V 以下 → 0.2 MΩ<br>使用電圧 300V 超 → 0.4 MΩ</div>対地電圧100V ≦ 150V なので最小値は <strong>0.1 MΩ</strong>。<br>「200V回路だから0.2MΩ」と早合点しないこと。<br>正解：<strong>イ. 0.1 MΩ</strong>'
     },
     {
       id: 36, label: '配線図',
