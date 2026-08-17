@@ -35,9 +35,9 @@ crop(6, 0.02, 0.42, 'q10.png')
 
 # idx=7 (page8): Q16, Q17, Q18
 print("idx=7...")
-crop(7, 0.02, 0.27, 'q16.png')
-crop(7, 0.27, 0.52, 'q17.png')
-crop(7, 0.52, 0.75, 'q18.png')
+crop(7, 0.06, 0.28, 'q16.png')
+crop(7, 0.275, 0.465, 'q17.png')
+crop(7, 0.46, 0.66, 'q18.png')
 
 # idx=8 (page9): Q21
 print("idx=8...")

@@ -49,6 +49,12 @@ function coverage(needle, hay, n = 6) {
 
 const THRESHOLD = 0.5; // これ未満なら「PDFに見当たらない」と判定
 
+// PDF側のテキスト層が壊れているため誤検出になる問題（目視でPDFと一致を確認済み）
+const KNOWN_FALSE_POSITIVES = {
+  // 材料表面の型式表示がPDF内で特殊フォント化けしており抽出できない
+  r5kami: [16],
+};
+
 console.log('年度'.padEnd(15) + '判定  疑わしい問題');
 console.log('-'.repeat(78));
 
@@ -67,8 +73,10 @@ for (const [file, key] of Object.entries(KEYS)) {
   require(p);
   const qs = window[key].questions;
 
+  const skip = new Set(KNOWN_FALSE_POSITIVES[file] || []);
   const bad = [];
   for (const q of qs) {
+    if (skip.has(q.id)) continue;
     const body = norm(String(q.q).replace(/^【問\d+】/, ''));
     const cov = coverage(body, hay);
     if (cov < THRESHOLD) bad.push(q.id);
