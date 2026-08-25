@@ -417,7 +417,7 @@ window.R3SHIMO = {
     q: '【問36】⑥で示す部分の電路と大地間の絶縁抵抗として，許容される最小値 [MΩ] は。',
     choices: ['イ．0.1', 'ロ．0.2', 'ハ．0.4', 'ニ．1.0'],
     answer: 0,
-    explanation: '⑥の回路は対地電圧 100V 以下（単相 3 線式 100/200V 系統の 100V 回路）。<br>電技解釈第 58 条：対地電圧 150V 以下の低圧電路の絶縁抵抗 ≥ <strong>0.1 MΩ</strong>。<br>正解：<strong>イ. 0.1 MΩ</strong>'
+    explanation: '⑥は 1 階分電盤（L-1）の <strong>ルームエアコン 1φ200V</strong> 回路（ⓖ）なので，<strong>使用電圧は 200V</strong>。<br>ここが本問のポイントで，絶縁抵抗の基準に使うのは使用電圧ではなく<strong>対地電圧</strong>。<br>電源は 1φ3W 100/200V で中性線が接地されているため，200V 回路は外側 2 本の電線を使い，各電線と大地の間は <strong>100V</strong>。つまり対地電圧は 100V。<div class="formula">対地電圧 150V 以下 → 0.1 MΩ<br>対地電圧 150V 超 300V 以下 → 0.2 MΩ<br>使用電圧 300V 超 → 0.4 MΩ</div>対地電圧 100V ≦ 150V なので最小値は <strong>0.1 MΩ</strong>。「200V 回路だから 0.2MΩ」と早合点しないこと。<br>正解：<strong>イ. 0.1 MΩ</strong>'
   },
   {
     id: 37, label: '配線図', wiring: true,
@@ -509,7 +509,7 @@ window.R3SHIMO = {
     pdf: true,
     choices: ['イ．（写真 イ）', 'ロ．（写真 ロ）', 'ハ．（写真 ハ）', 'ニ．（写真 ニ）'],
     answer: 2,
-    explanation: '⑯の図記号は 2 階分電盤の安全ブレーカ（配線用遮断器 2P1E）を示す。写真ハが対応する機器。<br>正解：<strong>ハ</strong>'
+    explanation: '⑯は 1 階分電盤（L-1）の <strong>ルームエアコン 1φ200V</strong> 回路（ⓖ）に付く配線用遮断器（B，2P 20A）。<br>ここで問われているのは<strong>極数と素子数</strong>。<div class="formula"><strong>2P1E</strong>（2極1素子）… 素子が片方の極だけ。素子のない極を接地側（中性線）に接続して使う <strong>100V 回路専用</strong><br><strong>2P2E</strong>（2極2素子）… 両極に素子。<strong>200V 回路</strong>に必要</div>単相 200V 回路は 1φ3W の<strong>両外線を使い，中性線を使わない</strong>。どちらの線も非接地側なので，両極で過電流を検出できる <strong>2P2E</strong> でなければならない。<br><br>写真の表示を見比べると，<br>・イ：安全ブレーカ HB型 <strong>2P1E</strong>／AC100V → 100V 専用で不可<br>・ロ：小形漏電ブレーカ AB型（漏電遮断器）→ 図記号が B ではなく BE になるので不可<br>・<strong>ハ：安全ブレーカ HB型 2P2E／AC100/200V</strong> → 該当<br>・ニ：小形漏電ブレーカ AB型 1φ2W 2P1E → 漏電遮断器かつ 2P1E で不可<br>正解：<strong>ハ</strong>'
   },
   {
     id: 47, label: '配線図', wiring: true,
